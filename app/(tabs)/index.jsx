@@ -3,16 +3,23 @@ import React from 'react'
 import { Stack } from 'expo-router'
 import HeaderLeft from '../../components/HeaderLeft'
 import HeaderRight from '../../components/HeaderRight'
+import HomeCard from '../../components/HomeCard'
+import CardList from '../../components/CardList'
 
 
 const index = () => {
+  const appleMusic = require('../../assets/images/applecard.jpg')
   return (
     <View style = {styles.homeScreenContainer}>
         <Stack.Screen options={{
             headerLeft: () => <HeaderLeft/>,
-            headerRight: ()=> <HeaderRight/>,
+            headerRight: ()=> <HeaderRight/>,  
             
         }}/>
+
+            <CardList/>
+
+    
     </View>
   )
 }

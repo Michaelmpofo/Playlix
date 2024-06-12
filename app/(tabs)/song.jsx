@@ -4,7 +4,7 @@ import React from 'react'
 const song = () => {
   return (
     <View>
-      <Text>song</Text>
+     <Stack/>
     </View>
   )
 }
