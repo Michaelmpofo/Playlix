@@ -12,9 +12,10 @@ const index = () => {
   return (
     <View style = {styles.homeScreenContainer}>
         <Stack.Screen options={{
+          headerTitle:'',
             headerLeft: () => <HeaderLeft/>,
             headerRight: ()=> <HeaderRight/>,  
-            
+            headerShadowVisible: false
         }}/>
 
             <CardList/>
@@ -25,6 +26,7 @@ const index = () => {
 }
 
 export default index
+
 
 const styles =StyleSheet.create({
      homeScreenContainer :{
