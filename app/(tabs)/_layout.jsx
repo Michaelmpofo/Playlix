@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { Tabs } from 'expo-router'
+import { Tabs } from 'expo-router' 
 import { MaterialIcons } from '@expo/vector-icons';
 import { FontAwesome6 } from '@expo/vector-icons';
 
@@ -27,6 +27,8 @@ const _layout = () => {
         name="index"
         options={{
           title: 'Home',
+   
+
           tabBarIcon: ({ color }) => <MaterialIcons name="home-filled" size={24} color={color} /> ,
         }}
       />
