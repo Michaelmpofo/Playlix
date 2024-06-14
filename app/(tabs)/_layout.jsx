@@ -19,13 +19,14 @@ const _layout = () => {
             height: 150
         }
 
+        
+
     
     }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: '',
-          
+          title: 'Home',
           tabBarIcon: ({ color }) => <MaterialIcons name="home-filled" size={24} color={color} /> ,
         }}
       />
