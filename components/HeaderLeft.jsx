@@ -10,6 +10,7 @@ const HeaderLeft = () => {
       <Text style={styles.headingText2}>Top Picks for You</Text>
     </View>
   )
+  
 }
 
 export default HeaderLeft
@@ -17,20 +18,18 @@ export default HeaderLeft
 const styles = StyleSheet.create({
     headingText1 : {
         color: '#0AE78A',
-        fontSize: 32,
-        
-        
+        fontSize: 40,
     },
 
     headingText2: {
         fontSize: 22,
         color: '#fff',
         marginTop:10,
+        marginBottom:20,
 
     },
-
     headerLeftContainer: {
-        marginTop: 40,
-        marginLeft: 20
+        marginTop: 30,
+        marginLeft: 9
         }
 })

@@ -14,6 +14,7 @@ const index = () => {
         <Stack.Screen options={{
           headerTitle:'',
             headerLeft: () => <HeaderLeft/>,
+
             headerRight: ()=> <HeaderRight/>,  
             headerShadowVisible: false
         }}/>
@@ -21,6 +22,15 @@ const index = () => {
             <CardList/>
 
     
+
+            headerRight: ()=> <HeaderRight/>,
+            headerShadowVisible: false,
+            headerTitle: ''
+        }}/>
+        <CardList/>
+
+
+
     </View>
   )
 }
