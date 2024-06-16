@@ -1,6 +1,4 @@
 
-
-
 const homeCardList = [
     {
         'label': 'Made for you',

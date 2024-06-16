@@ -9,7 +9,7 @@ const ShuffleButton = () => {
      <Foundation name="shuffle" size={24} color='#0AE78A' />
         <Text style={styles.shuffleTextStyle}>Shuffle</Text>
      </TouchableOpacity>
-
+   
     </View>
   )
 }
@@ -27,7 +27,6 @@ const styles =StyleSheet.create({
         borderRadius:8,
         color:'#fff',
         backgroundColor:'#242323',
-        marginTop:20, 
         flexDirection:'row',
         alignItems:'center',
         

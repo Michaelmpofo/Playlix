@@ -9,7 +9,6 @@ import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler
 import RecentlyPlayedCardlist from '../../components/RecentlyPlayedCardlist'
 import RecentlyAdded from '../../components/RecentlyAddedLeft'
 
-
 const index = () => {
   const appleMusic = require('../../assets/images/applecard.jpg')
   return (
@@ -22,6 +21,7 @@ const index = () => {
             headerRight: ()=> <HeaderRight/>,  
             headerShadowVisible: false
         }}/>
+
         <ScrollView>
         <CardList/>
         <RecentlyAdded/>
@@ -35,6 +35,7 @@ const index = () => {
           
 
     </View>
+
     </GestureHandlerRootView>
   )
 }
