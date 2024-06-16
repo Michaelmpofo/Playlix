@@ -30,6 +30,6 @@ const styles = StyleSheet.create({
     },
     headerLeftContainer: {
         marginTop: 30,
-        marginLeft: 9
+        marginLeft: 11
         }
 })

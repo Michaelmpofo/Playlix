@@ -29,8 +29,6 @@ const homeCardList = [
 
     },
 ]
-    
-
 
 export default homeCardList
 

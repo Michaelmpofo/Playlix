@@ -3,6 +3,7 @@ import React from 'react'
 import { Stack } from 'expo-router'
 import SearchScreenHeaderLeft from '../../components/SearchScreenHeaderLeft'
 import SearchComponent from '../../components/SearchComponent'
+
 import CardList from '../../components/CardList'
 import SearchList from '../../components/SearchList'
 const search = () => {
@@ -26,7 +27,6 @@ const search = () => {
         <ScrollView>
         <SearchList/>
        </ScrollView>
-
     </View>
     
   )
