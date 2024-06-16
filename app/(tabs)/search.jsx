@@ -1,7 +1,10 @@
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet,ScrollView } from 'react-native'
 import React from 'react'
 import { Stack } from 'expo-router'
 import SearchScreenHeaderLeft from '../../components/SearchScreenHeaderLeft'
+import SearchComponent from '../../components/SearchComponent'
+import CardList from '../../components/CardList'
+import SearchList from '../../components/SearchList'
 const search = () => {
   return (
     <View style ={styles.SearchContainer}>
@@ -18,8 +21,14 @@ const search = () => {
         
         }}
         />
+        <SearchComponent/>
         <SearchScreenHeaderLeft/>
+        <ScrollView>
+        <SearchList/>
+       </ScrollView>
+
     </View>
+    
   )
 }
 

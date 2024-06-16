@@ -18,7 +18,7 @@ export default Playbutton
 const styles =StyleSheet.create({
 
     playButtonBox:{
-        width:165,
+        width:164,
         height:56,
         paddingHorizontal:10,
         paddingVertical:4,
@@ -27,11 +27,8 @@ const styles =StyleSheet.create({
         borderRadius:8,
         color:'#fff',
         backgroundColor:'#242323',
-        marginTop:20, 
         flexDirection:'row',
         alignItems:'center',
-        marginRight:15,
-        marginLeft:7
         
   },
   opacityStyle:{

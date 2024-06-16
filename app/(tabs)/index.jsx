@@ -5,11 +5,12 @@ import HeaderLeft from '../../components/HeaderLeft'
 import HeaderRight from '../../components/HeaderRight'
 import HomeCard from '../../components/HomeCard'
 import CardList from '../../components/CardList'
-
+import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 
 const index = () => {
   const appleMusic = require('../../assets/images/applecard.jpg')
   return (
+    <GestureHandlerRootView>
     <View style = {styles.homeScreenContainer}>
         <Stack.Screen options={{
           headerTitle:'',
@@ -18,20 +19,11 @@ const index = () => {
             headerRight: ()=> <HeaderRight/>,  
             headerShadowVisible: false
         }}/>
-
-            <CardList/>
-
-    
-
-            headerRight: ()=> <HeaderRight/>,
-            headerShadowVisible: false,
-            headerTitle: ''
-        }}/>
-        <CardList/>
-
-
-
-    </View>
+       <ScrollView>
+       <CardList/>
+       </ScrollView>
+    </View> 
+    </GestureHandlerRootView>
   )
 }
 
