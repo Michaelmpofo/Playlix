@@ -32,11 +32,19 @@ const _layout = () => {
           tabBarIcon: ({ color }) => <MaterialIcons name="home-filled" size={24} color={color} /> ,
         }}
       />
+      
       <Tabs.Screen
         name="library"
         options={{
           title: 'Library',
           tabBarIcon: ({ color }) => <MaterialIcons name="library-music" size={24} color={color} />,
+        }}
+      />
+       <Tabs.Screen
+        name="song"
+        options={{
+          title: 'Song',
+          tabBarIcon: ({ color }) =><FontAwesome6 name="headphones" size={24} color={color} />,
         }}
       />
       <Tabs.Screen
@@ -46,13 +54,7 @@ const _layout = () => {
           tabBarIcon: ({ color }) => <MaterialIcons name="search" size={24} color={color} />,
         }}
       />
-      <Tabs.Screen
-        name="song"
-        options={{
-          title: 'Song',
-          tabBarIcon: ({ color }) =><FontAwesome6 name="headphones" size={24} color={color} />,
-        }}
-      />
+     
     </Tabs>
 
   )

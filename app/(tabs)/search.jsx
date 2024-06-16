@@ -2,6 +2,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import { Stack } from 'expo-router'
 import SearchScreenHeaderLeft from '../../components/SearchScreenHeaderLeft'
+import SearchComponent from '../../components/SearchComponent'
 const search = () => {
   return (
     <View style ={styles.SearchContainer}>
@@ -18,7 +19,10 @@ const search = () => {
         
         }}
         />
+        <SearchComponent/>
         <SearchScreenHeaderLeft/>
+        
+        
     </View>
   )
 }

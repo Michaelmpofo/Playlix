@@ -12,7 +12,12 @@ const song = () => {
     <View style={styles.songScreenContainer}>
       <Stack.Screen options={{
         headerTitle:'',
-            headerLeft: () => <SongScreenHeaderLeft/>,
+        headerTitle: 'Song',
+        headerTitleAlign: 'left',
+        headerTitleStyle: {
+         color: '#0AE78A',
+         fontSize: 35
+        },
             headerShadowVisible: false
         }}/>
         <SearchComponent/>

@@ -1,13 +1,13 @@
 import { View, Text, Image,StyleSheet ,ScrollView } from 'react-native'
 import React from 'react'
-import homeCardList from '../data/data'
+import homeCardList4 from '../data/data'
 
 
 
-const CardList = () => {
+const CardList4 = () => {
   return (
     <ScrollView horizontal={true}>
-        {homeCardList.map((item, index) => (
+        {homeCardList4.map((item, index) => (
             <View style={styles.homecardllistcontainer}>
                 <Text style={{color: 'white'}}>{item.label}</Text>
                 <Image source={item.imgUrl} style={{width: 250, height: 300,  borderRadius:10}}/>
@@ -17,15 +17,4 @@ const CardList = () => {
   )
 }
 
-export default CardList
-
-const styles = StyleSheet.create({
-    homecardllistcontainer:{
-
-        marginTop:30,
-        marginTop:10,
-        marginLeft:10,
-       
-        
-    }
-})
+export default CardList4
