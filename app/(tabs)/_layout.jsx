@@ -45,7 +45,7 @@ const _layout = () => {
         name="song"
         options={{
           title: 'Song',
-          tabBarIcon: ({ color }) =><FontAwesome6 name="headphones" size={24} color={color} />,
+          tabBarIcon: ({ color }) =><FontAwesome6 name="headphones" size={24} color={color} />,}}/>
 
       <Tabs.Screen
         name="search"

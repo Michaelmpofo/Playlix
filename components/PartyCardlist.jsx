@@ -1,17 +1,14 @@
 import { View, Text, Image,StyleSheet ,ScrollView } from 'react-native'
 import React from 'react'
-import recenthomeCardlist from '../data/recentlyaddeddata'
+import partycardlist from '../data/Partydata'
 
-
-
-const RecentlyPlayedCardlist = () => {
+const PartyCardlist = () => {
   return (
     <ScrollView horizontal={true}>
-        {recenthomeCardlist.map((item, index) => (
-            <View style={styles.recenthomecardlistcontainer}>
-                
+        {partycardlist.map((item, index) => (
+            <View style={styles.PartyCardlistContainer}>  
                 <Image source={item.imgUrl} style={{width: 200, height: 200,  borderRadius:10}}/>
-                <Text style={{color: 'white'}}>{item.label}</Text>
+                  <Text style={{color: 'white'}}>{item.label}</Text>
                 <Text style={{color: 'white'}}>{item.album}</Text>
             </View>
     ))}
@@ -19,13 +16,11 @@ const RecentlyPlayedCardlist = () => {
   )
 }
 
-export default RecentlyPlayedCardlist
+export default PartyCardlist
 const styles = StyleSheet.create({
-    recenthomecardlistcontainer:{
-
-       
+    PartyCardlistContainer:{
         marginTop:1,
-        marginLeft:10,
+        marginLeft:13,
         
        
         
