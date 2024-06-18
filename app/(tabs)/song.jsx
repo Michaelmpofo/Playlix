@@ -2,7 +2,7 @@ import { View, Text, StyleSheet } from "react-native";
 import React from "react";
 import { Stack } from "expo-router";
 import SongScreenHeaderLeft from "../../components/SongScreenHeaderLeft";
-import SearchComponent from "../../components/SearchComponent";
+import SearchComponent from "../../components/SongScreenSearchComponent";
 import Playbutton from "../../components/Playbutton";
 import ShuffleButton from "../../components/ShuffleButton";
 
@@ -12,7 +12,7 @@ const song = () => {
       <Stack.Screen
         options={{
           headerTitle: "",
-          headerTitle: "Search",
+          headerTitle: "Songs",
           headerTitleAlign: "left",
           headerTitleStyle: {
             color: "#0AE78A",
@@ -21,7 +21,7 @@ const song = () => {
           headerShadowVisible: false,
         }}
       />
-      <SearchComponent />
+    <SearchComponent/>
 
       <View style={styles.songButtonContainer}>
         <Playbutton />
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     height: "100%",
     flexDirection: "row",
     justify: "space-between",
-    marginHorizontal: 15,
+    marginHorizontal: 18,
     marginTop:20,
     gap:5
   },

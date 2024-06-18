@@ -17,7 +17,6 @@ const index = () => {
         <Stack.Screen options={{
           headerTitle:'',
           headerLeft: () => <HeaderLeft/>,
-
             headerRight: ()=> <HeaderRight/>,  
             headerShadowVisible: false
         }}/>
@@ -26,9 +25,7 @@ const index = () => {
         <CardList/>
         <RecentlyAdded/>
         <RecentlyPlayedCardlist/>
-        <CardList/>
-      
-        <CardList/>
+       
 
 
         </ScrollView>

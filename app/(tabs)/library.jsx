@@ -4,9 +4,16 @@ import { Stack } from 'expo-router'
 import { ScreenStackHeaderLeftView, ScreenStackHeaderSearchBarView } from 'react-native-screens'
 import HeaderLeft from '../../components/LibraryScreenHeaderLeft'
 import LibraryScreenHeaderLeft from '../../components/LibraryScreenHeaderLeft'
+import LibraryButtons from '../../components/LibraryButtons'
+import LibraryRecentlyAdded from '../../components/LibraryRecentlyAdded'
+import LibraryCard from '../../components/LibraryCard'
+import LibraryList from '../../components/LibraryList'
+import { GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler'
+
 
 const library = () => {
   return (
+     <GestureHandlerRootView>
     <View style = {styles.libraryScreenHeaderLeftContainer}>
        <Stack.Screen options={{ 
            headerleft: () => <LibraryScreenHeaderLeft/>,
@@ -19,8 +26,14 @@ const library = () => {
            headerShadowVisible: false
         
         }}/>
+        <ScrollView>
+        <LibraryButtons/>
+        <LibraryRecentlyAdded/>
+        <LibraryList/>
+        </ScrollView>
 
     </View>
+    </GestureHandlerRootView>
   )
 }
 

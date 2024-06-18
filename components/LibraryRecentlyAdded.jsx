@@ -3,8 +3,8 @@ import React from 'react'
 
 const RecentlyAdded = () => {
   return (
-    <View style ={styles.RecentlyAddedContainer}>
-      <Text style={styles.headingText}>Recently Played</Text>
+    <View style ={styles.RecentlyAdded}>
+      <Text style={styles.headingTitle}>Recently Added</Text>
     </View>
   )
 }
@@ -12,16 +12,16 @@ const RecentlyAdded = () => {
 export default RecentlyAdded
 
 const styles = StyleSheet.create({
-    headingText: {
+    headingTitle: {
         fontSize: 22,
         color: '#fff',
         marginTop:10,
-        marginBottom:20,
+        marginBottom:1,
 
     },
-    RecentlyAddedContainer: {
+    RecentlyAdded: {
         marginTop: 1,
-        marginLeft: 11,
+        marginLeft: 30,
         }
 
 })

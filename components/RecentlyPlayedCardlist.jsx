@@ -23,8 +23,8 @@ export default RecentlyPlayedCardlist
 const styles = StyleSheet.create({
     recenthomecardlistcontainer:{
 
-        marginTop:30,
-        marginTop:10,
+        
+        marginTop:1,
         marginLeft:10,
        
         
