@@ -9,25 +9,23 @@ const CardList = () => {
     <ScrollView horizontal={true}>
         {homeCardList.map((item, index) => (
             <View style={styles.homecardllistcontainer}>
-                <Text style={{color: 'white'}}>{item.label}</Text>
+                <Text style={{color: 'white'}}>{item.label}</Text>   
+             <Image source={item.imgUrl} style={{width: 250, height: 300,  borderRadius:10}}/>
 
-                <Image source={item.imgUrl} style={{width: 250, height: 300,  borderRadius:10}}/>
 
             </View>
     ))}
     </ScrollView>
   )
 }
-
 export default CardList
 const styles = StyleSheet.create({
     homecardllistcontainer:{
-
         marginTop:10,
         marginLeft:10,
         marginBottom:20,
-
-       
         
     }
 })
+// Resolved code
+const resolvedCode = 'this is the resolved code combining both changes';

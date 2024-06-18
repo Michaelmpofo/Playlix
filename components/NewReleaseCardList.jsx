@@ -1,15 +1,12 @@
 import { View, Text, Image,StyleSheet ,ScrollView } from 'react-native'
 import React from 'react'
-import recenthomeCardlist from '../data/recentlyaddeddata'
+import NewReleaseCardList from '../data/NewReleasesData'
 
-
-
-const RecentlyPlayedCardlist = () => {
+const NewReleasesCardList = () => {
   return (
     <ScrollView horizontal={true}>
-        {recenthomeCardlist.map((item, index) => (
-            <View style={styles.recenthomecardlistcontainer}>
-                
+        {NewReleaseCardList.map((item, index) => (
+            <View style={styles.NewReleasesCardListContainer}>
                 <Image source={item.imgUrl} style={{width: 200, height: 200,  borderRadius:10}}/>
                 <Text style={{color: 'white'}}>{item.label}</Text>
                 <Text style={{color: 'white'}}>{item.album}</Text>
@@ -19,16 +16,12 @@ const RecentlyPlayedCardlist = () => {
   )
 }
 
-export default RecentlyPlayedCardlist
+export default NewReleasesCardList
 const styles = StyleSheet.create({
-    recenthomecardlistcontainer:{
+    NewReleasesCardListContainer:{
         marginTop:1,
-        marginLeft:10,
-        
-       
-        
+        marginLeft:13,
+        marginBottom:1,
+          
     }
 })
-
-// Resolved code
-const resolvedCode = 'this is the resolved code combining both changes';
