@@ -5,13 +5,15 @@ import { Entypo } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 
-
+ 
 const LibraryButtons = () => {
+
   return (
     <View >
-
-<TouchableOpacity> 
+      <Link href='/library_screens/playList' asChild>
+      <TouchableOpacity>
      <View style={styles.headingText1}>
     <View style={styles.styleOne}>
     <SimpleLineIcons name="playlist" size={24} color="#0AE78A"  />
@@ -19,7 +21,11 @@ const LibraryButtons = () => {
     </View>
     <MaterialIcons name="arrow-forward-ios" size={24} color="#A49B9B" />
     </View>
-</TouchableOpacity>
+      </TouchableOpacity>
+      </Link>
+
+      
+
   
  <TouchableOpacity>
   <View style={styles.headingText1}>

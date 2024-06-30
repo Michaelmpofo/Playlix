@@ -9,14 +9,17 @@ import LibraryRecentlyAdded from '../../components/LibraryRecentlyAdded'
 import LibraryCard from '../../components/LibraryCard'
 import LibraryList from '../../components/LibraryList'
 import { GestureHandlerRootView, ScrollView} from 'react-native-gesture-handler'
-
+import HeaderRight from '../../components/HeaderRight'
+import EditHeaderRight from '../../components/EditHeaderRight'
 
 const library = () => {
+
   return (
      <GestureHandlerRootView>
     <View style = {styles.libraryScreenHeaderLeftContainer}>
        <Stack.Screen options={{ 
            headerleft: () => <LibraryScreenHeaderLeft/>,
+           headerRight:()=> <EditHeaderRight/>,
            headerTitle: 'Library',
            headerTitleAlign: 'left',
            headerTitleStyle: {

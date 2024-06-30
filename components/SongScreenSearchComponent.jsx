@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { EvilIcons } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-const Search = () => {
+const Search = ({text}) => {
   const [showMic, setShowMic] = useState(true);
   const [search, setSearch] = useState("");
 
@@ -29,7 +29,7 @@ const Search = () => {
         <EvilIcons name="search" size={24} color="#969090" />
 
         <TextInput
-          placeholder="  Find in songs"
+          placeholder={text}
           placeholderTextColor={"#969090"}
           clearButtonMode="always"
           autoCapitalize="none"

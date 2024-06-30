@@ -21,7 +21,7 @@ const song = () => {
           headerShadowVisible: false,
         }}
       />
-    <SearchComponent/>
+    <SearchComponent text={'   Find in Songs'}/>
 
       <View style={styles.songButtonContainer}>
         <Playbutton />
