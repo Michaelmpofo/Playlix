@@ -4,7 +4,7 @@ import { EvilIcons } from "@expo/vector-icons";
 import { Fontisto } from '@expo/vector-icons';
 
 
-const SearchScreenComponent = () => {
+const SearchScreenComponent = (Text) => {
   const [showMic, setShowMic] = useState(true);
   const [search, setSearch] = useState("");
 

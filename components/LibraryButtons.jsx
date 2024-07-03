@@ -26,7 +26,7 @@ const LibraryButtons = () => {
 
       
 
-  
+  <Link href='/library_screens/Artist' asChild>
  <TouchableOpacity>
   <View style={styles.headingText1}>
     <View style={styles.styleOne}>
@@ -36,6 +36,7 @@ const LibraryButtons = () => {
      <MaterialIcons name="arrow-forward-ios" size={24} color="#A49B9B" />
     </View>
  </TouchableOpacity>
+  </Link>
    
     <TouchableOpacity>
     <View style={styles.headingText1}>

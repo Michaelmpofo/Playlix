@@ -4,9 +4,9 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 
 
-const LeftHeader = ( {text}) => {
+const LeftHeader = ( {text,navigation}) => {
   return (
-    <Link href= '(tabs)/library' asChild>
+    <Link href={navigation}asChild>
       <TouchableOpacity>
     <View style={styles.headerLeftContainer}>
     <View>

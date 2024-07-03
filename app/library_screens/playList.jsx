@@ -6,6 +6,7 @@ import SongScreenSearchComponent from '../../components/SongScreenSearchComponen
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import LeftHeader from '../../components/LeftHeader';
 import { Link } from 'expo-router';
+import RightHeader from '../../components/RightHeader';
 const PlayList = () => {
   
   return (
@@ -13,7 +14,8 @@ const PlayList = () => {
 
       <Stack.Screen options={{  
           headerTitle: '',
-          headerLeft: () => <LeftHeader text='library'/>,
+          headerLeft: () => <LeftHeader text='library' navigation={'(tabs)/library'}/>,
+          headerRight:()=><RightHeader/>,
           headerStyle:{ backgroundColor:'#000000'},
            headerShown: true
         

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet,TouchableOpacity  } from 'react-native';
+import { View, Text, StyleSheet,TouchableOpacity,Image  } from 'react-native';
 import React from 'react';
 import { Stack } from 'expo-router';
 import LeftHeader from '../../components/LeftHeader';
@@ -35,6 +35,16 @@ const NewPlaylist = () => {
         </TouchableOpacity>
             </View>
       </View>
+      <TouchableOpacity>
+      <View>
+       <Image source={require('../../assets/images/CameraCard.jpeg')}  style={{width: 200, height: 200 ,marginLeft:58, marginRight:0, flexDirection:'column',
+      marginTop:30
+     }}/>
+
+      </View>
+      </TouchableOpacity>
+      
+     
       <View style={styles.text4ContainerStyle} >
      <Text style={styles.text4style}>
       PlayList Title
@@ -62,7 +72,6 @@ const styles = StyleSheet.create({
   text4ContainerStyle:{
     borderBottomWidth: 1,
     borderBottomColor:'#3A3636',
-    marginTop:80,
     justifyContent:'center',
     flexDirection:'row'
   },
@@ -83,7 +92,7 @@ const styles = StyleSheet.create({
   text4style: {
     fontSize: 20,
     color: '#716767',
-    marginTop:200,
+    marginTop:70,
     marginBottom:7,
     
   }
