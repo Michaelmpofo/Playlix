@@ -18,3 +18,8 @@ web-build/
 
 expo-env.d.ts
 # @end expo-cli
+.prettierignore
+.prettierrc
+app.json
+package-lock.json
+package.json

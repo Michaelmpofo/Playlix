@@ -1,21 +1,30 @@
-import { View, Text,StyleSheet,ScrollView,Image } from 'react-native'
+import { View, Text,StyleSheet,ScrollView,Image, Touchable } from 'react-native'
 import React from 'react'
 import libraryCardList from '../data/libraryscreendata'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { Link } from 'expo-router';
+
 
 const LibraryList = () => {
   return (
-    
-     <ScrollView horizontal={true}>
-        {libraryCardList.map((item, index) => (
-            <View style={styles.libraryllistcontainer}>
-                <Image source={item.imgUrl} style={{width: 169, height: 153,  borderRadius:10}}/>
-                      <Text style={{color: 'white'}}>{item.label}</Text>
-                       <Text style={{color: 'white'}}>{item.text}</Text>
-            </View>
-    ))}
-    </ScrollView>
+    <ScrollView horizontal={true}>
+      {libraryCardList.map((item, index) => (
+        <View style={styles.libraryllistcontainer}>
+          <Link href="/library_screens/favoritesongs" asChild>
+            <TouchableOpacity>
+              <Image
+                source={item.imgUrl}
+                style={{ width: 169, height: 153, borderRadius: 10 }}
+              />
+            </TouchableOpacity>
+          </Link>
 
-  )
+          <Text style={{ color: 'white' }}>{item.label}</Text>
+          <Text style={{ color: 'white' }}>{item.text}</Text>
+        </View>
+      ))}
+    </ScrollView>
+  );
 }
 
 export default LibraryList

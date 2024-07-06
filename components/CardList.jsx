@@ -1,4 +1,4 @@
-import { View, Text, Image,StyleSheet ,ScrollView } from 'react-native'
+import { View, Text, Image,StyleSheet ,TouchableOpacity,ScrollView } from 'react-native'
 import React from 'react'
 import homeCardList from '../data/data'
 
@@ -7,16 +7,19 @@ import homeCardList from '../data/data'
 const CardList = () => {
   return (
     <ScrollView horizontal={true}>
-        {homeCardList.map((item, index) => (
-            <View style={styles.homecardllistcontainer}>
-                <Text style={{color: 'white'}}>{item.label}</Text>   
-             <Image source={item.imgUrl} style={{width: 250, height: 300,  borderRadius:10}}/>
-
-
-            </View>
-    ))}
+      {homeCardList.map((item, index) => (
+        <View style={styles.homecardllistcontainer}>
+          <Text style={{ color: 'white' }}>{item.label}</Text>
+          <TouchableOpacity>
+            <Image
+              source={item.imgUrl}
+              style={{ width: 250, height: 300, borderRadius: 10 }}
+            />
+          </TouchableOpacity>
+        </View>
+      ))}
     </ScrollView>
-  )
+  );
 }
 export default CardList
 const styles = StyleSheet.create({

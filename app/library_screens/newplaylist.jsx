@@ -1,58 +1,60 @@
-import { View, Text, StyleSheet,TouchableOpacity,Image  } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { Stack } from 'expo-router';
 import LeftHeader from '../../components/LeftHeader';
 import { Link } from 'expo-router';
 
-
 const NewPlaylist = () => {
-  return ( 
+  return (
     <View style={styles.playListContainer}>
-      <Stack.Screen 
+      <Stack.Screen
         options={{
-          headerTitle: '', 
+          headerTitle: '',
           headerStyle: { backgroundColor: '#000000' },
-         headerShown: false
-        
+          headerShown: false,
         }}
       />
       <View style={styles.header}>
-         <View>
-             <Link href= '/library_screens/playList' asChild>
-             <TouchableOpacity>
-            <Text style={styles.text1style}>Cancel</Text>
-        </TouchableOpacity>  
-        </Link>  
-            </View>
-             <View>
-               <TouchableOpacity>
+        <View>
+          <Link href="/library_screens/playList" asChild>
+            <TouchableOpacity>
+              <Text style={styles.text1style}>Cancel</Text>
+            </TouchableOpacity>
+          </Link>
+        </View>
+        <View>
+          <TouchableOpacity>
             <Text style={styles.text2style}>New playlist</Text>
-        </TouchableOpacity>   
-            </View>
-             <View>
-                  <TouchableOpacity>
-           <Text style={styles.text3style}>Create</Text>
-        </TouchableOpacity>
-            </View>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <TouchableOpacity>
+            <Text style={styles.text3style}>Create</Text>
+          </TouchableOpacity>
+        </View>
       </View>
       <TouchableOpacity>
-      <View>
-       <Image source={require('../../assets/images/CameraCard.jpeg')}  style={{width: 200, height: 200 ,marginLeft:58, marginRight:0, flexDirection:'column',
-      marginTop:30
-     }}/>
-
-      </View>
+        <View>
+          <Image
+            source={require('../../assets/images/CameraCard.jpeg')}
+            style={{
+              width: 200,
+              height: 200,
+              marginLeft: 58,
+              marginRight: 0,
+              flexDirection: 'column',
+              marginTop: 30,
+            }}
+          />
+        </View>
       </TouchableOpacity>
-      
-     
-      <View style={styles.text4ContainerStyle} >
-     <Text style={styles.text4style}>
-      PlayList Title
-       </Text>
+
+      <View style={styles.text4ContainerStyle}>
+        <Text style={styles.text4style}>PlayList Title</Text>
+      </View>
     </View>
-    </View>
-  )
-}
+  );
+};
 
 export default NewPlaylist;
 
@@ -64,16 +66,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   header: {
-    marginTop:100,
+    marginTop: 100,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  text4ContainerStyle:{
+  text4ContainerStyle: {
     borderBottomWidth: 1,
-    borderBottomColor:'#3A3636',
-    justifyContent:'center',
-    flexDirection:'row'
+    borderBottomColor: '#3A3636',
+    justifyContent: 'center',
+    flexDirection: 'row',
   },
   text1style: {
     fontSize: 17,
@@ -82,8 +84,6 @@ const styles = StyleSheet.create({
   text2style: {
     fontSize: 17,
     color: '#FFFFFF',
-        
-
   },
   text3style: {
     fontSize: 17,
@@ -92,8 +92,7 @@ const styles = StyleSheet.create({
   text4style: {
     fontSize: 20,
     color: '#716767',
-    marginTop:70,
-    marginBottom:7,
-    
-  }
+    marginTop: 70,
+    marginBottom: 7,
+  },
 });
