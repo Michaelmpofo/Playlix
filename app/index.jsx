@@ -1,6 +1,7 @@
 import { View, Text, ImageBackground,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-native';
 import React from 'react'
 import { Link } from 'expo-router';
+import { Entypo } from '@expo/vector-icons';
 
 const image = require('../assets/images/signupimage.jpeg');
 const logo1 = require('../assets/images/Apple.png')
@@ -29,9 +30,12 @@ const index = () => {
               <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
           </Link>
-          <TouchableOpacity>
-            <Text style={styles.link}>Forgot Your Password?</Text>
-          </TouchableOpacity>
+
+          <Link href="/Auth_Screens/resetpassword" asChild>
+            <TouchableOpacity>
+              <Text style={styles.link}>Forgot Your Password?</Text>
+            </TouchableOpacity>
+          </Link>
           <Text style={styles.textStyle}>First time in Playlix?</Text>
           <Link href="/Auth_Screens/Sign_Up" asChild>
             <TouchableOpacity>
@@ -41,10 +45,13 @@ const index = () => {
             </TouchableOpacity>
           </Link>
         </View>
-        <TouchableOpacity style={styles.button1}>
-          <Image source={logo1} style={styles.logoStyle} />
-          <Text style={styles.button1Text}>Continue with Apple</Text>
-        </TouchableOpacity>
+        <Link href="/Auth_Screens/appleverification" asChild>
+          <TouchableOpacity style={styles.button1}>
+            <Image source={logo1} style={styles.logoStyle} />
+            <Text style={styles.button1Text}>Continue with Apple</Text>
+          </TouchableOpacity>
+        </Link>
+
         <TouchableOpacity style={styles.button2}>
           <Image source={logo2} style={styles.logoStyle} />
           <Text style={styles.button2Text}>Continue with Google</Text>
