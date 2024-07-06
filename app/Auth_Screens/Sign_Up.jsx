@@ -41,7 +41,7 @@ const Sign_Up = () => {
             placeholder=""
             placeholderTextColor="#ccc"
           />
-          <Link href="/index" asChild>
+          <Link href="" asChild>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>

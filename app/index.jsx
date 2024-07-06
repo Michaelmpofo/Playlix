@@ -24,7 +24,7 @@ const index = () => {
             placeholderTextColor="#ccc"
             secureTextEntry={true}
           />
-          <Link href="/(tabs)/index" asChild>
+          <Link href="/(tabs)" asChild>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>Submit</Text>
             </TouchableOpacity>
