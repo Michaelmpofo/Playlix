@@ -5,7 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 
 const resendcode = () => {
   return (
-    <View View style={styles.playListContainer}>
+    <View style={styles.playListContainer}>
       <View style={styles.container1}>
         <Link href="/Auth_Screens/signupverification" asChild>
           <TouchableOpacity style={styles.iconStyle}>
