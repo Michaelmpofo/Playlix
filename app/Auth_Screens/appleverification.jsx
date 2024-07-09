@@ -26,21 +26,23 @@ const AppleVerification = () => {
             <Text style={styles.text3Style}>Return</Text>
           </TouchableOpacity>
         </Link>
-        <View style={styles.textStyle}>
-          <Image source={logo1} style={styles.logoStyle} />
-          <Text style={styles.text1Style}> Enter AppleID</Text>
+        <View style={styles.centeredContent}>
+          <View style={styles.textStyle}>
+            <Image source={logo1} style={styles.logoStyle} />
+            <Text style={styles.text1Style}>Enter AppleID</Text>
+          </View>
+          <TextInput
+            style={styles.inputStyle}
+            placeholder=""
+            placeholderTextColor="#ccc"
+            secureTextEntry={false}
+          />
+          <Link href="/Auth_Screens/applepassword" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <Text style={styles.text2Style}>Done</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder=""
-          placeholderTextColor="#ccc"
-          secureTextEntry={false}
-        />
-        <Link href="/Auth_Screens/applepassword" asChild>
-          <TouchableOpacity style={styles.buttonStyle}>
-            <Text style={styles.text2Style}>Done</Text>
-          </TouchableOpacity>
-        </Link>
       </View>
     </View>
   );
@@ -58,11 +60,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     width: '100%',
     height: '100%',
-    marginTop: 80,
+    marginTop: 100,
     borderRadius: 30,
   },
+  centeredContent: {
+    marginTop: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   iconStyle: {
-    marginLeft: 20,
+    marginLeft: 18,
     marginTop: 10,
     flexDirection: 'row',
     alignItems: 'center',
@@ -77,13 +84,13 @@ const styles = StyleSheet.create({
   textStyle: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: 100,
-    marginTop: 130,
+    marginRight: 30,
   },
   text1Style: {
     fontSize: 20,
     color: '#0AE78A',
     justifyContent: 'center',
+    marginLeft: 10,
   },
   text2Style: {
     fontSize: 20,
@@ -107,20 +114,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 4,
     marginTop: 70,
-    marginLeft: 120,
     justifyContent: 'center',
   },
   inputStyle: {
     width: 325,
     height: 54,
-    marginLeft: 45,
-    marginBottom: 10,
     borderWidth: 1,
     borderColor: '#0AE78A',
     borderRadius: 30,
     backgroundColor: '#FFFFFF',
     marginTop: 10,
     justifyContent: 'center',
-    paddingLeft: 10, // Adjust padding here
+    paddingLeft: 10,
   },
 });

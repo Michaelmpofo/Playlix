@@ -23,18 +23,20 @@ const resetpassword = () => {
             <Text style={styles.text3Style}>Return</Text>
           </TouchableOpacity>
         </Link>
-        <Text style={styles.text1Style}> Enter Your E-mail</Text>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder=""
-          placeholderTextColor="#ccc"
-          secureTextEntry={false}
-        />
-        <Link href=" /Auth_Screens/resetpasswordverification" asChild>
-          <TouchableOpacity style={styles.buttonStyle}>
-            <Text style={styles.text2Style}>Submit</Text>
-          </TouchableOpacity>
-        </Link>
+        <View style={styles.centeredContent}>
+          <Text style={styles.text1Style}>Enter Your E-mail</Text>
+          <TextInput
+            style={styles.inputStyle}
+            placeholder=""
+            placeholderTextColor="#ccc"
+            secureTextEntry={false}
+          />
+          <Link href="/Auth_Screens/resetpasswordverification" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <Text style={styles.text2Style}>Submit</Text>
+            </TouchableOpacity>
+          </Link>
+        </View>
       </View>
     </View>
   );
@@ -52,8 +54,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     width: '100%',
     height: '100%',
-    marginTop: 80,
+    marginTop: 100,
     borderRadius: 30,
+  },
+  centeredContent: {
+    marginTop:200,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   iconStyle: {
     marginLeft: 20,
@@ -64,20 +71,16 @@ const styles = StyleSheet.create({
   text1Style: {
     fontSize: 20,
     color: '#0AE78A',
-    justifyContent: 'center',
-    marginLeft: 118, // Adjust as needed
-    marginTop: 100,
+    textAlign: 'center',
+    marginBottom: 20,
   },
   text2Style: {
     fontSize: 20,
     color: '#FFFFFF',
-    justifyContent: 'center',
   },
   text3Style: {
     fontSize: 15,
     marginLeft: 8,
-    justifyContent: 'center',
-    flexDirection: 'row',
   },
   buttonStyle: {
     width: '45%',
@@ -88,22 +91,17 @@ const styles = StyleSheet.create({
     borderColor: '#0AE78A',
     backgroundColor: '#0AE78A',
     alignItems: 'center',
-    marginBottom: 4,
-    marginTop: 70,
-    marginLeft: 120,
     justifyContent: 'center',
+    marginTop: 20,
   },
   inputStyle: {
-    width: 325,
+    width: '80%',
     height: 54,
-    marginLeft: 45,
-    marginBottom: 10,
     borderWidth: 1,
     borderColor: '#0AE78A',
     borderRadius: 30,
     backgroundColor: '#FFFFFF',
-    marginTop: 10,
-    justifyContent: 'center',
-    paddingLeft: 10, // Adjust padding here
+    marginBottom: 20,
+    paddingLeft: 10,
   },
 });

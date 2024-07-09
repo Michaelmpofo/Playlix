@@ -8,8 +8,10 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
-
+import {
+  GestureHandlerRootView,
+  ScrollView,
+} from 'react-native-gesture-handler';
 
 const PasswordConfirmation = () => {
   const [secureText, setSecureText] = useState(true);
@@ -40,89 +42,96 @@ const PasswordConfirmation = () => {
               <Text style={styles.text3Style}>Return</Text>
             </TouchableOpacity>
           </Link>
-          <View style={styles.textStyle}>
-            <Text style={styles.text1Style}> Reset Your Password</Text>
-            <Text style={styles.text3Style}>
-              {' '}
-              Please Enter Your New Password
-            </Text>
-          </View>
-
-          <View style={styles.inputContainer}>
-            <Ionicons
-              name="lock-closed-outline"
-              size={24}
-              color="#0AE78A"
-              style={styles.iconLeft}
-            />
-            <TextInput
-              style={styles.inputStyle}
-              placeholder=""
-              placeholderTextColor="#ccc"
-              secureTextEntry={secureText}
-              onChangeText={setPassword}
-            />
-            <TouchableOpacity
-              onPress={toggleSecureText}
-              style={styles.iconRight}
-            >
-              <Ionicons
-                name={secureText ? 'eye-off-outline' : 'eye-outline'}
-                size={24}
-                color="#000000"
-              />
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.criteriaContainer}>
-            <Text style={styles.criteriaHeader}>
-              Your password may contain:
-            </Text>
-            <View style={styles.criteriaItem}>
-              <Ionicons
-                name={criteria.length ? 'checkmark-circle' : 'ellipse-outline'}
-                size={24}
-                color={criteria.length ? '#0AE78A' : '#000'}
-              />
-              <Text style={styles.criteriaText}>At least 8 characters</Text>
-            </View>
-            <View style={styles.criteriaItem}>
-              <Ionicons
-                name={
-                  criteria.upperLower ? 'checkmark-circle' : 'ellipse-outline'
-                }
-                size={24}
-                color={criteria.upperLower ? '#0AE78A' : '#000'}
-              />
-              <Text style={styles.criteriaText}>
-                An uppercase and lowercase letter
+          <View style={styles.centeredContent}>
+            <View style={styles.textStyle}>
+              <Text style={styles.text1Style}>Reset Your Password</Text>
+              <Text style={styles.text3Style}>
+                Please Enter Your New Password
               </Text>
             </View>
-            <View style={styles.criteriaItem}>
-              <Ionicons
-                name={criteria.symbol ? 'checkmark-circle' : 'ellipse-outline'}
-                size={24}
-                color={criteria.symbol ? '#0AE78A' : '#000'}
-              />
-              <Text style={styles.criteriaText}>
-                At least a symbol (@, #, $, *)
-              </Text>
-            </View>
-            <View style={styles.criteriaItem}>
-              <Ionicons
-                name={criteria.number ? 'checkmark-circle' : 'ellipse-outline'}
-                size={24}
-                color={criteria.number ? '#0AE78A' : '#000'}
-              />
-              <Text style={styles.criteriaText}>A number</Text>
-            </View>
-          </View>
 
-          <Link href="/Auth_Screens/resetpasswordverification" asChild>
-            <TouchableOpacity style={styles.buttonStyle}>
-              <Text style={styles.text2Style}>Done</Text>
-            </TouchableOpacity>
-          </Link>
+            <View style={styles.inputContainer}>
+              <Ionicons
+                name="lock-closed-outline"
+                size={24}
+                color="#0AE78A"
+                style={styles.iconLeft}
+              />
+              <TextInput
+                style={styles.inputStyle}
+                placeholder=""
+                placeholderTextColor="#ccc"
+                secureTextEntry={secureText}
+                onChangeText={setPassword}
+              />
+              <TouchableOpacity
+                onPress={toggleSecureText}
+                style={styles.iconRight}
+              >
+                <Ionicons
+                  name={secureText ? 'eye-off-outline' : 'eye-outline'}
+                  size={24}
+                  color="#000000"
+                />
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.criteriaContainer}>
+              <Text style={styles.criteriaHeader}>
+                Your password may contain:
+              </Text>
+              <View style={styles.criteriaItem}>
+                <Ionicons
+                  name={
+                    criteria.length ? 'checkmark-circle' : 'ellipse-outline'
+                  }
+                  size={24}
+                  color={criteria.length ? '#0AE78A' : '#000'}
+                />
+                <Text style={styles.criteriaText}>At least 8 characters</Text>
+              </View>
+              <View style={styles.criteriaItem}>
+                <Ionicons
+                  name={
+                    criteria.upperLower ? 'checkmark-circle' : 'ellipse-outline'
+                  }
+                  size={24}
+                  color={criteria.upperLower ? '#0AE78A' : '#000'}
+                />
+                <Text style={styles.criteriaText}>
+                  An uppercase and lowercase letter
+                </Text>
+              </View>
+              <View style={styles.criteriaItem}>
+                <Ionicons
+                  name={
+                    criteria.symbol ? 'checkmark-circle' : 'ellipse-outline'
+                  }
+                  size={24}
+                  color={criteria.symbol ? '#0AE78A' : '#000'}
+                />
+                <Text style={styles.criteriaText}>
+                  At least a symbol (@, #, $, *)
+                </Text>
+              </View>
+              <View style={styles.criteriaItem}>
+                <Ionicons
+                  name={
+                    criteria.number ? 'checkmark-circle' : 'ellipse-outline'
+                  }
+                  size={24}
+                  color={criteria.number ? '#0AE78A' : '#000'}
+                />
+                <Text style={styles.criteriaText}>A number</Text>
+              </View>
+            </View>
+
+            <Link href="" asChild>
+              <TouchableOpacity style={styles.buttonStyle}>
+                <Text style={styles.text2Style}>Done</Text>
+              </TouchableOpacity>
+            </Link>
+          </View>
         </View>
         <ScrollView></ScrollView>
       </View>
@@ -142,8 +151,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     width: '100%',
     height: '100%',
-    marginTop: 80,
+    marginTop: 100,
     borderRadius: 30,
+  },
+  centeredContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   iconStyle: {
     marginLeft: 20,
@@ -157,18 +170,13 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  textStyle2: {
-    color: '#FFFFFF',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
   text1Style: {
     fontSize: 24,
     color: '#0AE78A',
     justifyContent: 'center',
     marginTop: 80,
     marginBottom: 30,
+    textAlign: 'center',
   },
   text2Style: {
     fontSize: 20,
@@ -179,11 +187,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     justifyContent: 'center',
     flexDirection: 'row',
-  },
-  text4Style: {
-    fontSize: 15,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    textAlign: 'center',
   },
   buttonStyle: {
     width: '45%',
@@ -196,7 +200,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 4,
     marginTop: 70,
-    marginLeft: 120,
     justifyContent: 'center',
   },
   inputContainer: {
@@ -204,7 +207,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 325,
     height: 54,
-    marginLeft: 45,
     marginBottom: 10,
     borderWidth: 1,
     borderColor: '#0AE78A',
@@ -234,6 +236,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     marginBottom: 10,
     color: '#000',
+    textAlign: 'center',
   },
   criteriaItem: {
     flexDirection: 'row',

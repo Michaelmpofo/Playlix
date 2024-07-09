@@ -84,16 +84,16 @@ const SignupVerification = () => {
         <Text style={styles.timerText}>
           Code expires in: {formatTime(timer)}
         </Text>
-        <Link href="/Auth_Screens/passwordconfirmation" asChild>
+        <Link href="/Auth_Screens/congratulatorymessage" asChild>
           <TouchableOpacity style={styles.buttonStyle}>
-            <Text style={styles.text3Style}>Verify</Text>
+            <Text style={styles.text4Style}>Verify</Text>
           </TouchableOpacity>
         </Link>
-        <TouchableOpacity style={styles.newcodeContainer}>
-          <Text style={styles.newcodeText}>
-          Didn't receive any code?
-          </Text>
-        </TouchableOpacity>
+        <Link href="/Auth_Screens/resendcode" asChild>
+          <TouchableOpacity style={styles.newcodeContainer}>
+            <Text style={styles.newcodeText}>Didn't receive any code?</Text>
+          </TouchableOpacity>
+        </Link>
       </View>
     </View>
   );
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     width: '100%',
     height: '100%',
-    marginTop: 80,
+    marginTop: 100,
     borderRadius: 30,
   },
   iconStyle: {
@@ -138,6 +138,11 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   text3Style: {
+    fontSize: 18,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  text4Style: {
     color: '#FFFFFF',
     fontSize: 18,
     justifyContent: 'center',

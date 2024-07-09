@@ -64,7 +64,7 @@ const ResetPasswordVerification = () => {
         </View>
         <Link href=" /Auth_Screens/passwordconfirmation" asChild>
           <TouchableOpacity style={styles.buttonStyle}>
-            <Text style={styles.text3Style}>Submit</Text>
+            <Text style={styles.text4Style}>Submit</Text>
           </TouchableOpacity>
         </Link>
       </View>
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     width: '100%',
     height: '100%',
-    marginTop: 80,
+    marginTop: 100,
     borderRadius: 30,
   },
   iconStyle: {
@@ -111,10 +111,15 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   text3Style: {
-    color: '#FFFFFF',
+    fontSize: 15,
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
+  text4Style: {
     fontSize: 18,
     justifyContent: 'center',
     flexDirection: 'row',
+    color: '#FFFFFF',
   },
   buttonStyle: {
     width: '45%',
@@ -127,7 +132,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 4,
     marginTop: 70,
-    marginLeft: 119,
+    marginLeft: 110,
     justifyContent: 'center',
   },
   inputStyle: {
@@ -157,6 +162,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginHorizontal: 10,
     fontSize: 24,
-    borderRadius:10
+    borderRadius: 10,
   },
 });

@@ -9,8 +9,7 @@ import {
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
-
-import React from 'react'
+import React from 'react';
 
 const applepassword = () => {
   return (
@@ -26,26 +25,29 @@ const applepassword = () => {
             <Text style={styles.text3Style}>Return</Text>
           </TouchableOpacity>
         </Link>
-        <View style={styles.textStyle}>
-          <Text style={styles.text1Style}> Enter Password</Text>
+        <View style={styles.centeredContent}>
+          <View style={styles.textStyle}>
+            <Text style={styles.text1Style}>Enter Password</Text>
+          </View>
+          <TextInput
+            style={styles.inputStyle}
+            placeholder=""
+            placeholderTextColor="#ccc"
+            secureTextEntry={false}
+          />
+          <Link href="/Auth_Screens/applepassword" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <Text style={styles.text2Style}>Send</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
-        <TextInput
-          style={styles.inputStyle}
-          placeholder=""
-          placeholderTextColor="#ccc"
-          secureTextEntry={false}
-        />
-        <Link href="/Auth_Screens/applepassword" asChild>
-          <TouchableOpacity style={styles.buttonStyle}>
-            <Text style={styles.text2Style}>Send</Text>
-          </TouchableOpacity>
-        </Link>
       </View>
     </View>
   );
-}
+};
 
-export default applepassword
+export default applepassword;
+
 const styles = StyleSheet.create({
   playListContainer: {
     backgroundColor: '#0AE78A',
@@ -56,8 +58,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     width: '100%',
     height: '100%',
-    marginTop: 80,
+    marginTop: 100,
     borderRadius: 30,
+  },
+  centeredContent: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop:200,
   },
   iconStyle: {
     marginLeft: 20,
@@ -65,23 +72,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  logoStyle: {
-    width: 30,
-    height: 30,
-    borderRadius: 100,
-    marginTop: 5,
-    marginBottom: 5,
-  },
   textStyle: {
     alignItems: 'center',
     flexDirection: 'row',
-    marginLeft: 125,
-    marginTop: 130,
   },
   text1Style: {
     fontSize: 20,
     color: '#0AE78A',
     justifyContent: 'center',
+    marginLeft: 10,
   },
   text2Style: {
     fontSize: 20,
@@ -105,20 +104,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 4,
     marginTop: 70,
-    marginLeft: 120,
     justifyContent: 'center',
   },
   inputStyle: {
     width: 325,
     height: 54,
-    marginLeft: 45,
-    marginBottom: 10,
     borderWidth: 1,
     borderColor: '#0AE78A',
     borderRadius: 30,
     backgroundColor: '#FFFFFF',
     marginTop: 10,
     justifyContent: 'center',
-    paddingLeft: 10, // Adjust padding here
+    paddingLeft: 10,
   },
 });
