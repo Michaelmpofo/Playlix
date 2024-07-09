@@ -14,7 +14,7 @@ const album = () => {
     <View  style= {styles.playListContainer}>
       <Stack.Screen options ={{
       headerTitle:'',
-         headerLeft: () => <LeftHeader text='Composers' navigation={'(tabs)/library'}/>,
+         headerLeft: () => <LeftHeader text='Library' navigation={'(tabs)/library'}/>,
           headerRight:()=><RightHeader/>,
           headerStyle:{ backgroundColor:'#000000'},
            headerShown: true
