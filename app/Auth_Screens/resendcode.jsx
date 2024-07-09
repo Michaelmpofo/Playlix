@@ -21,9 +21,11 @@ const resendcode = () => {
           <Text style={styles.text1Style}>Didn't receive any code?</Text>
         </View>
         <View style={styles.button2Style}>
-          <TouchableOpacity style={styles.button2}>
-            <Text style={styles.button2Text}>Send again</Text>
-          </TouchableOpacity>
+          <Link href="/Auth_Screens/resendcodeverification" asChild>
+            <TouchableOpacity style={styles.button2}>
+              <Text style={styles.button2Text}>Send again</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
       </View>
     </View>
