@@ -1,17 +1,23 @@
-import { View, Text, Image, StyleSheet } from 'react-native'
 import React from 'react'
+import { View, Image,TouchableOpacity, StyleSheet } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { Link } from 'expo-router';
 
-const HeaderRight = () => {
+
+const HeaderRight =()=> {
+ 
+    
     const unknown  = require('../assets/images/unknown.png')
   return (
     <View style={styles.imgContainer}>
+        <Link href="/HomeScreens/AccountPage">
         <Image source={unknown} resizeMode='contain' style={styles.unknownImg}/>
+        
+        </Link>
+        
     </View>
-  )
-}
-
-export default HeaderRight
-
+  );
+};
 const styles = StyleSheet.create({
     unknownImg: {
         width: 34,
@@ -23,5 +29,11 @@ const styles = StyleSheet.create({
 
     imgContainer: {
         marginTop: 52
-    }
-})
+    },
+   
+}
+)
+
+export default HeaderRight
+
+

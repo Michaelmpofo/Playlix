@@ -18,3 +18,7 @@ web-build/
 
 expo-env.d.ts
 # @end expo-cli
+
+# Ignore package-lock.json and package.json
+package-lock.json
+package.json

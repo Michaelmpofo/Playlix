@@ -1,21 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text,Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
-const NowPlayingBar = () => {
+const KeyboardHeader = () => {
   const playlix1  = require('../assets/images/playlix1.png')
   return (
-    <View style={styles.NowPlayingContainer}>
-      <View style={styles.playlixImgContainer}>
-        <Image source={playlix1}  style={styles.playlixImg}/>
-    </View>
+    <View style={styles.KeyboardHeaderContainer}>
+     
      <View style={styles.infoContainer}>
-     <Text style={styles.title}>Not Playing</Text>
      <TouchableOpacity>
-     <AntDesign style={styles.buttonContainer} name="caretright" size={20} color="black" />
+        <View style ={styles.buttonContainer}>
+        <AntDesign name="up" size={24} color="black" />
+        </View>
      </TouchableOpacity>
      <TouchableOpacity>
-     <AntDesign style={styles.forwardContainer} name="forward" size={20} color="black" />
+     <View style ={styles.forwardContainer}>
+     <AntDesign name="down" size={24} color="black" />
+     </View>
+     
      </TouchableOpacity>
+     <TouchableOpacity>
+     <Text style={styles.title}>Done</Text>
+     </TouchableOpacity>
+     
+     
      
      
      </View>
@@ -23,28 +30,26 @@ const NowPlayingBar = () => {
   )
 }
 
-export default NowPlayingBar
+export default KeyboardHeader
 const styles =StyleSheet.create({
-  NowPlayingContainer:{
+  KeyboardHeaderContainer:{
     position:'absolute',
-    backgroundColor :'#0AE78A',
-    bottom:0,
-    marginLeft: 10,
-    marginRight: 10,
+    backgroundColor :'#282828',
+    bottom:320,
+    marginLeft: 0,
+    marginRight: 0,
     marginBottom:2,
     padding: 10,
     borderTopWidth: 1,
-    borderColor: '#0AE78A',
+    borderColor: '#282828',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderRadius:15,
+    borderRadius:0,
+
     
   },
-  playlixImg: {
-    width: 70,
-    height: 30,
-    },
+ 
   infoContainer: {
     flex: 1,
     flexDirection:'row',
@@ -54,14 +59,16 @@ const styles =StyleSheet.create({
   playlixImgContainer: {
     width: 50,
     height:30,
-    marginLeft: 0,
+    marginLeft:0,
 },
   title: {
-    fontSize: 15,
+    fontSize: 19,
+    color:'#ffff',
+    marginLeft:225,
   },
   buttonContainer:{
     marginRight: 1,
-    marginLeft: 130,
+    marginLeft: 10,
     width: 35,
   },
   forwardContainer:{
