@@ -5,49 +5,51 @@ import {
   Image,
   StyleSheet,
   FlatList,
-} from "react-native";
-import React from "react";
-import searchCardList from "../data/searchtabdata";
-import SearchCard from "./SearchCard";
+  Dimensions,
+} from 'react-native';
+import React from 'react';
+import searchCardList from '../data/searchtabdata';
+import SearchCard from './SearchCard';
+
+const { width } = Dimensions.get('window');
 
 const SearchList = () => {
   return (
-    <ScrollView>
-      {/* <FlatList data={searchCardList} renderItem={({item, index})=>(
-        <SearchCard key={index} img={item.imgUrl} label={item.label} text={item.text}/>
-        )}
-        contentContainerStyle={{display:"grid"}}
-        horizontal
-        /> */}
+    <ScrollView contentContainerStyle={styles.container}>
       <Text style={styles.headingText}>Browse Categories</Text>
-      <View
-        style={{
-          display: "flex",
-          width: "auto",
-          flexDirection: "row",
-          flexWrap: "wrap",
-        }}
-      >
-        {searchCardList.map((item, index) => (
+      <FlatList
+        data={searchCardList}
+        renderItem={({ item }) => (
           <SearchCard img={item.imgUrl} label={item.label} text={item.text} />
-        ))}
-      </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2}
+        contentContainerStyle={styles.flatListContainer}
+        columnWrapperStyle={styles.row}
+      />
     </ScrollView>
   );
 };
 
 export default SearchList;
+
 const styles = StyleSheet.create({
-  searchCardListContainer: {
-    marginLeft: 15,
-    position: "relative",
-    height: 290,
-    width: 230,
+  container: {
+    flexGrow: 1,
+    paddingHorizontal: 10,
+    paddingBottom: 20,
   },
   headingText: {
     fontSize: 18,
-    color: "#fff",
-    marginTop: 10,
-    marginLeft:15
+    color: '#fff',
+    marginVertical: 10,
+  },
+  flatListContainer: {
+    justifyContent: 'space-between',
+  },
+  row: {
+    flex: 1,
+    justifyContent: 'space-around',
+    marginBottom: 10,
   },
 });

@@ -1,5 +1,6 @@
-import { View, Text,StyleSheet,Image } from 'react-native'
+import { View, Text,StyleSheet,Image,TouchableOpacity } from 'react-native'
 import React from 'react'
+import {  } from 'react-native-gesture-handler'
 
 const SearchCard = ({label,img,text}) => {
   return (
@@ -23,10 +24,13 @@ const SearchCard = ({label,img,text}) => {
           >
             <Text style={styles.textStyle}>{text}</Text>
           </View>
-          <Image
+          <TouchableOpacity>
+           <Image
             source={img}
-            style={{ width: "100%", height: "100%", borderRadius: 10, resizeMode:"cover" }}
+            style={{ width: 176, height: 141.69, borderRadius: 10, resizeMode:"cover" }}
           />
+          </TouchableOpacity>
+         
         </View>
   )
 }

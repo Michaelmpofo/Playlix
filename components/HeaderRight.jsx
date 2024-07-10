@@ -1,3 +1,6 @@
+
+import { View, Text, Image, StyleSheet,TouchableOpacity  } from 'react-native'
+
 import React from 'react'
 import { View, Image,TouchableOpacity, StyleSheet } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
@@ -11,13 +14,11 @@ const HeaderRight =()=> {
   return (
     <View style={styles.imgContainer}>
         <Link href="/HomeScreens/AccountPage">
+          <TouchableOpacity>
         <Image source={unknown} resizeMode='contain' style={styles.unknownImg}/>
-        
+            </TouchableOpacity>
         </Link>
         
-    </View>
-  );
-};
 const styles = StyleSheet.create({
     unknownImg: {
         width: 34,

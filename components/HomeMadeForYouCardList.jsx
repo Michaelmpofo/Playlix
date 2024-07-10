@@ -1,19 +1,23 @@
-import { View, Text, Image,StyleSheet ,ScrollView } from 'react-native'
+import { View, Text, Image,StyleSheet ,ScrollView,TouchableOpacity } from 'react-native'
 import React from 'react'
 import homeMadeCard from '../data/HomeMadeForYoudata'
 
 const HomeMadeForYouCardList = () => {
   return (
     <ScrollView horizontal={true}>
-        {homeMadeCard.map((item, index) => (
-            <View style={styles.HomeMadeForYouCardListcontainer}>
-                 <Text style={{color: 'white'}}>{item.label}</Text>
-                <Image source={item.imgUrl} style={{width: 250, height: 300,  borderRadius:10}}/>
-
-            </View>
-    ))}
+      {homeMadeCard.map((item, index) => (
+        <View style={styles.HomeMadeForYouCardListcontainer}>
+          <Text style={{ color: 'white' }}>{item.label}</Text>
+          <TouchableOpacity>
+            <Image
+              source={item.imgUrl}
+              style={{ width: 250, height: 300, borderRadius: 10 }}
+            />
+          </TouchableOpacity>
+        </View>
+      ))}
     </ScrollView>
-  )
+  );
 }
 export default HomeMadeForYouCardList
 const styles = StyleSheet.create({
