@@ -11,23 +11,27 @@ const _layout = () => {
     <Tabs screenOptions={{ tabBarActiveTintColor: '#0AE78A', 
         tabBarStyle: { 
             backgroundColor: '#000',
-            borderColor: '#000'
+            borderColor: '#000',
+             
         },
 
         headerStyle: {
             backgroundColor: '#000',
-            height: 150
+            height: 150,
+             
+            
         }
 
         
 
     
     }}>
+      
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-   
+        
 
           tabBarIcon: ({ color }) => <MaterialIcons name="home-filled" size={34} color={color} /> ,
         }}

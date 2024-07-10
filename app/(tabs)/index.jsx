@@ -18,6 +18,7 @@ import EntertainmentLeft from '../../components/EntertainmentLeft'
 import EntertainmentCardList from '../../components/EntertainmentCardList'
 import NewReleasesCardList from '../../components/NewReleaseCardList'
 import NewReleasesLeft from '../../components/NewReleasesLeft'
+import NowPlayingBar from '../../components/NowPlayingBar'
 
 const index = () => {
   const appleMusic = require('../../assets/images/applecard.jpg')
@@ -29,6 +30,7 @@ const index = () => {
           headerLeft: () => <HeaderLeft/>,
             headerRight: ()=> <HeaderRight/>,  
             headerShadowVisible: false
+            
         }}/>
         <ScrollView>
          <CardList/>
@@ -45,8 +47,10 @@ const index = () => {
          <NewReleasesLeft/>
          <NewReleasesCardList/>     
            </ScrollView>
+           <NowPlayingBar/> 
     </View>
     </GestureHandlerRootView>
+    
   )
 }
 
@@ -58,8 +62,7 @@ const styles =StyleSheet.create({
         backgroundColor : '#000000',
         width : '100%',
         height : '100%',
+         borderColor: '#000',
      }
 })
 
-// Resolved code
-const resolvedCode = 'this is the resolved code combining both changes';
