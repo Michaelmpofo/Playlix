@@ -1,5 +1,4 @@
 
-import { View, Text, Image, StyleSheet,TouchableOpacity  } from 'react-native'
 
 import React from 'react'
 import { View, Image,TouchableOpacity, StyleSheet } from 'react-native'
@@ -13,12 +12,17 @@ const HeaderRight =()=> {
     const unknown  = require('../assets/images/unknown.png')
   return (
     <View style={styles.imgContainer}>
-        <Link href="/HomeScreens/AccountPage">
+        <Link href="/HomeScreens/AccountPage" asChild>
           <TouchableOpacity>
         <Image source={unknown} resizeMode='contain' style={styles.unknownImg}/>
             </TouchableOpacity>
         </Link>
-        
+        </View>
+        )
+}
+
+        export default HeaderRight
+
 const styles = StyleSheet.create({
     unknownImg: {
         width: 34,
@@ -34,7 +38,5 @@ const styles = StyleSheet.create({
    
 }
 )
-
-export default HeaderRight
 
 
