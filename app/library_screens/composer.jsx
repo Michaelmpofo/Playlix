@@ -27,7 +27,7 @@ const composer = () => {
         />
         <ScrollView>
           <Text style={styles.text1style}>Composers</Text>
-          <SongScreenSearchComponent />
+          <SongScreenSearchComponent text={'   Find in Composers'} />
 
           <Link href="/library_screens/composerprofile" asChild>
             <TouchableOpacity style={styles.buttonStyle}>
@@ -86,6 +86,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000',
     width: '100%',
     height: '100%',
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   text1style: {
     marginBottom: 8,
@@ -96,14 +99,14 @@ const styles = StyleSheet.create({
   text2style: {
     fontSize: 20,
     color: '#FFFFFFFF',
-    marginBottom:5,
-    marginLeft:10,
+    marginBottom: 5,
+    marginLeft: 10,
   },
   buttonStyle: {
     marginTop: 20,
     marginLeft: 20,
     borderBottomColor: '#4B4848',
-    borderBottomWidth:1,
-    marginRight:20,
+    borderBottomWidth: 1,
+    marginRight: 20,
   },
 });

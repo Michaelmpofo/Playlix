@@ -34,12 +34,14 @@ const Sign_Up = () => {
             style={styles.input}
             placeholder=""
             placeholderTextColor="#ccc"
+            secureTextEntry={true}
           />
           <Text style={styles.title5}>Re-enter Password</Text>
           <TextInput
             style={styles.input}
             placeholder=""
             placeholderTextColor="#ccc"
+            secureTextEntry={true}
           />
           <Link href="/Auth_Screens/signupverification" asChild>
             <TouchableOpacity style={styles.button}>

@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   songButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 18,
+    marginHorizontal: 30,
     marginTop: 20,
     gap: 5,
   },

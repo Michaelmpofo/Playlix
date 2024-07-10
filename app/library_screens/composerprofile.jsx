@@ -24,7 +24,7 @@ const composerprofile = () => {
         }}
       />
       <Text style={styles.text1style}>Composers</Text>
-      <SongScreenSearchComponent />
+      <SongScreenSearchComponent text={'   Find in Composers'} />
       <View style={styles.songButtonContainer}>
         <Playbutton />
         <ShuffleButton />
@@ -45,11 +45,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000',
     width: '100%',
     height: '100%',
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   songButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 18,
+    marginHorizontal: 8,
     marginTop: 20,
     gap: 5,
   },

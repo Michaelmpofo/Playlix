@@ -24,7 +24,7 @@ const musicscreen = () => {
         }}
       />
       <Text style={styles.text1style}>Songs</Text>
-      <SongScreenSearchComponent />
+      <SongScreenSearchComponent text={'   Find in Songs'} />
       <View style={styles.songButtonContainer}>
         <Playbutton />
         <ShuffleButton />
@@ -61,6 +61,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000',
     width: '100%',
     height: '100%',
+    flex: 1,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   buttonStyle: {
     flexDirection: 'row',
@@ -69,7 +72,7 @@ const styles = StyleSheet.create({
   songButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 18,
+    marginHorizontal: 8,
     marginTop: 20,
     gap: 5,
   },
@@ -77,7 +80,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'center',
-    marginLeft: 10,
+    marginLeft: 20,
     marginTop: 20,
   },
   albumImage: {
@@ -96,6 +99,7 @@ const styles = StyleSheet.create({
   },
 
   textImageStyle: {
+    marginLeft: 20,
     marginRight: 120,
     marginTop: 20,
     flexDirection: 'column',

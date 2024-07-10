@@ -1,12 +1,12 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import React from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Stack } from 'expo-router';
 import SongScreenSearchComponent from '../../components/SongScreenSearchComponent';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import LeftHeader from '../../components/LeftHeader';
 import { Link } from 'expo-router';
 import RightHeader from '../../components/RightHeader';
+
 const PlayList = () => {
   return (
     <View style={styles.playListContainer}>
@@ -36,7 +36,6 @@ const PlayList = () => {
           </View>
         </TouchableOpacity>
       </Link>
-
       <Link href="/library_screens/favoritesongs" asChild>
         <TouchableOpacity>
           <View style={styles.playlistStyle}>
@@ -56,51 +55,42 @@ const PlayList = () => {
 };
 
 export default PlayList;
+
 const styles = StyleSheet.create({
-  playlistStyle: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: '',
-  },
-  favoriteStyle: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-  },
   playListContainer: {
+    flex: 1,
     backgroundColor: '#000000',
-    width: '100%',
-    height: '100%',
+    padding: 20,
   },
   text1style: {
     marginBottom: 8,
     fontSize: 30,
     color: '#FFFFFFFF',
-    marginLeft: 20,
   },
-
   text2style: {
     fontSize: 17,
     color: '#0AE78A',
+    marginLeft: 10,
   },
-
   text3style: {
     fontSize: 17,
     color: '#FFFFFFFF',
+    marginLeft: 10,
+  },
+  playlistStyle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
   },
   button1Style: {
-    marginTop: 10,
-    marginLeft: 18,
     flexDirection: 'row',
     alignItems: 'center',
   },
-
   button2Style: {
-    marginTop: 2,
-    marginLeft: 18,
     flexDirection: 'row',
     alignItems: 'center',
   },
   searchStyle: {
-    paddingTop: 20,
+    marginBottom: 20,
   },
 });

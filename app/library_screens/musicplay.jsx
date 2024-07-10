@@ -51,6 +51,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#000000',
     width: '100%',
     height: '100%',
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
   },
   buttonStyle: {
     flexDirection: 'row',

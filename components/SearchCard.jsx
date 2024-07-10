@@ -27,7 +27,7 @@ const SearchCard = ({label,img,text}) => {
           <TouchableOpacity>
            <Image
             source={img}
-            style={{ width: 169, height: 141.69, borderRadius: 10, resizeMode:"cover" }}
+            style={{ width: 176, height: 141.69, borderRadius: 10, resizeMode:"cover" }}
           />
           </TouchableOpacity>
          
