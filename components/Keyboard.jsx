@@ -32,9 +32,6 @@ const styles = StyleSheet.create({
     unknownImg: {
         width: 3005,
         height:312,
-        
-        
-
     }, 
 
     

@@ -1,8 +1,9 @@
 import { View, Text,TouchableOpacity,StyleSheet } from 'react-native'
 import React from 'react'
-
+import { Link } from 'expo-router'
 const NotificationTab = () => {
   return (
+    <Link href='/HomeScreens/NotificationPage'asChild>
     <TouchableOpacity>
         <View style={styles.NotificationTabContainer}>
             <View style = {styles.infoContainer}>
@@ -10,6 +11,7 @@ const NotificationTab = () => {
             </View>
          </View>
     </TouchableOpacity>
+    </Link>
     
   )
 }

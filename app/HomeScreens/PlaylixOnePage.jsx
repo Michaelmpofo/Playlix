@@ -1,40 +1,38 @@
-import { View, Text,StyleSheet,TouchableOpacity } from 'react-native'
+import { View, Text,StyleSheet,TouchableOpacity,Image } from 'react-native'
 import React from 'react'
 import PlanHeader from '../../components/PlanHeader'
-import IndividualPlanBar from '../../components/IndividualPlanBar'
-import FamilyPlan from '../../components/FamilyPlan'
-import UniversityPlan from '../../components/UniversityPlan'
-import GetPlayLix from '../../components/GetPlayLixOne'
-import JoinPlaylixBar from '../../components/JoinPlaylixBar'
+import OneIndividualPlan from '../../components/OneIndividualPlan'
+import OneFamilyPlan from '../../components/OneFamilyPlan'
+import SubscribeBar from '../../components/SubscribeBar'
 
 
 const PlaylixOnePage = () => {
+  const Playlixlogo = require('../../assets/images/homeScreenimages/Playlixlogo.png');
   return (
     <View style={styles.PlaylixOnePageContainer}>
     <View style={styles.MiniPlansPageContainer}>
      <PlanHeader/>
-      <Text style={styles.text}> Choose a plan</Text>
-      <IndividualPlanBar/>
-      <FamilyPlan/>
-      <UniversityPlan/>
-      <View style = {styles.infoContainer}>
-      <GetPlayLix/>
-      <View style = {styles.infContainer}>
-      <Text style = {styles.newtxt}>Get Playlix One</Text>
-      <Text style = {styles.new}>
-      Enjoy millions of songs, over a hundred games,
-      Apple Original shows and movies, and more.
-      </Text>
-      <JoinPlaylixBar/>
-      <TouchableOpacity>
-      <Text style = {styles.newfind}>
-      Find Out How
-      </Text>
-      </TouchableOpacity>
+     
+     <Image source={Playlixlogo}  style={styles.playlixImg}/>
+     <Text style={styles.text}>One</Text>
+     
+      <Text style={styles.newtext}>
+      Enjoy millions of songs, over 200 games,
+Apple Original shows and movies, and more.
+Save when you bundle them together.
+</Text>
+<View style={styles.info}>
+      <OneIndividualPlan/>
+      <OneFamilyPlan/>
       </View>
+      <View style = {styles.infoContainer}>
+      <View style = {styles.infContainer}>
+      <SubscribeBar/>
       <Text style = {styles.newPlan}>
       Plan automatically renews monthly until cancelled
       </Text>
+      </View>
+      
      
       </View>
       
@@ -59,6 +57,13 @@ const styles = StyleSheet.create({
       flex: 1,
       flexDirection:'row',
     },
+    info: {
+      flex: 1,
+      flexDirection:'row',
+      marginBottom:0,
+      marginTop:30,
+      position:'relative',
+    },
     infContainer: {
       flex: 1,
       flexDirection:'column',
@@ -80,55 +85,51 @@ const styles = StyleSheet.create({
      
     },
 
-    newtxt: {
-      fontSize: 24,
-      color: '#ffff',
-      marginTop:-260,
-      marginLeft:30,
-      marginRight:-400,
-     
-     
-    },
-    new: {
-      fontSize: 10,
-      color: '#ffff',
-      marginTop:0,
-      marginLeft:30,
-      marginRight:-230,
-     
-     
-    },
+ 
+    
     newPlan: {
       fontSize: 10,
       color: '#ffff',
-      marginTop:-80,
-      marginLeft:20,
-      marginRight:60,
-     
-     
-    },
-    newfind: {
-      fontSize: 12,
-      color: 'green',
-      marginTop:4,
-      marginLeft:30,
-      marginRight:-81,
-     
-     
+      marginTop:-260,
+      marginBottom:0,
+      marginLeft:-10,
+      marginRight:0,
+      
     },
     text: {
-      fontSize: 25,
+      fontSize: 39,
       color: '#ffff',
-      marginTop:55,
+      marginTop:215,
+      marginBottom:0,
+      marginLeft:50,
+      marginRight:0,
+      textAlign:'center',
+     
+     
+     
+    },
+    playlixImg: {
+      width: 151,
+      height: 70,
+      marginTop:245,
+      marginBottom:-273,
+      marginLeft:0,
+      marginRight:80,
+     
+      },
+    newtext: {
+      fontSize: 15,
+      color: '#BCBCBE',
+      marginTop:20,
       marginBottom:650,
-      marginLeft:10,
+      marginLeft:25,
       marginRight:30,
+    
       textAlign:'center',
       fontWeight:'bold',
      
      
     },
-   
      
      
    

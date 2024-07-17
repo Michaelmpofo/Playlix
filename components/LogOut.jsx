@@ -2,7 +2,7 @@ import { View, Text,Image,StyleSheet,TouchableOpacity} from 'react-native'
 import React from 'react'
 
 
-const logOutIcon  = require('../assets/images/homeScreenimages/logOutIcon.png')
+const logOutIcon  = require('../assets/images/homeScreenimages/switch.png')
   
 const LogOut = () => {
     return (

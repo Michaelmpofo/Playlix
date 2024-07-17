@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text,Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 const KeyboardHeader = () => {
-  const playlix1  = require('../assets/images/playlix1.png')
+  
   return (
     <View style={styles.KeyboardHeaderContainer}>
      

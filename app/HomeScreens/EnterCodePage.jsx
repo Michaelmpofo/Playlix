@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     marginBottom:900,
     marginTop:0,
     alignItems: 'center',
+    marginLeft:85,
 
   },
   GoBackContainer: {
@@ -57,8 +58,8 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: '#656566',
     marginTop: -100,
-    marginLeft:-250,
-    marginRight:300,
+    marginLeft:-400,
+    marginRight:200,
    
     
    

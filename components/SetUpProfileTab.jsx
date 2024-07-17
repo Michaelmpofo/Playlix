@@ -1,8 +1,9 @@
 import { View, Text,TouchableOpacity,StyleSheet } from 'react-native'
 import React from 'react'
-
+import { Link } from 'expo-router'
 const SetUpProfileTab = () => {
   return (
+    <Link href='/HomeScreens/SetUpProfilePage'asChild>
     <TouchableOpacity>
         <View style={styles.SetUpProfileTabContainer}>
             <View style = {styles.infoContainer}>
@@ -10,6 +11,7 @@ const SetUpProfileTab = () => {
             </View>
          </View>
     </TouchableOpacity>
+    </Link>
     
   )
 }

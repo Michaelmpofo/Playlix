@@ -1,17 +1,22 @@
 import { View, Text,StyleSheet,Image,TouchableOpacity } from 'react-native'
 import React from 'react'
+import { Link } from 'expo-router'
 
 
 const RedeemBox = () => {
     
     return (
+      <Link href='/HomeScreens/RedeemCardSuccessful'asChild>
+      <TouchableOpacity>
         <View style={styles.RedeemBoxContainer}>
-             <TouchableOpacity>
+            
              <View style={styles.infoContainer}>
         <Text style={styles.forwardContainer}>Redeem</Text>
          </View>
-             </TouchableOpacity>
+            
         </View>
+        </TouchableOpacity>
+        </Link>
       )
 }
 

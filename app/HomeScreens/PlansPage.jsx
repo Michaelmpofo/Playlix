@@ -1,16 +1,22 @@
 import { View, Text,StyleSheet,TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react';
 import PlanHeader from '../../components/PlanHeader'
 import IndividualPlanBar from '../../components/IndividualPlanBar'
 import FamilyPlan from '../../components/FamilyPlan'
 import UniversityPlan from '../../components/UniversityPlan'
 import GetPlayLix from '../../components/GetPlayLixOne'
 import JoinPlaylixBar from '../../components/JoinPlaylixBar'
+import { Link } from 'expo-router';
 
 
 const PlansPage = () => {
+  const [pressedPlan, setPressedPlan] = useState(null);
   return (
+
     <View style={styles.PlansPageContainer}>
+      <IndividualPlanBar isPressed={pressedPlan === 'individual'} setPressedPlan={() => setPressedPlan('individual')} />
+      <FamilyPlan isPressed={pressedPlan === 'family'} setPressedPlan={() => setPressedPlan('family')} />
+      <UniversityPlan isPressed={pressedPlan === 'university'} setPressedPlan={() => setPressedPlan('university')} />
     <View style={styles.MiniPlansPageContainer}>
      <PlanHeader/>
       <Text style={styles.text}> Choose a plan</Text>
@@ -26,11 +32,13 @@ const PlansPage = () => {
       Apple Original shows and movies, and more.
       </Text>
       <JoinPlaylixBar/>
+      <Link href='/HomeScreens/PlaylixOnePage'asChild>
       <TouchableOpacity>
       <Text style = {styles.newfind}>
       Find Out How
       </Text>
       </TouchableOpacity>
+      </Link>
       </View>
       <Text style = {styles.newPlan}>
       Plan automatically renews monthly until cancelled
