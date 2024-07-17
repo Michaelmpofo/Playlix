@@ -32,11 +32,11 @@ cancelled.
            
             </View>
             <View>
-              <Link href='/HomeScreens/PlansPage'asChild>
+          <Link href='/HomeScreens/PlansPage'asChild>
             <Text style={styles.textnew}>
             See More Plans
             </Text>
-              </Link>
+          </Link>
             </View>
             </View>
      </View>
@@ -46,66 +46,59 @@ cancelled.
 
 export default PremiumPage
 const styles = StyleSheet.create({
-     PremiumPageContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor : '#000000',
-      width : '100%',
-      height : '100%',
-      borderBlockEndColor:'#4A4A4A',
-    },
-    MiniPlansPageContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor : '#1C1C1E',
-      width : '100%',
-      height : '100%',
-      borderTopEndRadius:'30',
-      borderTopStartRadius:'30',
-      borderTopCurve:'round',
-      borderTopWidth:1,
-      marginTop:50,
-     
-    },
-    newtext: {
-      fontSize: 24,
-      color: '#ffff',
-      marginTop:-290,
-      marginLeft:19,
-      marginRight:120,
-      fontWeight:'bold',
-     
-    },
-    text: {
-      fontSize: 15,
-      color: '#ffff',
-      marginTop:10,
-      marginLeft:20,
-      marginRight:10,
-      textAlign:'left',
-    },
-    textnew: {
-      fontSize: 15,
-      color: '#0AE78A',
-      marginTop:20,
-      marginLeft:0,
-      marginRight:220,
-      textAlign:'left',
-     
-     
-    },
-    txtnew: {
-      fontSize: 18,
-      color: '#ffff',
-      marginTop:-200,
-      marginBottom:300,
-      marginLeft:0,
-      marginRight:280,
-      textAlign:'left',
-     
-     
-    },
-  }
-)
+  PremiumPageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000000',
+    width: '100%',
+    height: '100%',
+    borderBottomColor: '#4A4A4A',
+    borderBottomWidth: 1,
+  },
+  MiniPlansPageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#1C1C1E',
+    width: '100%',
+    height: '100%',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    borderTopWidth: 1,
+    marginTop: 50,
+  },
+  newtext: {
+    fontSize: 24,
+    color: '#ffff',
+    marginTop: -290,
+    marginLeft: 19,
+    marginRight: 120,
+    fontWeight: 'bold',
+  },
+  text: {
+    fontSize: 15,
+    color: '#ffff',
+    marginTop: 10,
+    marginLeft: 20,
+    marginRight: 10,
+    textAlign: 'left',
+  },
+  textnew: {
+    fontSize: 15,
+    color: '#0AE78A',
+    marginTop: 20,
+    marginLeft: 0,
+    marginRight: 220,
+    textAlign: 'left',
+  },
+  txtnew: {
+    fontSize: 18,
+    color: '#ffff',
+    marginTop: -200,
+    marginBottom: 300,
+    marginLeft: 0,
+    marginRight: 280,
+    textAlign: 'left',
+  },
+});

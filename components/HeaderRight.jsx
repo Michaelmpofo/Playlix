@@ -18,9 +18,11 @@ const HeaderRight =()=> {
         </Link>
         </View>
         )
+
     }
         export default HeaderRight
     
+
 const styles = StyleSheet.create({
     unknownImg: {
         width: 34,
