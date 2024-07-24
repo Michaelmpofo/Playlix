@@ -5,8 +5,9 @@ import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler
 import { AntDesign } from '@expo/vector-icons';
 import Next from '../../components/Next';
 import Follow from '../../components/Follow';
-const SetUpProfilePage3 = () => {
-  const Ellipse23 = require('../../assets/images/homeScreenimages/Ellipse 23.png');
+
+  const SetUpProfilePage3 = () => {
+  const Ellipse23= require('../../assets/images/homeScreenimages/Ellipse 23.png');
   const Ellipse13= require('../../assets/images/homeScreenimages/Ellipse 13.png');
   const Ellipse14= require('../../assets/images/homeScreenimages/Ellipse 14.png');
   const Ellipse15= require('../../assets/images/homeScreenimages/Ellipse 15.png');

@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     height: 105,
     width: 330,
+     
   },
   tickImage: {
     position: 'absolute',

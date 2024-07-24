@@ -3,6 +3,7 @@ import React from 'react'
 import { AntDesign } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import NewMusic from '../../components/NewMusic';
+
 const NotificationPage = () => {
   return (
     <View style={styles.AccountPageContainer}>
@@ -16,11 +17,12 @@ const NotificationPage = () => {
       </View>
       <NewMusic/>
       <Text style={styles.text2}> Recommendations are generated on your device based on
-            your use of Apple Music. Your Library is not shared with Apple
+                                  your use of Apple Music. Your Library is not shared with Apple
     </Text>
     </View>
   )
 }
+
 const styles = StyleSheet.create({
   AccountPageContainer: {
     flex: 1,
@@ -62,7 +64,7 @@ arrow: {
   marginBottom:0,
   alignSelf:'left',
   
-  
 },
 })
-export default NotificationPage
+
+      export default NotificationPage

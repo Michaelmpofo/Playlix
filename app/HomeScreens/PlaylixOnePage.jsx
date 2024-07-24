@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     newPlan: {
       fontSize: 10,
       color: '#ffff',
-      marginTop:-260,
+      marginTop:-253,
       marginBottom:0,
       marginLeft:-10,
       marginRight:0,

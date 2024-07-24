@@ -28,7 +28,7 @@ const AccountPage = () => {
         see what your friends are playing</Text>
         <NotificationTab/>
         <LogOut/>
-        <Text style={styles.Text}> Log Out Account</Text>
+        
     </View>
   );
 }

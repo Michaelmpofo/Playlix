@@ -11,12 +11,31 @@ import { Link } from 'expo-router';
 
 const PlansPage = () => {
   const [pressedPlan, setPressedPlan] = useState(null);
+  const [IndividualPlanSelected, setIndividualPlanSelected] = useState(false);
+  const [FamilyPlanSelected, setFamilyPlanSelected] = useState(false);
+  const [UniversityPlanSelected, setUniversityPlanSelected] = useState(false);
+  const handleIndividualPlanPressed = () => {
+    setIndividualPlanSelected(true);
+    setFamilyPlanSelected(false);
+    setUniversityPlanSelected(false); // Ensure only one is selected
+  };
+  const handleFamilyPlanPressed = () => {
+    setIndividualPlanSelected(false);
+    setFamilyPlanSelected(true);
+    setUniversityPlanSelected(false); // Ensure only one is selected
+  };
+  const handleUniversityPlanPressed = () => {
+    setIndividualPlanSelected(false);
+    setFamilyPlanSelected(false);
+    setUniversityPlanSelected(true); // Ensure only one is selected
+  };
+
   return (
 
     <View style={styles.PlansPageContainer}>
-      <IndividualPlanBar isPressed={pressedPlan === 'individual'} setPressedPlan={() => setPressedPlan('individual')} />
-      <FamilyPlan isPressed={pressedPlan === 'family'} setPressedPlan={() => setPressedPlan('family')} />
-      <UniversityPlan isPressed={pressedPlan === 'university'} setPressedPlan={() => setPressedPlan('university')} />
+      <IndividualPlanBar onPress={handleIndividualPlanPressed} />
+      <FamilyPlan onPress={handleFamilyPlanPressed} />
+      <UniversityPlan onPress={handleUniversityPlanPressed}/>
     <View style={styles.MiniPlansPageContainer}>
      <PlanHeader/>
       <Text style={styles.text}> Choose a plan</Text>

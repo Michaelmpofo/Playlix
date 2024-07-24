@@ -26,7 +26,7 @@ const styles =StyleSheet.create({
    FindFriendsTabContainer:{
       position:'absolute',
       backgroundColor :'#0AE78A',
-      bottom:0,
+      bottom:17,
       marginLeft: -165,
       marginRight: 0,
       marginBottom:-200,
