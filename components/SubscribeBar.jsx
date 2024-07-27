@@ -25,7 +25,7 @@ const styles =StyleSheet.create({
       bottom:90,
       marginLeft: -65,
       marginRight: 0,
-      marginBottom:100,
+      marginBottom:50,
       padding: 14,
       borderColor: '#0AE78A',
       alignItems: 'left',

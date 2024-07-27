@@ -1,5 +1,5 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
+import React, { useState } from 'react';
 import { Link } from 'expo-router';
 import { AntDesign } from '@expo/vector-icons';
 import FindFriendsTab from '../../components/FindFriendsTab';
@@ -7,29 +7,52 @@ import FindFriendsTab from '../../components/FindFriendsTab';
 const SetUpProfilePage2 = () => {
   const Handshake = require('../../assets/images/homeScreenimages/handshake.png');
   const Rectangle = require('../../assets/images/homeScreenimages/Rectangle.png');
+
+  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
+
   return (
     <View style={styles.SetUpProfilePageContainer}>
+      <View>
+        <Link href='/HomeScreens/SetUpProfilePage' asChild>
+          <TouchableOpacity>
+            <AntDesign name="left" size={20} color="#0AE78A" style={styles.arrow} />
+          </TouchableOpacity>
+        </Link>
+        <Text style={styles.txt}>Help others find you</Text>
+       
+        <Image source={Handshake} style={styles.playlixImg} />
+        
         <View>
-          <Link href='/HomeScreens/SetUpProfilePage' asChild>
-            <TouchableOpacity>
-              <AntDesign name="left" size={20} color="#0AE78A" style={styles.arrow} />
-            </TouchableOpacity>
-          </Link>
-          <Text style={styles.txt}>Help others find you</Text>
-          <Image source={Handshake} style={styles.playlixImg} />
-          <Image source={Rectangle} style={styles.Img} />
+          <TouchableOpacity>
+        <Image source={Rectangle} style={styles.Img} />
+        </TouchableOpacity>
         </View>
-        <View style={[styles.InfContainer, styles.usernameContainer]}>
-          <Text style={styles.text3}>Username</Text>
-        </View>
-        <View style={[styles.InfContainer, styles.nameContainer]}>
-          <Text style={styles.text1}>Name</Text>
-        </View>
-      
+      </View>
+      <View style={[styles.InfContainer, styles.usernameContainer]}>
+        <TextInput
+          style={styles.input}
+          placeholder="Username"
+          placeholderTextColor="#ffff"
+          fontSize='19'
+          value={username}
+          onChangeText={setUsername}
+        />
+      </View>
+      <View style={[styles.InfContainer, styles.nameContainer]}>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          placeholderTextColor="#ffff"
+          fontSize='19'
+          value={name}
+          onChangeText={setName}
+        />
+      </View>
       <Text style={styles.newtext}>
         Certain profile information is always public, but you can control who
         follows your activity. Playlix does not learn your contacts when
-        recommending friends
+        recommending friends.
       </Text>
       <Text style={styles.text}>See how your data is managed</Text>
       <View>
@@ -52,7 +75,7 @@ const styles = StyleSheet.create({
   newtext: {
     fontSize: 10,
     color: '#ffff',
-    marginTop: 340,
+    marginTop: 270,
     marginLeft: 19,
     marginRight: 10,
     textAlign: 'center',
@@ -73,7 +96,7 @@ const styles = StyleSheet.create({
     marginTop: 9,
     marginBottom: -10,
     textAlign: 'left',
-    top:-8,
+    top: -8,
   },
   InfContainer: {
     justifyContent: 'space-between',
@@ -85,8 +108,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: -20,
     textAlign: 'left',
-    top:-20,
-    
+    top: -20,
   },
   textnew: {
     fontSize: 15,
@@ -125,8 +147,8 @@ const styles = StyleSheet.create({
   Img: {
     width: 92,
     height: 98,
-    marginTop: 210,
-    marginBottom: 0,
+    marginTop: 180,
+    marginBottom: -30,
     marginLeft: 0,
     marginRight: 0,
     alignSelf: 'center',
@@ -135,14 +157,14 @@ const styles = StyleSheet.create({
     marginTop: -155,
     marginLeft: -40,
     marginRight: 0,
-    marginBottom: 0,
+    marginBottom: 70,
     alignSelf: 'left',
   },
   txt: {
     fontSize: 22,
     color: '#ffff',
-    marginTop: -129,
-    marginBottom: -70,
+    marginTop: -130,
+    marginBottom: -50,
     textAlign: 'left',
     fontWeight: 'bold',
     marginRight: 70,
@@ -151,16 +173,21 @@ const styles = StyleSheet.create({
   usernameContainer: {
     borderBottomWidth: 1,
     borderBottomColor: '#474646',
-    top:95,
+    top: 95,
     marginBottom:0,
-    width:340,
+    width: 340,
   },
   nameContainer: {
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#474646',
-    top:12,
-    width:340,
+    top: -20,
+    width: 340,
+  },
+  input: {
+    height: 40,
+    color: '#fff',
+    paddingHorizontal: 10,
   },
 });
 

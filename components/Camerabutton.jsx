@@ -1,34 +1,34 @@
+import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import { Camera } from 'expo-camera';
-import { Link } from 'expo-router';
+import { launchCamera } from 'react-native-image-picker';
 
 const Camerabutton = () => {
-  const [hasPermission, setHasPermission] = useState(null);
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
-
-  const handlePress = () => {
-    if (!hasPermission) {
-      Alert.alert('Camera Permission', 'Camera access is required to use this feature.');
-    }
+  const handleCameraPress = () => {
+    const options = {
+      mediaType: 'photo',
+      cameraType: 'back',
+    };
+    
+    launchCamera(options, (response) => {
+      if (response.didCancel) {
+        Alert.alert('Camera', 'User cancelled camera');
+      } else if (response.errorCode) {
+        Alert.alert('Camera Error', response.errorMessage);
+      } else {
+        Alert.alert('Camera', 'Photo taken successfully');
+        console.log(response.assets[0].uri); // Handle the photo URI as needed
+      }
+    });
   };
 
   return (
-    <Link href={hasPermission ? '/HomeScreens/CameraScreen' : '#'} asChild>
-      <TouchableOpacity onPress={handlePress}>
-        <View style={styles.CamerabuttonContainer}>
-          <View style={styles.infoContainer}>
-            <Text style={styles.mainText}> Use Camera </Text>
-          </View>
+    <TouchableOpacity onPress={handleCameraPress}>
+      <View style={styles.CamerabuttonContainer}>
+        <View style={styles.infoContainer}>
+          <Text style={styles.mainText}> Use Camera </Text>
         </View>
-      </TouchableOpacity>
-    </Link>
+      </View>
+    </TouchableOpacity>
   );
 };
 

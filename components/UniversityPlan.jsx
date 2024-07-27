@@ -1,22 +1,20 @@
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 
-const UniversityPlan = () => {
-  const [isPressed, setIsPressed] = useState(false);
-
+const UniversityPlan = ({ isSelected, onPress }) => {
   return (
-    <TouchableOpacity onPress={() => setIsPressed(!isPressed)}>
+    <TouchableOpacity onPress={onPress}>
       <View style={styles.UniversityPlanContainer}>
-        {isPressed ? (
+        {isSelected ? (
           <LinearGradient colors={['#8C8CFD', '#5ED8FF']} style={styles.gradientBackground}>
             <View style={styles.infoContainer}>
               <Text style={styles.mainText}>University Student</Text>
               <Text style={styles.Text}>US$1.99/month</Text>
               <Text style={styles.Text}>This plan includes access to Apple TV+</Text>
+              <Ionicons name="checkmark-circle" size={30} color="white" style={styles.tickImage} />
             </View>
-            <Ionicons name="checkmark-circle" size={30} color="white" style={styles.tickImage} />
           </LinearGradient>
         ) : (
           <View style={styles.infoContainer}>
@@ -78,7 +76,10 @@ const styles = StyleSheet.create({
   },
   tickImage: {
     position: 'absolute',
-    top: 23,
-    right: 20,
+    top: 8,
+    right: 0,
+    left:265,
+    marginRight:-50,
+    marginLeft:0,
   },
 });

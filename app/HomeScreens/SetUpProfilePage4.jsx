@@ -14,24 +14,40 @@ const SetUpProfilePage4 = () => {
   const [isContactsAllowed, setIsContactsAllowed] = useState(false);
   const [isAppleIDAllowed, setIsAppleIDAllowed] = useState(false);
 
+  const handleSelectEveryone = () => {
+    if (isEveryoneSelected) {
+      setIsEveryoneSelected(false);
+    } else {
+      setIsEveryoneSelected(true);
+      setIsPeopleYouApproveSelected(false);
+    }
+  };
+
+  const handleSelectPeopleYouApprove = () => {
+    if (isPeopleYouApproveSelected) {
+      setIsPeopleYouApproveSelected(false);
+    } else {
+      setIsPeopleYouApproveSelected(true);
+      setIsEveryoneSelected(false);
+    }
+  };
+
   return (
     <View style={styles.SetUpProfilePageContainer}>
       <View>
-
         <Link href='/HomeScreens/SetUpProfilePage3' asChild>
           <TouchableOpacity>
-            <View>
-            <AntDesign name="left" size={20} color="#0AE78A" style={styles.arrow} />
-            </View>
+              <AntDesign name="left" size={20} color="#0AE78A" style={styles.arrow} />
           </TouchableOpacity>
         </Link>
-          <View>
-        <Text style={styles.txt}>Choose who can follow you</Text>
+        </View>
+        <View style={styles.Inf3Container}>
+          <Text style={styles.txt}>Choose who can follow you</Text>
         </View>
         <View style={styles.InfContainer}>
           <Text style={[styles.text2, isEveryoneSelected && { color: '#0AE78A' }]}>Everyone</Text>
           <View>
-            <TouchableOpacity onPress={() => setIsEveryoneSelected(!isEveryoneSelected)}>
+            <TouchableOpacity onPress={handleSelectEveryone}>
               {isEveryoneSelected ? (
                 <AntDesign name="checkcircle" size={24} color="#0AE78A" style={styles.tickImage} />
               ) : (
@@ -43,7 +59,7 @@ const SetUpProfilePage4 = () => {
         <View style={styles.Inf2Container}>
           <Text style={[styles.text2, isPeopleYouApproveSelected && { color: '#0AE78A' }]}>People you approve</Text>
           <View>
-            <TouchableOpacity onPress={() => setIsPeopleYouApproveSelected(!isPeopleYouApproveSelected)}>
+            <TouchableOpacity onPress={handleSelectPeopleYouApprove}>
               {isPeopleYouApproveSelected ? (
                 <AntDesign name="checkcircle" size={24} color="#0AE78A" style={styles.tickImage2} />
               ) : (
@@ -53,7 +69,7 @@ const SetUpProfilePage4 = () => {
           </View>
         </View>
         <Text style={styles.text}>FRIEND RECOMMENDATIONS</Text>
-        <Text style={styles.text2}>Contacts on Playlix</Text>
+        <Text style={styles.text2A}>Contacts on Playlix</Text>
         <View style={styles.IContainer}>
           <Text style={styles.text3}>
             Allow Playlix to periodically check the contacts on your device to recommend new friends
@@ -68,7 +84,7 @@ const SetUpProfilePage4 = () => {
             </TouchableOpacity>
           </View>
         </View>
-        <Text style={styles.text2}>Allowing Finding by Apple ID</Text>
+        <Text style={styles.text2B}>Allowing Finding by Apple ID</Text>
         <View style={styles.InContainer}>
           <Text style={styles.text4}>
             People who have the email address or phone number you use for your Apple ID in their contacts may see you as a recommended friend
@@ -83,7 +99,7 @@ const SetUpProfilePage4 = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      
       <View>
         <Done />
       </View>
@@ -135,20 +151,33 @@ const styles = StyleSheet.create({
   },
   arrow: {
     marginTop: 0,
-    marginLeft: -31,
-    top: -155,
-    left: 55,
+    marginLeft: -150,
+    top: -82,
+    left: 0,
   },
   txt: {
-    fontSize: 22,
+    fontSize: 24,
     color: '#ffff',
-    top: -130,
+    top: -68,
     textAlign: 'left',
     fontWeight: 'bold',
-    marginRight: 180,
+    marginRight: 140,
     marginLeft: -10,
     left: 35,
-    marginBottom: -45,
+    marginBottom: -40,
+    borderBottomWidth: 1,
+    borderBottomColor: '#4A4A4A', // Add this line to create the border line
+    paddingBottom: 10, // Optional: Add some padding to the bottom
+  },
+  Inf3Container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    paddingTop:0,
+    paddingBottom:50,
+    borderTopWidth: 1,
+    borderColor: '#474646',
+    width: 340,
   },
   text: {
     fontSize: 11,
@@ -156,8 +185,32 @@ const styles = StyleSheet.create({
     top: -50,
     textAlign: 'left',
     fontWeight: 'bold',
-    marginLeft: 20,
-    left: 10,
+    marginLeft: 0,
+    left: 0,
+    marginRight: 120,
+    marginBottom:10,
+  },
+  text2A: {
+    fontSize: 17,
+    color: '#ffff',
+    marginBottom: 50,
+    textAlign: 'left',
+    fontWeight: 'bold',
+    marginLeft: 10,
+    left: 0,
+    marginRight: 136,
+    top: -50,
+  },
+  text2B: {
+    fontSize: 17,
+    color: '#ffff',
+    marginBottom: 50,
+    textAlign: 'left',
+    fontWeight: 'bold',
+    marginLeft: 10,
+    left: 0,
+    marginRight: 60,
+    top: -50,
   },
   text2: {
     fontSize: 17,
@@ -165,7 +218,7 @@ const styles = StyleSheet.create({
     marginBottom: 50,
     textAlign: 'left',
     fontWeight: 'bold',
-    marginLeft: 20,
+    marginLeft: 10,
     left: 10,
     top: -50,
   },
