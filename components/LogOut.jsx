@@ -2,6 +2,7 @@ import { View, Text,Image,StyleSheet,TouchableOpacity} from 'react-native'
 import React from 'react'
 import { Link } from 'expo-router'
 
+
 const logOutIcon  = require('../assets/images/homeScreenimages/switch.png')
   
 const LogOut = () => {
@@ -17,6 +18,7 @@ const LogOut = () => {
         </Link>
         
       );
+
 }
 const styles = StyleSheet.create({
     unknownImg: {

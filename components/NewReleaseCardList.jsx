@@ -1,18 +1,23 @@
 import { View, Text, Image,StyleSheet ,ScrollView ,TouchableOpacity } from 'react-native'
 import React from 'react'
 import NewReleaseCardList from '../data/NewReleasesData'
+import { Link } from 'expo-router';
+
 
 const NewReleasesCardList = () => {
   return (
     <ScrollView horizontal={true}>
       {NewReleaseCardList.map((item, index) => (
         <View style={styles.NewReleasesCardListContainer}>
-          <TouchableOpacity>
-            <Image
-              source={item.imgUrl}
-              style={{ width: 200, height: 200, borderRadius: 10 }}
-            />
-          </TouchableOpacity>
+          <Link href="/homeSongScreen" asChild>
+            <TouchableOpacity>
+              <Image
+                source={item.imgUrl}
+                style={{ width: 200, height: 200, borderRadius: 10 }}
+              />
+            </TouchableOpacity>
+          </Link>
+
           <Text style={{ color: 'white' }}>{item.label}</Text>
           <Text style={{ color: 'white' }}>{item.album}</Text>
         </View>

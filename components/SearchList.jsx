@@ -10,6 +10,8 @@ import {
 import React from 'react';
 import searchCardList from '../data/searchtabdata';
 import SearchCard from './SearchCard';
+import { Link } from 'expo-router';
+
 
 const { width } = Dimensions.get('window');
 
@@ -27,6 +29,7 @@ const SearchList = () => {
         contentContainerStyle={styles.flatListContainer}
         columnWrapperStyle={styles.row}
       />
+
     </ScrollView>
   );
 };

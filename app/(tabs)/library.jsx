@@ -10,6 +10,8 @@ import {
   ScrollView,
 } from 'react-native-gesture-handler';
 import EditHeaderRight from '../../components/EditHeaderRight';
+import NowPlayingBar from '../../components/NowPlayingBar';
+
 
 const library = () => {
   return (
@@ -31,6 +33,7 @@ const library = () => {
         <LibraryRecentlyAdded />
         <LibraryList />
       </ScrollView>
+      <NowPlayingBar />
     </GestureHandlerRootView>
   );
 };

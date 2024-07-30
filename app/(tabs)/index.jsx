@@ -24,34 +24,34 @@ const index = () => {
   const appleMusic = require('../../assets/images/applecard.jpg')
   return (
     <GestureHandlerRootView>
-    <View style = {styles.homeScreenContainer}>
-        <Stack.Screen options={{
-          headerTitle:'',
-          headerLeft: () => <HeaderLeft/>,
-            headerRight: ()=> <HeaderRight/>,  
-            headerShadowVisible: false
-            
-        }}/>
+      <View style={styles.homeScreenContainer}>
+        <Stack.Screen
+          options={{
+            headerTitle: '',
+            headerLeft: () => <HeaderLeft />,
+            headerRight: () => <HeaderRight />,
+            headerShadowVisible: false,
+          }}
+        />
         <ScrollView>
-         <CardList/>
-          <RecentlyAdded/>
-            <RecentlyPlayedCardlist/>
-            <PartyLeft/>
-          <PartyCardlist/>
-          <FansLikeLeft/>
-          <FansLikeCardList/>
-          <HomeMadeForYou/>
-          <HomeMadeForYouCardList/>
-          <EntertainmentLeft/>
-          <EntertainmentCardList/>
-         <NewReleasesLeft/>
-         <NewReleasesCardList/>     
-           </ScrollView>
-           <NowPlayingBar/> 
-    </View>
+          <CardList />
+          <RecentlyAdded />
+          <RecentlyPlayedCardlist />
+          <PartyLeft />
+          <PartyCardlist />
+          <FansLikeLeft />
+          <FansLikeCardList />
+          <HomeMadeForYou />
+          <HomeMadeForYouCardList />
+          <EntertainmentLeft />
+          <EntertainmentCardList />
+          <NewReleasesLeft />
+          <NewReleasesCardList />
+        </ScrollView>
+        <NowPlayingBar />
+      </View>
     </GestureHandlerRootView>
-    
-  )
+  );
 }
 
 export default index

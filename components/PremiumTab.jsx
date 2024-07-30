@@ -5,7 +5,7 @@ import { Link } from 'expo-router'
 const PremiumTab = () => {
   return (
         
-    <Link href= '/HomeScreens/PremiumPage'asChild>
+    <Link href= "/HomeScreens/PremiumPage" asChild>
      <TouchableOpacity>
         <View style={styles.PremiumTabContainer}>
             <View style = {styles.infoContainer}>

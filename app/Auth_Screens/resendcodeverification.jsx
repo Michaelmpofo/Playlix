@@ -58,7 +58,7 @@ const ResendCodeVerification = () => {
   return (
     <View style={styles.playListContainer}>
       <View style={styles.container1}>
-        <Link href="/Auth_Screens/resetpassword" asChild>
+        <Link href="/Auth_Screens/resendcode" asChild>
           <TouchableOpacity style={styles.iconStyle}>
             <Ionicons
               name="arrow-back-circle-outline"
@@ -97,7 +97,7 @@ const ResendCodeVerification = () => {
           </Text>
           <Text style={styles.text6Style}>Check and verify to sign up</Text>
         </View>
-        <Link href="" asChild>
+        <Link href="/Auth_Screens/congratulatorymessage" asChild>
           <TouchableOpacity style={styles.buttonStyle}>
             <Text style={styles.text4Style}>Verify</Text>
           </TouchableOpacity>

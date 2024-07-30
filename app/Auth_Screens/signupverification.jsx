@@ -51,7 +51,7 @@ const SignupVerification = () => {
   return (
     <View style={styles.playListContainer}>
       <View style={styles.container1}>
-        <Link href="/Auth_Screens/resetpassword" asChild>
+        <Link href="/Auth_Screens/Sign_Up" asChild>
           <TouchableOpacity style={styles.iconStyle}>
             <Ionicons
               name="arrow-back-circle-outline"

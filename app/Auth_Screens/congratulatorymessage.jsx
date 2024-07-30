@@ -4,31 +4,43 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Image
 } from 'react-native';
 import React from 'react'
 import { AntDesign } from '@expo/vector-icons';
+import { Link } from 'expo-router';
 
 
 const congratulatorymessage = () => {
   return (
-    <View style={styles.playListContainer}>
-      <View style={styles.container1}>
-        <View style={styles.iconStyle}>
-          <AntDesign name="checkcircle" size={70} color="#0AE78A" />
+    <Link href='/(tabs)' asChild>
+      <TouchableOpacity>
+        <View style={styles.playListContainer}>
+          <View style={styles.container1}>
+            <View style={styles.imageStyle}>
+              <Image
+                source={require('../../assets/images/happyman.png')}
+                style={styles.albumImage1}
+              />
+            </View>
+            <View style={styles.iconStyle}>
+              <AntDesign name="checkcircle" size={70} color="#0AE78A" />
+            </View>
+            <View style={styles.textStyle}>
+              <Text style={styles.text1Style}>Congratulations</Text>
+              <Text style={styles.text2Style}>
+                You have successfully created an account on
+              </Text>
+              <Text style={styles.text3Style}>Playlix</Text>
+              <Text style={styles.text4Style}>
+                Get ready for exciting and nice music
+              </Text>
+              <Text style={styles.text5Style}>and Tunes</Text>
+            </View>
+          </View>
         </View>
-        <View style={styles.textStyle}>
-          <Text style={styles.text1Style}>Congratulations</Text>
-          <Text style={styles.text2Style}>
-            You have successfully created an account on
-          </Text>
-          <Text style={styles.text3Style}>Playlix</Text>
-          <Text style={styles.text4Style}>
-            Get ready for exciting and nice music
-          </Text>
-          <Text style={styles.text5Style}>and Tunes</Text>
-        </View>
-      </View>
-    </View>
+      </TouchableOpacity>
+    </Link>
   );
 }
 
@@ -46,8 +58,18 @@ const styles = StyleSheet.create({
     marginTop: 100,
     borderRadius: 30,
   },
+  imageStyle: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  albumImage1: {
+    width: 300,
+    height: 300,
+    marginLeft:30,
+  },
   iconStyle: {
-    marginTop: 200,
+    marginTop: 30,
     flexDirection: 'column',
     alignItems: 'center',
   },
