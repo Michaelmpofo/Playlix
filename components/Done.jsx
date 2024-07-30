@@ -13,6 +13,7 @@ const Done= () => {
             </View>
          </View>
          </TouchableOpacity>
+         
          </Link>
    
         
@@ -29,7 +30,7 @@ const styles =StyleSheet.create({
       bottom:90,
       marginLeft: -165,
       marginRight: 0,
-      marginBottom:-200,
+      marginBottom:0,
       padding: 14,
       borderColor: '#0AE78A',
       alignItems: 'left',
@@ -38,7 +39,7 @@ const styles =StyleSheet.create({
       height:40,
       width:330,
       marginTop:0,
-      top:120,
+      top:90,
     },
     infoContainer: {
         flex: 1,

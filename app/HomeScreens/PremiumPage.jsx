@@ -6,7 +6,7 @@ import Camerabutton from '../../components/Camerabutton'
 import { Link } from 'expo-router'
 import PremiumCard from '../../components/PremiumCard.jsx'
 import PremiumHeader from '../../components/PremiumHeader.jsx'
-import StartListeningBar from '../../components/StartListeningBar.jsx'
+
 
 
 
