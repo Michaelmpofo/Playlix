@@ -1,8 +1,14 @@
-import { View, Text, Image,StyleSheet ,TouchableOpacity,ScrollView } from 'react-native'
-import React from 'react'
-import homeCardList from '../data/data'
-
-
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from 'react-native';
+import React from 'react';
+import homeCardList from '../data/data';
+import { Link } from 'expo-router';
 
 const CardList = () => {
   return (
@@ -10,25 +16,27 @@ const CardList = () => {
       {homeCardList.map((item, index) => (
         <View style={styles.homecardllistcontainer}>
           <Text style={{ color: 'white' }}>{item.label}</Text>
-          <TouchableOpacity>
-            <Image
-              source={item.imgUrl}
-              style={{ width: 250, height: 300, borderRadius: 10 }}
-            />
-          </TouchableOpacity>
+
+          <Link href="/homeSongScreen" asChild>
+            <TouchableOpacity>
+              <Image
+                source={item.imgUrl}
+                style={{ width: 250, height: 300, borderRadius: 10 }}
+              />
+            </TouchableOpacity>
+          </Link>
         </View>
       ))}
     </ScrollView>
   );
-}
-export default CardList
+};
+export default CardList;
 const styles = StyleSheet.create({
-    homecardllistcontainer:{
-        marginTop:10,
-        marginLeft:10,
-        marginBottom:20,
-        
-    }
-})
+  homecardllistcontainer: {
+    marginTop: 10,
+    marginLeft: 10,
+    marginBottom: 20,
+  },
+});
 // Resolved code
 const resolvedCode = 'this is the resolved code combining both changes';

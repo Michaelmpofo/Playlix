@@ -1,15 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider';
 import { AntDesign } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+
+const gradients = [
+  ['#F6DB0E', '#0202A2'],
+  ['#24c7f6', '#1a1332'],
+  ['#e300df', '#3900f6'],
+  ['#E4A876', '#B5531C'],
+  ['#fcd2b0', '#fa005f'],
+  ['#E6F2F6', '#493432'],
+  ['#14A7A7', '#706868'],
+  ['#AE8253', '#0F0F0F'],
+  ['#fde641', '#ed2615'],
+  ['#C07F48', '#706868'],
+];
 
 const TrackPlayerScreen = () => {
   const [value, setValue] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(1.0);
+  const [gradientColors, setGradientColors] = useState(gradients[0]); // Initial gradient colors
+  const [isImageLoading, setIsImageLoading] = useState(true);
+  const [imageLoadError, setImageLoadError] = useState(false);
   const maxValue = 20;
 
   useEffect(() => {
@@ -46,6 +63,19 @@ const TrackPlayerScreen = () => {
     setAudioMode();
   }, []);
 
+  useEffect(() => {
+    const gradientTimer = setInterval(() => {
+      setGradientColors((prevColors) => {
+        // Get the next gradient color set
+        const currentIndex = gradients.indexOf(prevColors);
+        const nextIndex = (currentIndex + 1) % gradients.length;
+        return gradients[nextIndex];
+      });
+    }, 60000); // Change gradient every minute
+
+    return () => clearInterval(gradientTimer);
+  }, []);
+
   const handleVolumeChange = async (value) => {
     setVolume(value);
     await Audio.setVolumeAsync(value);
@@ -69,11 +99,22 @@ const TrackPlayerScreen = () => {
     setValue((prevValue) => Math.max(prevValue - 5, 0));
   };
 
+  const coverImage = require('../assets/images/songscreenimages/ShattaWale_Cover_.png');
+
   return (
-    <View style={styles.overlayContainer}>
-      <View style={styles.unknownSongStyle}>
-        <FontAwesome5 name="music" size={120} color="#81C8AA" />
-      </View>
+    <LinearGradient colors={gradientColors} style={styles.overlayContainer}>
+      {isImageLoading || imageLoadError ? (
+        <View style={styles.unknownSongStyle}>
+          <FontAwesome5 name="music" size={120} color="#81C8AA" />
+        </View>
+      ) : (
+        <Image
+          source={coverImage}
+          style={styles.coverImageStyle}
+          onLoad={() => setIsImageLoading(false)}
+          onError={() => setImageLoadError(true)}
+        />
+      )}
       <View style={styles.textStyle}>
         <Text style={styles.text1Style}>Not Playing</Text>
       </View>
@@ -83,7 +124,7 @@ const TrackPlayerScreen = () => {
           minimumValue={0}
           maximumValue={maxValue}
           minimumTrackTintColor="#ffffff"
-          maximumTrackTintColor="#000000"
+          maximumTrackTintColor="#ffffff"
           thumbTintColor="#E3D6D6"
           thumbStyle={styles.thumb}
           value={value}
@@ -132,7 +173,7 @@ const TrackPlayerScreen = () => {
           <FontAwesome5 name="list-ul" size={24} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -140,20 +181,22 @@ export default TrackPlayerScreen;
 
 const styles = StyleSheet.create({
   overlayContainer: {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#81C8AA',
+    flex: 1,
   },
-
   unknownSongStyle: {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#75918533',
-    marginHorizontal: 70,
-    marginTop: 200,
+    marginHorizontal: 45,
+    marginTop: 180,
     height: 270,
     width: 272,
+    borderRadius: 10,
+  },
+  coverImageStyle: {
+    height: '100%',
+    width: '100%',
     borderRadius: 10,
   },
   textStyle: {
@@ -192,13 +235,19 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   iconStyle: {
-    marginTop: 40,
+    marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
   },
+  valueText: {
+    color: '#fff',
+  },
+  value1Text: {
+    color: '#fff',
+  },
   volumeContainer: {
-    marginTop: 50,
+    marginTop: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-around',

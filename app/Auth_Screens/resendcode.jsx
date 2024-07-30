@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,6 +17,13 @@ const resendcode = () => {
             <Text style={styles.text3Style}>Return</Text>
           </TouchableOpacity>
         </Link>
+
+        <View style={styles.imageStyle}>
+          <Image
+            source={require('../../assets/images/sad_emoji.png')}
+            style={styles.albumImage1}
+          />
+        </View>
         <View style={styles.textStyle}>
           <Text style={styles.text1Style}>Didn't receive any code?</Text>
         </View>
@@ -53,7 +60,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textStyle: {
-    marginTop: 190,
+    marginTop: 40,
     justifyContent: 'center',
     flexDirection: 'column',
     alignItems: 'center',
@@ -66,7 +73,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: 30,
   },
-
+  imageStyle: {
+    flexDirection: 'row',
+    justifyContent:'center',
+    alignItems: 'center',
+  },
+  albumImage1: {
+    width: 165,
+    height: 165,
+    marginTop: 10,
+    
+  
+  },
   buttonStyle: {
     width: '100%',
     height: 60,
@@ -100,6 +118,4 @@ const styles = StyleSheet.create({
   button2Text: {
     fontSize: 16,
   },
- 
- 
 });

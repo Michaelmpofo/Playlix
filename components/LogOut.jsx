@@ -1,18 +1,24 @@
 import { View, Text,Image,StyleSheet,TouchableOpacity} from 'react-native'
 import React from 'react'
+import { Link } from 'expo-router'
 
 
 const logOutIcon  = require('../assets/images/homeScreenimages/switch.png')
   
 const LogOut = () => {
     return (
-            <View style={styles.imgContainer}> 
-            <TouchableOpacity>
-            <Image source={logOutIcon} resizeMode='contain' style={styles.unknownImg}/>
-            </TouchableOpacity>
-        </View>
-        
-      );
+      <View style={styles.imgContainer}>
+        <Link href="" asChild>
+          <TouchableOpacity>
+            <Image
+              source={logOutIcon}
+              resizeMode="contain"
+              style={styles.unknownImg}
+            />
+          </TouchableOpacity>
+        </Link>
+      </View>
+    );
 }
 const styles = StyleSheet.create({
     unknownImg: {
