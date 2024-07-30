@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
   songButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 8,
     marginTop: 20,
     gap: 5,
   },

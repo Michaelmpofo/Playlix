@@ -44,7 +44,7 @@ const _layout = () => {
           tabBarIcon: ({ color }) => <MaterialIcons name="library-music" size={34} color={color} />,
         }}
       />
- develop
+ 
        <Tabs.Screen
         name="song"
         options={{

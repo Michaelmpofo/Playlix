@@ -1,3 +1,4 @@
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -5,13 +6,25 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import React, { useState, useRef } from 'react';
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 
 const ResetPasswordVerification = () => {
   const [code, setCode] = useState(['', '', '', '']);
   const inputs = useRef([]);
+
+  useEffect(() => {
+    // Generate OTP after 3 seconds
+    const otpTimer = setTimeout(() => {
+      const newCode = Array.from({ length: 4 }, () =>
+        Math.floor(Math.random() * 10).toString(),
+      );
+      setCode(newCode);
+    }, 3000);
+
+    // Cleanup timer on unmount
+    return () => clearTimeout(otpTimer);
+  }, []);
 
   const handleChange = (text, index) => {
     const newCode = [...code];
@@ -62,7 +75,7 @@ const ResetPasswordVerification = () => {
             />
           ))}
         </View>
-        <Link href=" /Auth_Screens/passwordconfirmation" asChild>
+        <Link href="/Auth_Screens/passwordconfirmation" asChild>
           <TouchableOpacity style={styles.buttonStyle}>
             <Text style={styles.text4Style}>Submit</Text>
           </TouchableOpacity>
