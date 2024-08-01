@@ -42,11 +42,20 @@ const TrackPlayerScreen = () => {
   const [sound, setSound] = useState(null);
   const sliderRef = useRef(null);
   const [isSeeking, setIsSeeking] = useState(false);
+  const [isLooping, setIsLooping] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
 
-  const currentSong = SongData.find(song => song.id === currentSongId);
+  const currentSong = SongData.find((song) => song.id === currentSongId);
 
   useEffect(() => {
-    loadAudio();
+    const loadAndPlayAudio = async () => {
+      const newSound = await loadAudio();
+      if (newSound) {
+        await newSound.playAsync();
+        setPlaying(true);
+      }
+    };
+    loadAndPlayAudio();
     return () => {
       if (sound) {
         sound.unloadAsync();
@@ -97,24 +106,35 @@ const TrackPlayerScreen = () => {
       setSound(newSound);
       setIsImageLoading(false);
       setImageLoadError(false);
+      return newSound;
     } catch (error) {
       console.error('Error loading audio:', error);
       setImageLoadError(true);
+      return null;
     }
   };
 
   const onPlaybackStatusUpdate = (status) => {
-    if (status.isLoaded && !isSeeking) {
-      const newPosition = Number((status.positionMillis / 1000).toFixed(2));
-      const newDuration = Number((status.durationMillis / 1000).toFixed(2));
-      if (newPosition !== position) {
-        setPosition(newPosition);
-      }
-      if (newDuration !== duration) {
-        setDuration(newDuration);
+    if (status.isLoaded) {
+      setPlaying(status.isPlaying);
+      if (!isSeeking) {
+        const newPosition = Number((status.positionMillis / 1000).toFixed(2));
+        const newDuration = Number((status.durationMillis / 1000).toFixed(2));
+        if (newPosition !== position) {
+          setPosition(newPosition);
+        }
+        if (newDuration !== duration) {
+          setDuration(newDuration);
+        }
       }
       if (status.didJustFinish) {
-        playNextSong();
+        if (isLooping) {
+          sound.replayAsync();
+        } else {
+          setPosition(0);
+          setPlaying(false);
+          playNextSong();
+        }
       }
     }
   };
@@ -133,11 +153,15 @@ const TrackPlayerScreen = () => {
     }
   };
 
-  const handlePlayPause = () => {
-    if (playing) {
-      pauseSong();
-    } else {
-      playSong();
+  const handlePlayPause = async () => {
+    if (sound) {
+      if (playing) {
+        await sound.pauseAsync();
+        setPlaying(false);
+      } else {
+        await sound.playAsync();
+        setPlaying(true);
+      }
     }
   };
 
@@ -160,24 +184,58 @@ const TrackPlayerScreen = () => {
     setIsSeeking(false);
   };
 
-  const playNextSong = () => {
-    const currentIndex = SongData.findIndex(song => song.id === currentSongId);
-    const nextIndex = (currentIndex + 1) % SongData.length;
+  const playNextSong = async () => {
+    let nextIndex;
+    if (isShuffling) {
+      nextIndex = Math.floor(Math.random() * SongData.length);
+    } else {
+      const currentIndex = SongData.findIndex(
+        (song) => song.id === currentSongId,
+      );
+      nextIndex = (currentIndex + 1) % SongData.length;
+    }
     setCurrentSongId(SongData[nextIndex].id);
+    await loadAudio();
+    playSong();
   };
 
-  const playPreviousSong = () => {
-    const currentIndex = SongData.findIndex(song => song.id === currentSongId);
-    const previousIndex = (currentIndex - 1 + SongData.length) % SongData.length;
+  const playPreviousSong = async () => {
+    let previousIndex;
+    if (isShuffling) {
+      previousIndex = Math.floor(Math.random() * SongData.length);
+    } else {
+      const currentIndex = SongData.findIndex(
+        (song) => song.id === currentSongId,
+      );
+      previousIndex = (currentIndex - 1 + SongData.length) % SongData.length;
+    }
     setCurrentSongId(SongData[previousIndex].id);
+    await loadAudio();
+    playSong();
   };
 
-  const selectSong = (id) => {
+  const toggleLoop = () => {
+    setIsLooping(!isLooping);
+    if (sound) {
+      sound.setIsLoopingAsync(!isLooping);
+    }
+  };
+
+  const toggleShuffle = () => {
+    setIsShuffling(!isShuffling);
+  };
+
+  const selectSong = async (id) => {
     setCurrentSongId(id);
+    await loadAudio();
+    playSong();
   };
 
   const renderSongItem = ({ item }) => (
-    <TouchableOpacity onPress={() => selectSong(item.id)} style={styles.songItem}>
+    <TouchableOpacity
+      onPress={() => selectSong(item.id)}
+      style={styles.songItem}
+    >
       <Text style={styles.songTitle}>{item.title}</Text>
       <Text style={styles.songArtist}>{item.artist}</Text>
     </TouchableOpacity>
@@ -208,10 +266,10 @@ const TrackPlayerScreen = () => {
         )}
       </View>
       <View style={styles.text2Style}>
-        <Text style={styles.text1Style}>
+        <Text style={styles.text2Style}>
           {currentSong?.title || 'Unknown Title'}
         </Text>
-        <Text style={styles.text2Style}>
+        <Text style={styles.text1Style}>
           {currentSong?.artist || 'Unknown Artist'}
         </Text>
       </View>
@@ -246,7 +304,7 @@ const TrackPlayerScreen = () => {
         </TouchableOpacity>
         <TouchableOpacity onPress={handlePlayPause}>
           <AntDesign
-            name={playing ? 'pause' : 'caretright'}
+            name={playing ? 'pause' : 'play'}
             size={50}
             color="#FFFFFF"
           />
@@ -271,11 +329,25 @@ const TrackPlayerScreen = () => {
         <MaterialCommunityIcons name="volume-high" size={24} color="#ffffff" />
       </View>
       <View style={styles.iconStyle}>
+        <TouchableOpacity onPress={toggleLoop}>
+          <MaterialCommunityIcons
+            name={isLooping ? 'repeat-once' : 'repeat'}
+            size={24}
+            color={isLooping ? '#FFFFFF' : '#D2D2D280'}
+          />
+        </TouchableOpacity>
         <TouchableOpacity>
           <AntDesign name="message1" size={24} color="#D2D2D280" />
         </TouchableOpacity>
         <TouchableOpacity>
           <FontAwesome5 name="list-ul" size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={toggleShuffle}>
+          <MaterialCommunityIcons
+            name="shuffle-variant"
+            size={24}
+            color={isShuffling ? '#FFFFFF' : '#D2D2D280'}
+          />
         </TouchableOpacity>
       </View>
     </LinearGradient>
@@ -310,14 +382,14 @@ const styles = StyleSheet.create({
 
   text2Style: {
     fontWeight: 'bold',
-    fontSize: 30,
-    marginLeft: 20,
+    fontSize: 25,
+    marginLeft: 10,
     color: '#ffffff',
   },
   text1Style: {
     fontSize: 16,
     color: '#ffffff',
-    marginLeft: 20,
+    marginLeft: 11,
   },
   sliderContainer: {
     flexDirection: 'row',
