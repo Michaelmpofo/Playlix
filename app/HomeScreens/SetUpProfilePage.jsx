@@ -3,7 +3,7 @@ import React from 'react'
 import GetStarted from '../../components/GetStarted.jsx'
 import { Link } from 'expo-router'
 
-
+const young  = require('../../assets/images/homeScreenimages/young.png')
 const SetUpProfilePage = () => {
   return (
    
@@ -16,6 +16,7 @@ const SetUpProfilePage = () => {
         </Link>
       
         </View>
+        <Image source={young} resizeMode='contain' style={styles.unknownImg}/>
       <Text style={styles.newtext}>
       Music + Friends
             </Text>
@@ -44,11 +45,21 @@ const styles = StyleSheet.create({
       height : '100%',
       borderBlockEndColor:'#4A4A4A',
     },
-  
+    unknownImg: {
+      width: 400,
+      height:470,
+      marginLeft:0,
+      top:30,
+      marginBottom:50,
+      marginVertical:0,
+   
+      
+  }, 
+
     newtext: {
       fontSize: 31,
       color: '#ffff',
-      marginTop:450,
+      marginTop:30,
       marginLeft:19,
       marginRight:120,
       fontWeight:'bold',
@@ -58,7 +69,7 @@ const styles = StyleSheet.create({
       fontSize: 15,
       color: '#ffff',
       marginTop:10,
-      marginBottom:-30,
+      marginBottom:-10,
       marginLeft:20,
       marginRight:90,
       textAlign:'left',
@@ -66,7 +77,7 @@ const styles = StyleSheet.create({
     textnew: {
       fontSize: 15,
       color: '#0AE78A',
-      marginTop:20,
+      marginTop:30,
       marginLeft:0,
       marginRight:220,
       textAlign:'left',
@@ -87,8 +98,8 @@ const styles = StyleSheet.create({
     text2: {
       fontSize: 15,
       color: '#0AE78A',
-      marginTop:-80,
-      marginBottom: 70,
+      marginTop:-20,
+      marginBottom: 0,
       marginRight:15,
       marginLeft:280
     },

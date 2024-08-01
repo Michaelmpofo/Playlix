@@ -21,7 +21,7 @@ const RedeemCodePage = () => {
             code, as shown here.
             </Text>
             <View>
-            <Camerabutton/> 
+            
             </View>
             <View>
               <Link href='/HomeScreens/EnterCodePage'asChild>

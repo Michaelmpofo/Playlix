@@ -168,7 +168,11 @@ const styles = StyleSheet.create({
   inContainer: {
     flex: 1,
     flexDirection: 'column',
-    marginLeft:-10,
+    marginLeft:10,
+    borderTopColor:'grey',
+    borderTopWidth:1,
+    width:300,
+    right:15,
   },
   inOContainer: {
     flex: 1,

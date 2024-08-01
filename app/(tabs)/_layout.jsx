@@ -31,8 +31,6 @@ const _layout = () => {
         name="index"
         options={{
           title: 'Home',
-        
-
           tabBarIcon: ({ color }) => <MaterialIcons name="home-filled" size={34} color={color} /> ,
         }}
       />
@@ -44,7 +42,7 @@ const _layout = () => {
           tabBarIcon: ({ color }) => <MaterialIcons name="library-music" size={34} color={color} />,
         }}
       />
- 
+
        <Tabs.Screen
         name="song"
         options={{
@@ -60,8 +58,6 @@ const _layout = () => {
       />
      
     </Tabs>
-    
-
 
   )
   
