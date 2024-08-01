@@ -12,16 +12,27 @@ import { Link } from 'expo-router';
 const SignupVerification = () => {
   const [code, setCode] = useState(['', '', '', '']);
   const [timer, setTimer] = useState(192); // 3 minutes and 12 seconds
-
   const inputs = useRef([]);
 
   useEffect(() => {
+    // Generate OTP after 3 seconds
+    const otpTimer = setTimeout(() => {
+      const newCode = Array.from({ length: 4 }, () =>
+        Math.floor(Math.random() * 10).toString(),
+      );
+      setCode(newCode);
+    }, 3000);
+
+    // Timer for countdown
     const timerInterval = setInterval(() => {
       setTimer((prevTimer) => prevTimer - 1);
     }, 1000);
 
-    // Clean up interval on unmount
-    return () => clearInterval(timerInterval);
+    // Cleanup timers on unmount
+    return () => {
+      clearTimeout(otpTimer);
+      clearInterval(timerInterval);
+    };
   }, []);
 
   const handleChange = (text, index) => {

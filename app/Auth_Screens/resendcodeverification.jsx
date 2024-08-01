@@ -16,6 +16,15 @@ const ResendCodeVerification = () => {
   const inputs = useRef([]);
 
   useEffect(() => {
+    // Generate OTP after 3 seconds
+    const otpTimer = setTimeout(() => {
+      const newCode = Array.from({ length: 4 }, () =>
+        Math.floor(Math.random() * 10).toString(),
+      );
+      setCode(newCode);
+    }, 3000);
+
+    // Timer for countdown
     if (timer > 0) {
       const timerInterval = setInterval(() => {
         setTimer((prevTimer) => {
@@ -29,6 +38,8 @@ const ResendCodeVerification = () => {
 
       return () => clearInterval(timerInterval);
     }
+
+    return () => clearTimeout(otpTimer);
   }, [timer]);
 
   const handleChange = (text, index) => {

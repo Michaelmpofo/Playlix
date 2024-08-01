@@ -68,11 +68,11 @@ const styles = StyleSheet.create({
   buttonStyle: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   songButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginHorizontal: 8,
     marginTop: 20,
     gap: 5,
   },
@@ -80,7 +80,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignContent: 'center',
-    marginLeft: 20,
     marginTop: 20,
   },
   albumImage: {

@@ -10,8 +10,8 @@ const LibraryList = () => {
       horizontal={true}
       contentContainerStyle={styles.scrollContainer}
     >
-      {libraryCardList.map((item, index) => (
-        <View key={index} style={styles.libraryListContainer}>
+      {libraryCardList.map((item) => (
+        <View key={item.id} style={styles.libraryListContainer}>
           <Link href="/library_screens/favoritesongs" asChild>
             <TouchableOpacity>
               <Image source={item.imgUrl} style={styles.image} />

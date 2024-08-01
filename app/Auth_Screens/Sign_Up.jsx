@@ -1,11 +1,99 @@
-import { View, Text ,ImageBackground,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-native'
-import React from 'react'
-import { Link } from 'expo-router';
+import { View, Text ,ImageBackground,StyleSheet,TextInput,TouchableOpacity,Image ,ActivityIndicator,Alert} from 'react-native'
+import React,{useState} from 'react'
+import { Link,useRouter } from 'expo-router';
 
+import {
+  db,
+  app,
+  auth,
+  storage,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  ref,
+  getDownloadURL,
+  listAll,
+} from '../Auth_Screens/firebase';
 const image = require('../../assets/images/sign_in_background.jpg');
 const logo1 = require('../../assets/images/Apple.png');
 const logo2 = require('../../assets/images/Google.png');
 const Sign_Up = () => {
+
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const router = useRouter();
+
+  const handleSignUp = async () => {
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
+      return;
+    }
+
+    setLoading(true); // Show loading indicator
+
+    try {
+      // Check if username or email already exists
+      const usernameQuery = query(
+        collection(db, 'users'),
+        where('username', '==', username),
+      );
+      const emailQuery = query(
+        collection(db, 'users'),
+        where('email', '==', email),
+      );
+
+      const usernameSnapshot = await getDocs(usernameQuery);
+      const emailSnapshot = await getDocs(emailQuery);
+
+      if (!usernameSnapshot.empty) {
+        Alert.alert('Error', 'Username is already in use');
+        setLoading(false); // Hide loading indicator
+        return;
+      }
+
+      if (!emailSnapshot.empty) {
+        Alert.alert('Error', 'Email is already in use');
+        setLoading(false); // Hide loading indicator
+        return;
+      }
+
+      // Create user with email and password
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
+
+      // Add user details to Firestore
+      await setDoc(doc(db, 'users', user.uid), {
+        name,
+        username,
+        email,
+        uid: user.uid,
+      });
+
+      Alert.alert('Success', 'Account created successfully', [
+        {
+          text: 'OK',
+          onPress: () => router.push('/Auth_Screens/signupverification'),
+        }, // Corrected navigation
+      ]);
+    } catch (error) {
+      Alert.alert('Error', error.message);
+    } finally {
+      setLoading(false); // Hide loading indicator
+    }
+  };
   return (
     <ImageBackground source={image} style={styles.image}>
       <View style={styles.cardContainer}>
@@ -13,25 +101,32 @@ const Sign_Up = () => {
           <Text style={styles.title1}>Enter your name</Text>
           <TextInput
             style={styles.input}
+            value={name}
+            onChangeText={setName}
             placeholder=""
             placeholderTextColor="#ccc"
           />
           <Text style={styles.title2}>Username</Text>
           <TextInput
             style={styles.input}
+            value={username}
+            onChangeText={setUsername}
             placeholder=""
             placeholderTextColor="#ccc"
-            secureTextEntry={true}
           />
           <Text style={styles.title3}>E-mail</Text>
           <TextInput
             style={styles.input}
+            value={email}
+            onChangeText={setEmail}
             placeholder=""
             placeholderTextColor="#ccc"
           />
           <Text style={styles.title4}>Enter Password</Text>
           <TextInput
             style={styles.input}
+            value={password}
+            onChangeText={setPassword}
             placeholder=""
             placeholderTextColor="#ccc"
             secureTextEntry={true}
@@ -39,15 +134,23 @@ const Sign_Up = () => {
           <Text style={styles.title5}>Re-enter Password</Text>
           <TextInput
             style={styles.input}
+            value={confirmPassword}
+            onChangeText={setConfirmPassword}
             placeholder=""
             placeholderTextColor="#ccc"
             secureTextEntry={true}
           />
-          <Link href="/Auth_Screens/signupverification" asChild>
-            <TouchableOpacity style={styles.button}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handleSignUp}
+            disabled={loading}
+          >
+            {loading ? (
+              <ActivityIndicator color="#fff" />
+            ) : (
               <Text style={styles.buttonText}>Submit</Text>
-            </TouchableOpacity>
-          </Link>
+            )}
+          </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.button1}>
           <Image source={logo1} style={styles.logoStyle} />

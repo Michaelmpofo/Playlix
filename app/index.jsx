@@ -1,35 +1,69 @@
-import { View, Text, ImageBackground,StyleSheet,TextInput,TouchableOpacity,Image } from 'react-native';
-import React from 'react'
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  ImageBackground,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  Alert,
+} from 'react-native';
+import { useRouter } from 'expo-router';
+import { signInWithEmailAndPassword, auth } from './Auth_Screens/firebase'; // adjust the path if necessary
 import { Link } from 'expo-router';
-import { Entypo } from '@expo/vector-icons';
 
 const image = require('../assets/images/signupimage.jpeg');
-const logo1 = require('../assets/images/Apple.png')
+const logo1 = require('../assets/images/Apple.png');
 const logo2 = require('../assets/images/Google.png');
 
 const index = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
+
+  const handleLogin = async () => {
+    try {
+      // Sign in the user with email and password
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
+
+      Alert.alert('Success', 'Login successful', [
+        { text: 'OK', onPress: () => router.push('/(tabs)') },
+      ]);
+    } catch (error) {
+      Alert.alert('Error', 'User does not exist or wrong credentials');
+    }
+  };
+
   return (
     <ImageBackground source={image} style={styles.image}>
       <View style={styles.cardContainer}>
         <View style={styles.card}>
-          <Text style={styles.title}>Enter Username</Text>
+          <Text style={styles.title}>Enter Email</Text>
           <TextInput
             style={styles.input}
+            value={email}
+            onChangeText={setEmail}
             placeholder=""
             placeholderTextColor="#ccc"
           />
           <Text style={styles.title}>Enter Password</Text>
           <TextInput
             style={styles.input}
+            value={password}
+            onChangeText={setPassword}
             placeholder=""
             placeholderTextColor="#ccc"
             secureTextEntry={true}
           />
-          <Link href="/(tabs)" asChild>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Submit</Text>
-            </TouchableOpacity>
-          </Link>
+          <TouchableOpacity style={styles.button} onPress={handleLogin}>
+            <Text style={styles.buttonText}>Submit</Text>
+          </TouchableOpacity>
 
           <Link href="/Auth_Screens/resetpassword" asChild>
             <TouchableOpacity>

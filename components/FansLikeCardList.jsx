@@ -1,14 +1,20 @@
-import { View, Text, Image,StyleSheet ,ScrollView,TouchableOpacity } from 'react-native'
-import React from 'react'
-import fansLikeCardlist from '../data/fanslikedata'
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import React from 'react';
+import fansLikeCardlist from '../data/fanslikedata';
 import { Link } from 'expo-router';
-
 
 const FansLikeCardList = () => {
   return (
     <ScrollView horizontal={true}>
-      {fansLikeCardlist.map((item, index) => (
-        <View style={styles.FansLikeCardlistContainer}>
+      {fansLikeCardlist.map((item) => (
+        <View key={item.id} style={styles.FansLikeCardlistContainer}>
           <Link href="/homeSongScreen" asChild>
             <TouchableOpacity>
               <Image
@@ -24,13 +30,13 @@ const FansLikeCardList = () => {
       ))}
     </ScrollView>
   );
-}
+};
 
-export default FansLikeCardList
+export default FansLikeCardList;
+
 const styles = StyleSheet.create({
-    FansLikeCardlistContainer:{
-        marginTop:1,
-        marginLeft:13,
-          
-    }
-})
+  FansLikeCardlistContainer: {
+    marginTop: 1,
+    marginLeft: 13,
+  },
+});

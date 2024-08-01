@@ -23,9 +23,7 @@ const search = () => {
       />
       <SearchScreenComponent />
       <SearchScreenHeaderLeft />
-      <ScrollView>
         <SearchList />
-      </ScrollView>
       <NowPlayingBar />
     </View>
   );
