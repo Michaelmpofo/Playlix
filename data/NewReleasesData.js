@@ -8,15 +8,19 @@ const NewReleaseCardList = [
         'label': 'City Vibration 2.0 (DJ...',
         'album': 'DJ Chizzy Kay',
         'imgUrl': require('../assets/images/Group 99.png')
-    }, {
+    }, 
+    {
         'label': 'PINE & JINJA (D..........',
         'album': 'DJ Millzy',
         'imgUrl': require('../assets/images/Group 100.png')
-    }, {
+    },
+
+     {
         'label': 'NLF (Breakfast) - Single',
         'album': 'Camidoh',
         'imgUrl': require('../assets/images/Group 101.png')
-    }, {
+    },
+     {
         'label': 'Party In The Jungle',
         'album': 'DJ Kumzy',
         'imgUrl': require('../assets/images/Group 102.png')

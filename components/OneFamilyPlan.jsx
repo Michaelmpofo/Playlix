@@ -29,7 +29,7 @@ const OneFamilyPlan = ({ isSelected, onPress, moveBelowIndividual }) => {
             <Ionicons name="checkmark-circle" size={30} color="#0AE78A" style={styles.tickImage} />
           </View>
           <View style={styles.inOContainer}>
-            <Text style={styles.Text6}>iCloud+ with 50GB of storage</Text>
+            <Text style={styles.Text6}>iCloud+ with 200GB of storage</Text>
             <Text style={styles.Text5}>Over 200 ad-free games</Text>
             <Text style={styles.Text4}>Apple Original shows and movies</Text>
             <Text style={styles.Text3}>100 million songs, all ad-free</Text>
@@ -170,14 +170,19 @@ const styles = StyleSheet.create({
   inContainer: {
     flex: 1,
     flexDirection: 'column',
-    marginLeft:-10,
+    marginLeft:10,
+    borderTopColor:'grey',
+    borderTopWidth:1,
+    width:300,
+    right:15,
+    
   },
   inOContainer: {
     flex: 1,
     flexDirection: 'column',
     marginLeft:0,
     marginTop:35,
-    marginBottom:0,
+
   },
   
   mainText: {

@@ -1,61 +1,76 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import { launchCamera } from 'react-native-image-picker';
+import { Camera } from 'expo-camera';
+import { useState, useEffect } from 'react';
+import { Button, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-const Camerabutton = () => {
-  const handleCameraPress = () => {
-    const options = {
-      mediaType: 'photo',
-      cameraType: 'back',
-    };
-    
-    launchCamera(options, (response) => {
-      if (response.didCancel) {
-        Alert.alert('Camera', 'User cancelled camera');
-      } else if (response.errorCode) {
-        Alert.alert('Camera Error', response.errorMessage);
-      } else {
-        Alert.alert('Camera', 'Photo taken successfully');
-        console.log(response.assets[0].uri); // Handle the photo URI as needed
-      }
-    });
-  };
+export default function App() {
+  const [facing, setFacing] = useState(Camera.Constants.Type.back);
+  const [permission, setPermission] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setPermission(status === 'granted');
+    })();
+  }, []);
+
+  if (permission === null) {
+    // Camera permissions are still loading.
+    return <View />;
+  }
+
+  if (permission === false) {
+    // Camera permissions are not granted yet.
+    return (
+      <View style={styles.container}>
+        <Text style={styles.message}>We need your permission to show the camera</Text>
+        <Button onPress={() => Camera.requestCameraPermissionsAsync().then(({ status }) => setPermission(status === 'granted'))} title="grant permission" />
+      </View>
+    );
+  }
+
+  function toggleCameraFacing() {
+    setFacing(current => (current === Camera.Constants.Type.back ? Camera.Constants.Type.front : Camera.Constants.Type.back));
+  }
 
   return (
-    <TouchableOpacity onPress={handleCameraPress}>
-      <View style={styles.CamerabuttonContainer}>
-        <View style={styles.infoContainer}>
-          <Text style={styles.mainText}> Use Camera </Text>
+    <View style={styles.container}>
+      <Camera style={styles.camera} type={facing}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+            <Text style={styles.text}>Flip Camera</Text>
+          </TouchableOpacity>
         </View>
-      </View>
-    </TouchableOpacity>
+      </Camera>
+    </View>
   );
-};
-
-export default Camerabutton;
+}
 
 const styles = StyleSheet.create({
-  CamerabuttonContainer: {
-    position: 'absolute',
-    backgroundColor: '#0AE78A',
-    bottom: 10,
-    marginLeft: -165,
-    marginRight: 0,
-    marginBottom: -200,
-    padding: 14,
-    borderColor: '#0AE78A',
-    alignItems: 'center',
+  container: {
+    flex: 1,
     justifyContent: 'center',
-    borderRadius: 10,
-    height: 49,
-    width: 330,
   },
-  infoContainer: {
+  message: {
+    textAlign: 'center',
+    paddingBottom: 10,
+  },
+  camera: {
+    flex: 1,
+  },
+  buttonContainer: {
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: 'transparent',
+    margin: 64,
   },
-  mainText: {
-    fontSize: 17,
+  button: {
+    flex: 1,
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 24,
     fontWeight: 'bold',
+    color: 'white',
   },
 });

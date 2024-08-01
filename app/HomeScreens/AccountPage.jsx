@@ -5,22 +5,22 @@ import RedeemCode from '../../components/RedeemCodeTab';
 import SetUpProfileTab from '../../components/SetUpProfileTab';
 import NotificationTab from '../../components/NotificationTab';
 import LogOut from '../../components/LogOut';
-import { Link } from 'expo-router';
-
+import { Link, router } from 'expo-router';
 
 const AccountPage = () => {
   return (
     <View style={styles.AccountPageContainer}>
         <Text style={styles.text}>Account</Text> 
+
         <View >
-        <Link href="(tabs)" asChild>
-        <TouchableOpacity>
+
+        <TouchableOpacity onPress={() => {router.navigate('(tabs)')}}>
         <Text style={styles.text2}>Done</Text>
         </TouchableOpacity>
-        </Link>
+       
       
         </View>
-        
+        <View></View>
         <PremiumTab/>
         <RedeemCode/>
         <SetUpProfileTab/>

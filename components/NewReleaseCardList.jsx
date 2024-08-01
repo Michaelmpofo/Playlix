@@ -7,10 +7,11 @@ import { Link } from 'expo-router';
 const NewReleasesCardList = () => {
   return (
     <ScrollView horizontal={true}>
-      {NewReleaseCardList.map((item, index) => (
-        <View style={styles.NewReleasesCardListContainer}>
+      {NewReleaseCardList.map((item, key) => (
+        <View style={styles.NewReleasesCardListContainer}  key={key}>
           <Link href="/homeSongScreen" asChild>
-            <TouchableOpacity>
+            <TouchableOpacity  
+            >
               <Image
                 source={item.imgUrl}
                 style={{ width: 200, height: 200, borderRadius: 10 }}
