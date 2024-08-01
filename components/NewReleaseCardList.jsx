@@ -1,37 +1,51 @@
-import { View, Text, Image,StyleSheet ,ScrollView ,TouchableOpacity } from 'react-native'
-import React from 'react'
-import NewReleaseCardList from '../data/NewReleasesData'
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import React from 'react';
+import NewReleaseCardList from '../data/NewReleasesData';
 import { Link } from 'expo-router';
-
 
 const NewReleasesCardList = () => {
   return (
     <ScrollView horizontal={true}>
       {NewReleaseCardList.map((item, index) => (
-        <View style={styles.NewReleasesCardListContainer}>
+        <View
+          key={item.id || index}
+          style={styles.NewReleasesCardListContainer}
+        >
           <Link href="/homeSongScreen" asChild>
             <TouchableOpacity>
-              <Image
-                source={item.imgUrl}
-                style={{ width: 200, height: 200, borderRadius: 10 }}
-              />
+              <Image source={item.imgUrl} style={styles.image} />
             </TouchableOpacity>
           </Link>
 
-          <Text style={{ color: 'white' }}>{item.label}</Text>
-          <Text style={{ color: 'white' }}>{item.album}</Text>
+          <Text style={styles.text}>{item.label}</Text>
+          <Text style={styles.text}>{item.album}</Text>
         </View>
       ))}
     </ScrollView>
   );
-}
+};
 
-export default NewReleasesCardList
+export default NewReleasesCardList;
+
 const styles = StyleSheet.create({
-    NewReleasesCardListContainer:{
-        marginTop:1,
-        marginLeft:13,
-        marginBottom:1,
-          
-    }
-})
+  NewReleasesCardListContainer: {
+    marginTop: 1,
+    marginLeft: 13,
+    marginBottom: 1,
+  },
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 10,
+  },
+  text: {
+    color: 'white',
+  },
+});

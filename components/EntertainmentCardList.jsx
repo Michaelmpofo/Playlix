@@ -1,14 +1,20 @@
-import { View, Text, Image,StyleSheet ,ScrollView,TouchableOpacity } from 'react-native'
-import React from 'react'
-import entertainmentCardList from '../data/entertainmentdata'
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+} from 'react-native';
+import React from 'react';
+import entertainmentCardList from '../data/entertainmentdata';
 import { Link } from 'expo-router';
-
 
 const EntertainmentCardList = () => {
   return (
     <ScrollView horizontal={true}>
-      {entertainmentCardList.map((item, index) => (
-        <View style={styles.EntertainmentCardlistContainer}>
+      {entertainmentCardList.map((item) => (
+        <View key={item.id} style={styles.EntertainmentCardlistContainer}>
           <Link href="/homeSongScreen" asChild>
             <TouchableOpacity>
               <Image
@@ -24,17 +30,13 @@ const EntertainmentCardList = () => {
       ))}
     </ScrollView>
   );
-}
+};
 
-export default EntertainmentCardList
+export default EntertainmentCardList;
+
 const styles = StyleSheet.create({
-    EntertainmentCardlistContainer:{
-        marginTop:1,
-        marginLeft:17,
-        
-       
-        
-       
-        
-    }
-})
+  EntertainmentCardlistContainer: {
+    marginTop: 1,
+    marginLeft: 17,
+  },
+});

@@ -46,8 +46,8 @@ const SearchCard = ({ label, img, text }) => {
 export default SearchCard;
 const styles = StyleSheet.create({
   searchCardListContainer: {
-    marginLeft: 15,
-    marginBottom: 10,
+    marginLeft: 1,
+    marginBottom: 1,
     position: 'relative',
     height: 141.69,
     width: 160,

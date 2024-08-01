@@ -2,7 +2,23 @@ import { View, Text ,ImageBackground,StyleSheet,TextInput,TouchableOpacity,Image
 import React,{useState} from 'react'
 import { Link,useRouter } from 'expo-router';
 
-import{db,auth,createUserWithEmailAndPassword,collection,query,where,getDocs,setDoc,doc} from '../Auth_Screens/firebase'
+import {
+  db,
+  app,
+  auth,
+  storage,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  collection,
+  query,
+  where,
+  getDocs,
+  setDoc,
+  doc,
+  ref,
+  getDownloadURL,
+  listAll,
+} from '../Auth_Screens/firebase';
 const image = require('../../assets/images/sign_in_background.jpg');
 const logo1 = require('../../assets/images/Apple.png');
 const logo2 = require('../../assets/images/Google.png');

@@ -1,17 +1,14 @@
-import { View, Text, Image,StyleSheet ,ScrollView } from 'react-native'
-import React from 'react'
-import recenthomeCardlist from '../data/recentlyaddeddata'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { View, Text, Image, StyleSheet, ScrollView } from 'react-native';
+import React from 'react';
+import recenthomeCardlist from '../data/recentlyaddeddata';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Link } from 'expo-router';
-
-
-
 
 const RecentlyPlayedCardlist = () => {
   return (
     <ScrollView horizontal={true}>
-      {recenthomeCardlist.map((item, index) => (
-        <View style={styles.recenthomecardlistcontainer}>
+      {recenthomeCardlist.map((item) => (
+        <View key={item.id} style={styles.recenthomecardlistcontainer}>
           <Link href="/homeSongScreen" asChild>
             <TouchableOpacity>
               <Image
@@ -27,18 +24,13 @@ const RecentlyPlayedCardlist = () => {
       ))}
     </ScrollView>
   );
-}
+};
 
-export default RecentlyPlayedCardlist
+export default RecentlyPlayedCardlist;
+
 const styles = StyleSheet.create({
-    recenthomecardlistcontainer:{
-        marginTop:1,
-        marginLeft:10,
-        
-       
-        
-    }
-})
-
-// Resolved code
-const resolvedCode = 'this is the resolved code combining both changes';
+  recenthomecardlistcontainer: {
+    marginTop: 1,
+    marginLeft: 10,
+  },
+});

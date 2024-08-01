@@ -13,8 +13,8 @@ import { Link } from 'expo-router';
 const CardList = () => {
   return (
     <ScrollView horizontal={true}>
-      {homeCardList.map((item, index) => (
-        <View style={styles.homecardllistcontainer}>
+      {homeCardList.map((item) => (
+        <View key={item.id} style={styles.homecardllistcontainer}>
           <Text style={{ color: 'white' }}>{item.label}</Text>
 
           <Link href="/homeSongScreen" asChild>
@@ -30,7 +30,9 @@ const CardList = () => {
     </ScrollView>
   );
 };
+
 export default CardList;
+
 const styles = StyleSheet.create({
   homecardllistcontainer: {
     marginTop: 10,
@@ -38,5 +40,3 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
 });
-// Resolved code
-const resolvedCode = 'this is the resolved code combining both changes';

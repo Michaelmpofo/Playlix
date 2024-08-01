@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  FlatList,
+} from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider';
 import { AntDesign } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
+import SongData from '../data/songdata';
 
 const gradients = [
   ['#F6DB0E', '#0202A2'],
@@ -20,123 +28,220 @@ const gradients = [
   ['#C07F48', '#706868'],
 ];
 
+const defaultAlbumArt = 'https://example.com/default-album-art.jpg';
+
 const TrackPlayerScreen = () => {
-  const [value, setValue] = useState(0);
+  const [position, setPosition] = useState(0);
+  const [duration, setDuration] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(1.0);
-  const [gradientColors, setGradientColors] = useState(gradients[0]); // Initial gradient colors
+  const [gradientColors, setGradientColors] = useState(gradients[0]);
   const [isImageLoading, setIsImageLoading] = useState(true);
   const [imageLoadError, setImageLoadError] = useState(false);
-  const maxValue = 20;
+  const [currentSongId, setCurrentSongId] = useState(SongData[0].id);
+  const [sound, setSound] = useState(null);
+  const sliderRef = useRef(null);
+  const [isSeeking, setIsSeeking] = useState(false);
+
+  const currentSong = SongData.find(song => song.id === currentSongId);
 
   useEffect(() => {
-    let timer;
-    if (playing) {
-      timer = setInterval(() => {
-        setValue((prevValue) => {
-          if (prevValue < maxValue) {
-            return prevValue + 1;
-          } else {
-            clearInterval(timer);
-            return prevValue;
-          }
-        });
-      }, 1000);
-    } else {
-      clearInterval(timer);
-    }
-    return () => clearInterval(timer);
-  }, [playing]);
+    loadAudio();
+    return () => {
+      if (sound) {
+        sound.unloadAsync();
+      }
+    };
+  }, [currentSongId]);
 
   useEffect(() => {
-    async function setAudioMode() {
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: false,
-        interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_MIX_WITH_OTHERS,
-        playsInSilentModeIOS: true,
-        shouldDuckAndroid: true,
-        interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-        playThroughEarpieceAndroid: false,
-      });
-    }
-
-    setAudioMode();
-  }, []);
-
-  useEffect(() => {
-    const gradientTimer = setInterval(() => {
+    const intervalId = setInterval(() => {
       setGradientColors((prevColors) => {
-        // Get the next gradient color set
-        const currentIndex = gradients.indexOf(prevColors);
+        const currentIndex = gradients.findIndex(
+          (g) => g[0] === prevColors[0] && g[1] === prevColors[1],
+        );
         const nextIndex = (currentIndex + 1) % gradients.length;
         return gradients[nextIndex];
       });
-    }, 60000); // Change gradient every minute
+    }, 10000); // 10000 milliseconds = 10 seconds
 
-    return () => clearInterval(gradientTimer);
+    return () => clearInterval(intervalId); // Cleanup on component unmount
   }, []);
 
-  const handleVolumeChange = async (value) => {
-    setVolume(value);
-    await Audio.setVolumeAsync(value);
+  useEffect(() => {
+    let interval;
+    if (playing && sound) {
+      interval = setInterval(async () => {
+        const status = await sound.getStatusAsync();
+        if (status.isLoaded && !isSeeking) {
+          setPosition(Number((status.positionMillis / 1000).toFixed(2)));
+          setDuration(Number((status.durationMillis / 1000).toFixed(2)));
+        }
+      }, 1000);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [playing, sound, isSeeking]);
+
+  const loadAudio = async () => {
+    if (sound) {
+      await sound.unloadAsync();
+    }
+    try {
+      const { sound: newSound } = await Audio.Sound.createAsync(
+        { uri: currentSong.link },
+        { shouldPlay: false },
+        onPlaybackStatusUpdate,
+      );
+      setSound(newSound);
+      setIsImageLoading(false);
+      setImageLoadError(false);
+    } catch (error) {
+      console.error('Error loading audio:', error);
+      setImageLoadError(true);
+    }
   };
 
-  const formatTime = (value) => {
-    const minutes = Math.floor(value / 60);
-    const seconds = value % 60;
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  const onPlaybackStatusUpdate = (status) => {
+    if (status.isLoaded && !isSeeking) {
+      const newPosition = Number((status.positionMillis / 1000).toFixed(2));
+      const newDuration = Number((status.durationMillis / 1000).toFixed(2));
+      if (newPosition !== position) {
+        setPosition(newPosition);
+      }
+      if (newDuration !== duration) {
+        setDuration(newDuration);
+      }
+      if (status.didJustFinish) {
+        playNextSong();
+      }
+    }
+  };
+
+  const playSong = async () => {
+    if (sound) {
+      await sound.playAsync();
+      setPlaying(true);
+    }
+  };
+
+  const pauseSong = async () => {
+    if (sound) {
+      await sound.pauseAsync();
+      setPlaying(false);
+    }
   };
 
   const handlePlayPause = () => {
-    setPlaying(!playing);
+    if (playing) {
+      pauseSong();
+    } else {
+      playSong();
+    }
   };
 
-  const handleForward = () => {
-    setValue((prevValue) => Math.min(prevValue + 5, maxValue));
+  const handleVolumeChange = async (value) => {
+    setVolume(value);
+    if (sound) {
+      await sound.setVolumeAsync(value);
+    }
   };
 
-  const handleBackward = () => {
-    setValue((prevValue) => Math.max(prevValue - 5, 0));
+  const handleSliderChange = async (value) => {
+    setIsSeeking(true);
+    setPosition(value);
   };
 
-  const coverImage = require('../assets/images/songscreenimages/ShattaWale_Cover_.png');
+  const handleSliderComplete = async (value) => {
+    if (sound) {
+      await sound.setPositionAsync(value * 1000);
+    }
+    setIsSeeking(false);
+  };
+
+  const playNextSong = () => {
+    const currentIndex = SongData.findIndex(song => song.id === currentSongId);
+    const nextIndex = (currentIndex + 1) % SongData.length;
+    setCurrentSongId(SongData[nextIndex].id);
+  };
+
+  const playPreviousSong = () => {
+    const currentIndex = SongData.findIndex(song => song.id === currentSongId);
+    const previousIndex = (currentIndex - 1 + SongData.length) % SongData.length;
+    setCurrentSongId(SongData[previousIndex].id);
+  };
+
+  const selectSong = (id) => {
+    setCurrentSongId(id);
+  };
+
+  const renderSongItem = ({ item }) => (
+    <TouchableOpacity onPress={() => selectSong(item.id)} style={styles.songItem}>
+      <Text style={styles.songTitle}>{item.title}</Text>
+      <Text style={styles.songArtist}>{item.artist}</Text>
+    </TouchableOpacity>
+  );
+
+  const formatTime = (seconds) => {
+    if (isNaN(seconds) || seconds === null) return '0:00';
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+  };
 
   return (
     <LinearGradient colors={gradientColors} style={styles.overlayContainer}>
-      {isImageLoading || imageLoadError ? (
-        <View style={styles.unknownSongStyle}>
-          <FontAwesome5 name="music" size={120} color="#81C8AA" />
-        </View>
-      ) : (
-        <Image
-          source={coverImage}
-          style={styles.coverImageStyle}
-          onLoad={() => setIsImageLoading(false)}
-          onError={() => setImageLoadError(true)}
-        />
-      )}
-      <View style={styles.textStyle}>
-        <Text style={styles.text1Style}>Not Playing</Text>
+      <View style={styles.imageContainer}>
+        {isImageLoading || imageLoadError ? (
+          <View style={styles.unknownSongStyle}>
+            <FontAwesome5 name="music" size={120} color="#81C8AA" />
+          </View>
+        ) : (
+          <Image
+            source={{ uri: currentSong.albumArt || defaultAlbumArt }}
+            defaultSource={require('../assets/images/searchimages/headset.jpeg')}
+            style={styles.coverImageStyle}
+            onLoad={() => setIsImageLoading(false)}
+            onError={() => setImageLoadError(true)}
+          />
+        )}
       </View>
+      <View style={styles.text2Style}>
+        <Text style={styles.text1Style}>
+          {currentSong?.title || 'Unknown Title'}
+        </Text>
+        <Text style={styles.text2Style}>
+          {currentSong?.artist || 'Unknown Artist'}
+        </Text>
+      </View>
+      <FlatList
+        data={SongData}
+        renderItem={renderSongItem}
+        keyExtractor={(item) => item.id}
+        style={styles.songList}
+      />
       <View style={styles.sliderContainer}>
         <Slider
+          ref={sliderRef}
           style={styles.slider}
           minimumValue={0}
-          maximumValue={maxValue}
+          maximumValue={duration}
           minimumTrackTintColor="#ffffff"
           maximumTrackTintColor="#ffffff"
           thumbTintColor="#E3D6D6"
           thumbStyle={styles.thumb}
-          value={value}
-          onValueChange={(sliderValue) => setValue(sliderValue)}
+          value={position}
+          onValueChange={handleSliderChange}
+          onSlidingComplete={handleSliderComplete}
         />
       </View>
       <View style={styles.textStyle2}>
-        <Text style={styles.valueText}>{formatTime(value)}</Text>
-        <Text style={styles.value1Text}>{formatTime(maxValue)}</Text>
+        <Text style={styles.valueText}>{formatTime(position)}</Text>
+        <Text style={styles.value1Text}>{formatTime(duration)}</Text>
       </View>
       <View style={styles.buttonStyle}>
-        <TouchableOpacity onPress={handleBackward} style={{ marginLeft: 60 }}>
+        <TouchableOpacity onPress={playPreviousSong} style={{ marginLeft: 60 }}>
           <AntDesign name="stepbackward" size={28} color="#D2D2D2" />
         </TouchableOpacity>
         <TouchableOpacity onPress={handlePlayPause}>
@@ -146,7 +251,7 @@ const TrackPlayerScreen = () => {
             color="#FFFFFF"
           />
         </TouchableOpacity>
-        <TouchableOpacity onPress={handleForward} style={{ marginRight: 60 }}>
+        <TouchableOpacity onPress={playNextSong} style={{ marginRight: 60 }}>
           <AntDesign name="stepforward" size={28} color="#D2D2D2" />
         </TouchableOpacity>
       </View>
@@ -176,36 +281,43 @@ const TrackPlayerScreen = () => {
     </LinearGradient>
   );
 };
-
 export default TrackPlayerScreen;
-
 const styles = StyleSheet.create({
   overlayContainer: {
     flex: 1,
+    paddingTop: 50, // Add some top padding
+  },
+  imageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
   },
   unknownSongStyle: {
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#75918533',
-    marginHorizontal: 45,
-    marginTop: 180,
     height: 270,
-    width: 272,
+    width: 270,
     borderRadius: 10,
   },
   coverImageStyle: {
-    height: '100%',
-    width: '100%',
+    height: 240,
+    width: 240,
     borderRadius: 10,
+    marginTop: 30,
   },
-  textStyle: {
-    marginTop: 50,
+
+  text2Style: {
+    fontWeight: 'bold',
+    fontSize: 30,
     marginLeft: 20,
+    color: '#ffffff',
   },
   text1Style: {
-    fontSize: 20,
+    fontSize: 16,
     color: '#ffffff',
+    marginLeft: 20,
   },
   sliderContainer: {
     flexDirection: 'row',
@@ -256,5 +368,23 @@ const styles = StyleSheet.create({
     width: '80%',
     marginLeft: 10,
     marginRight: 10,
+  },
+  songItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+  },
+  songTitle: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  songArtist: {
+    color: '#ffffff',
+    fontSize: 14,
+  },
+  songList: {
+    marginTop: 20,
+    maxHeight: 150,
   },
 });

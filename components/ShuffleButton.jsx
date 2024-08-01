@@ -27,7 +27,7 @@ const App = () => {
   useEffect(() => {
     const fetchSongs = async () => {
       try {
-        const response = await fetch('https://api.example.com/playlist'); // Replace with your API endpoint
+        const response = await fetch( 'https://raw.githubusercontent.com/thelocalgodd/storage/main/soundwave/songs/God%20s%20Plan%20-%20Drake%20(128).mp3',); // Replace with your API endpoint
         const data = await response.json();
         setPlaylist(data.songs); // Assuming the API returns an object with a "songs" array
       } catch (error) {

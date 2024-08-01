@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  ScrollView,
   Image,
   StyleSheet,
   FlatList,
@@ -12,47 +11,42 @@ import searchCardList from '../data/searchtabdata';
 import SearchCard from './SearchCard';
 import { Link } from 'expo-router';
 
-
 const { width } = Dimensions.get('window');
 
 const SearchList = () => {
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text style={styles.headingText}>Browse Categories</Text>
-      <FlatList
-        data={searchCardList}
-        renderItem={({ item }) => (
-          <SearchCard img={item.imgUrl} label={item.label} text={item.text} />
-        )}
-        keyExtractor={(item, index) => index.toString()}
-        numColumns={2}
-        contentContainerStyle={styles.flatListContainer}
-        columnWrapperStyle={styles.row}
-      />
-
-    </ScrollView>
+    <FlatList
+      ListHeaderComponent={() => (
+        <Text style={styles.headingText}>Browse Categories</Text>
+      )}
+      data={searchCardList}
+      renderItem={({ item }) => (
+        <SearchCard img={item.imgUrl} label={item.label} text={item.text} />
+      )}
+      keyExtractor={(item, index) => index.toString()}
+      numColumns={2}
+      contentContainerStyle={styles.flatListContainer}
+      columnWrapperStyle={styles.row}
+    />
   );
 };
 
 export default SearchList;
 
 const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    paddingHorizontal: 10,
-    paddingBottom: 20,
-  },
   headingText: {
     fontSize: 18,
     color: '#fff',
     marginVertical: 10,
+    marginHorizontal: 10, // Add margin to make it look consistent with content
   },
   flatListContainer: {
-    justifyContent: 'space-between',
+    paddingBottom: 60,
+    padding:10,
   },
   row: {
     flex: 1,
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginBottom: 10,
   },
 });
