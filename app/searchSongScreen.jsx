@@ -8,14 +8,11 @@ import {
 } from 'react-native';
 import React from 'react';
 import { Stack } from 'expo-router';
-import HomeMadeForYou from '../components/HomeMadeForYou';
 import LeftHeader from '../components/LeftHeader';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import SongScreenSearchComponent from '../components/SongScreenSearchComponent';
 import Playbutton from '../components/Playbutton';
 import ShuffleButton from '../components/ShuffleButton';
 import TrackListButton from '../components/TrackListButton';
-import CardList from '../components/CardList';
 import FansLikeCardList from '../components/FansLikeCardList';
 import { Link } from 'expo-router';
 import { Fontisto, FontAwesome5, FontAwesome } from '@expo/vector-icons';
@@ -31,7 +28,7 @@ const searchSongScreen = () => {
         <Stack.Screen
           options={{
             headerTitle: '',
-            headerLeft: () => <LeftHeader text="Back" navigation={'/(tabs)'} />,
+            headerLeft: () => <LeftHeader text="Back" navigation={'/(tabs)/search'} />,
             headerStyle: { backgroundColor: '#000000' },
             headerShown: true,
           }}
@@ -39,7 +36,7 @@ const searchSongScreen = () => {
 
         <View style={styles.imageContainer}>
           <Image
-            source={require('../assets/images/AnlogaAlbum.jpeg')}
+            source={require('../assets/images/searchimages/Audio.jpeg')}
             style={styles.albumImage1}
           />
         </View>
@@ -57,10 +54,10 @@ const searchSongScreen = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../assets/images/songscreenimages/Stonebwoy_overlord.jpeg')}
-                style={styles.trackAlbumImage1}
+                source={require('../assets/images/SongsAlbum/StoneBwoy2.jpg')}
+                style={styles.albumImage}
               />
-              <View style={styles.textIconStyle2}>
+              <View style={styles.textIconstyle}>
                 <View style={styles.textImageStyle}>
                   <Text style={styles.albumTitle}>Overlord</Text>
                   <Text style={styles.albumYear}>Stonebwoy</Text>
@@ -74,10 +71,10 @@ const searchSongScreen = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../assets/images/songscreenimages/skelewu.jpg')}
-                style={styles.trackAlbumImage1}
+                source={require('../assets/images/SongsAlbum/Davido2.jpg')}
+                style={styles.albumImage}
               />
-              <View style={styles.textIconStyle2}>
+              <View style={styles.textIconstyle}>
                 <View style={styles.textImageStyle}>
                   <Text style={styles.albumTitle}>Skelewu</Text>
                   <Text style={styles.albumYear}>Davido</Text>
@@ -91,10 +88,10 @@ const searchSongScreen = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../assets/images/AnlogaAlbum.jpeg')}
-                style={styles.trackAlbumImage1}
+                source={require('../assets/images/SongsAlbum/Stonebwoy.jpg')}
+                style={styles.albumImage}
               />
-              <View style={styles.textIconStyle2}>
+              <View style={styles.textIconstyle}>
                 <View style={styles.textImageStyle}>
                   <Text style={styles.albumTitle}>African Party</Text>
                   <Text style={styles.albumYear}>Stonebwoy</Text>
@@ -109,10 +106,10 @@ const searchSongScreen = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../assets/images/CindyThompson.jpeg')}
-                style={styles.trackAlbumImage1}
+                source={require('../assets/images/SongsAlbum/CT.jpg')}
+                style={styles.albumImage}
               />
-              <View style={styles.textIconStyle2}>
+              <View style={styles.textIconstyle}>
                 <View style={styles.textImageStyle}>
                   <Text style={styles.albumTitle}>Gospel</Text>
                   <Text style={styles.albumYear}>Cindy Thompson</Text>
@@ -126,15 +123,15 @@ const searchSongScreen = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../assets/images/songscreenimages/ShattaWale_Cover_.png')}
-                style={styles.trackAlbumImage1}
+                source={require('../assets/images/SongsAlbum/Shatta.jpg')}
+                style={styles.albumImage}
               />
-              <View style={styles.textIconStyle2}>
+              <View style={styles.textIconstyle}>
                 <View style={styles.textImageStyle}>
                   <Text style={styles.albumTitle}>
-                    Prove you wrong (Prod by Shatta wale)
+                    1 Don
                   </Text>
-                  <Text style={styles.albumYear}>Cindy Thompson</Text>
+                  <Text style={styles.albumYear}>Shatta Wale</Text>
                 </View>
                 <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
               </View>
@@ -145,10 +142,10 @@ const searchSongScreen = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../assets/images/songscreenimages/Kofi-Kinaata.jpg')}
-                style={styles.trackAlbumImage1}
+                source={require('../assets/images/SongsAlbum/Kinaata.jpg')}
+                style={styles.albumImage}
               />
-              <View style={styles.textIconStyle2}>
+              <View style={styles.textIconstyle}>
                 <View style={styles.textImageStyle}>
                   <Text style={styles.albumTitle}>Things Fall Apart</Text>
                   <Text style={styles.albumYear}>Kofi Kinaata</Text>
@@ -162,12 +159,12 @@ const searchSongScreen = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../assets/images/songscreenimages/KwesiArthur.jpg')}
-                style={styles.trackAlbumImage1}
+                source={require('../assets/images/SongsAlbum/Arthur Kwasi.jpg')}
+                style={styles.albumImage}
               />
-              <View style={styles.textIconStyle2}>
+              <View style={styles.textIconstyle}>
                 <View style={styles.textImageStyle}>
-                  <Text style={styles.albumTitle}>Pray for Me</Text>
+                  <Text style={styles.albumTitle}>Porpi</Text>
                   <Text style={styles.albumYear}>Kwesi Arthur</Text>
                 </View>
                 <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
@@ -179,13 +176,13 @@ const searchSongScreen = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../assets/images/songscreenimages/black-sherif2.jpg')}
-                style={styles.trackAlbumImage1}
+                source={require('../assets/images/SongsAlbum/KilosMilos.jpg')}
+                style={styles.albumImage}
               />
-              <View style={styles.textIconStyle2}>
+              <View style={styles.textIconstyle}>
                 <View style={styles.textImageStyle}>
                   <Text style={styles.albumTitle}>January 9th</Text>
-                  <Text style={styles.albumYear}>black sherif</Text>
+                  <Text style={styles.albumYear}>Black Sherif</Text>
                 </View>
                 <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
               </View>
@@ -197,13 +194,13 @@ const searchSongScreen = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../assets/images/songscreenimages/Popcaan.jpg')}
-                style={styles.trackAlbumImage1}
+                source={require('../assets/images/SongsAlbum/Adel2.jpg')}
+                style={styles.albumImage}
               />
-              <View style={styles.textIconStyle2}>
+              <View style={styles.textIconstyle}>
                 <View style={styles.textImageStyle}>
-                  <Text style={styles.albumTitle}>Family</Text>
-                  <Text style={styles.albumYear}>Popcaan</Text>
+                  <Text style={styles.albumTitle}>Hello</Text>
+                  <Text style={styles.albumYear}>Adele</Text>
                 </View>
                 <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
               </View>
@@ -214,10 +211,10 @@ const searchSongScreen = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../assets/images/songscreenimages/ObidiHova.jpg')}
-                style={styles.trackAlbumImage1}
+                source={require('../assets/images/SongsAlbum/Sark.jpg')}
+                style={styles.albumImage}
               />
-              <View style={styles.textIconStyle2}>
+              <View style={styles.textIconstyle}>
                 <View style={styles.textImageStyle}>
                   <Text style={styles.albumTitle}>Otan</Text>
                   <Text style={styles.albumYear}>Sarkodie</Text>
@@ -233,6 +230,7 @@ const searchSongScreen = () => {
 };
 
 export default searchSongScreen;
+
 const styles = StyleSheet.create({
   searchSongScreenContainer: {
     backgroundColor: '#000000',
@@ -265,10 +263,11 @@ const styles = StyleSheet.create({
   buttonStyle: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 10, // Optional: Add spacing between items if needed
   },
   albumImage1: {
-    width: 230,
-    height: 200,
+    width: 155,
+    height: 160,
     marginTop: 10,
     marginLeft: 20,
   },
@@ -279,39 +278,18 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginLeft: 10,
   },
-  trackAlbumImage: {
-    width: 180,
-    height: 180,
-    marginTop: 30,
-    marginBottom: 20,
-  },
-  trackAlbumImage1: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-    marginLeft: 10,
-  },
   textIconstyle: {
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomColor: '#302F2F',
     borderBottomWidth: 1,
-  },
-  textIconStyle2: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '70%',
-    borderBottomWidth: 1,
-    borderBottomColor: '#302F2F',
-    marginLeft: 10,
+    flex: 1,
   },
 
   textImageStyle: {
     marginLeft: 20,
-    marginRight: 120,
-    marginTop: 20,
     flexDirection: 'column',
+    flex: 1,
   },
   albumTitle: {
     fontSize: 15,

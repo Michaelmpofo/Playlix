@@ -6,9 +6,10 @@ import RightHeader from '../../components/RightHeader';
 import SongScreenSearchComponent from '../../components/SongScreenSearchComponent';
 import Playbutton from '../../components/Playbutton';
 import ShuffleButton from '../../components/ShuffleButton';
+import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
 import { FontAwesome5 } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
-
+import { Link } from 'expo-router';
 const musicscreen = () => {
   return (
     <View style={styles.playListContainer}>
@@ -29,28 +30,219 @@ const musicscreen = () => {
         <Playbutton />
         <ShuffleButton />
       </View>
-      <TouchableOpacity>
-        <View style={styles.buttonStyle}>
-          <View style={styles.iconStyle}>
-            <FontAwesome name="star" size={15} color="#0AE78A" />
-          </View>
+      <GestureHandlerRootView>
+      <ScrollView>
+      <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/songscreenimages/black-sherif-kilos-milos-scaled.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>Kilos Milos</Text>
+                  <Text style={styles.albumYear}>Black Sherif</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
 
-          <Image
-            source={require('../../assets/images/AnlogaAlbum.jpeg')}
-            style={styles.albumImage}
-          />
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/songscreenimages/KingPromise.jpeg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>Favorite Story</Text>
+                  <Text style={styles.albumYear}>
+                    King Promise x Sarkodie X Olive the Boy
+                  </Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
 
-          <View style={styles.textIconstyle}>
-            <View style={styles.textImageStyle}>
-              <Text style={styles.albumTitle}>African Party</Text>
-              <Text style={styles.albumYear}>Stonebwoy</Text>
-            </View>
-            <View>
-              <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
-            </View>
-          </View>
-        </View>
-      </TouchableOpacity>
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/SongsAlbum/StoneBwoy2.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>Overlord</Text>
+                  <Text style={styles.albumYear}>Stonebwoy</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+
+
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/SongsAlbum/Davido2.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>Skelewu</Text>
+                  <Text style={styles.albumYear}>Davido</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/SongsAlbum/Stonebwoy.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>African Party</Text>
+                  <Text style={styles.albumYear}>Stonebwoy</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/SongsAlbum/CT.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>Gospel</Text>
+                  <Text style={styles.albumYear}>Cindy Thompson</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/SongsAlbum/Shatta.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>
+                    1 Don
+                  </Text>
+                  <Text style={styles.albumYear}>Shatta Wale</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/SongsAlbum/Kinaata.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>Things Fall Apart</Text>
+                  <Text style={styles.albumYear}>Kofi Kinaata</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/SongsAlbum/Arthur Kwasi.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>Porpi</Text>
+                  <Text style={styles.albumYear}>Kwesi Arthur</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/SongsAlbum/KilosMilos.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>January 9th</Text>
+                  <Text style={styles.albumYear}>Black Sherif</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/SongsAlbum/Adel2.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>Hello</Text>
+                  <Text style={styles.albumYear}>Adele</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+
+          <Link href="/trackPlayerScreen" asChild>
+            <TouchableOpacity style={styles.buttonStyle}>
+              <FontAwesome name="star" size={15} color="#0AE78A" />
+              <Image
+                source={require('../../assets/images/SongsAlbum/Sark.jpg')}
+                style={styles.albumImage}
+              />
+              <View style={styles.textIconstyle}>
+                <View style={styles.textImageStyle}>
+                  <Text style={styles.albumTitle}>Otan</Text>
+                  <Text style={styles.albumYear}>Sarkodie</Text>
+                </View>
+                <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+              </View>
+            </TouchableOpacity>
+          </Link>
+        </ScrollView>
+        </GestureHandlerRootView>
+
     </View>
   );
 };
@@ -68,7 +260,6 @@ const styles = StyleSheet.create({
   buttonStyle: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
   },
   songButtonContainer: {
     flexDirection: 'row',
@@ -89,19 +280,20 @@ const styles = StyleSheet.create({
     marginRight: 20,
     marginLeft: 10,
   },
-
   textIconstyle: {
     flexDirection: 'row',
     alignItems: 'center',
     borderBottomColor: '#302F2F',
     borderBottomWidth: 1,
+    flex: 1,
+    justifyContent: 'space-between',
   },
-
   textImageStyle: {
     marginLeft: 20,
-    marginRight: 120,
+    marginRight: 20,
     marginTop: 20,
     flexDirection: 'column',
+    flex: 1,
   },
   albumTitle: {
     fontSize: 15,
@@ -115,7 +307,11 @@ const styles = StyleSheet.create({
   text1style: {
     marginBottom: 8,
     fontSize: 30,
-    color: '#FFFFFFFF',
+    color: '#FFFFFF',
     marginLeft: 20,
+  },
+  iconDotsStyle: {
+    marginTop: 20,
+    marginRight: 20,
   },
 });
