@@ -23,7 +23,6 @@ const homeSongScreen = () => {
         <View style={styles.searchStyle}>
           <SongScreenSearchComponent text={'   Find in Songs'} />
         </View>
-
         <View style={styles.imageContainer}>
           <Image
             source={require('../assets/images/AnlogaAlbum.jpeg')}
