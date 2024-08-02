@@ -18,7 +18,6 @@ import { Link } from 'expo-router';
 import LyricsBottomSheet from '../components/LyricsBottomSheet';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import SongListScreen from '../app/songlistscreen';
-import NowPlayingBar from '../components/NowPlayingBar';
 
 const gradients = [
   ['#F6DB0E', '#0202A2'],
@@ -53,25 +52,23 @@ const TrackPlayerScreen = () => {
   const styles = createStyles(width, height);
   const [lyrics, setLyrics] = useState('');
   const [isFetchingLyrics, setIsFetchingLyrics] = useState(false);
-  
 
   const currentSong =
     SongData.find((song) => song.id === currentSongId) || SongData[0];
 
   useEffect(() => {
     let isMounted = true;
-    const loadAndPlayAudio = async () => {
+    const loadAudio = async () => {
       if (sound) {
         await sound.stopAsync();
         await sound.unloadAsync();
       }
-      const newSound = await loadAudio();
+      const newSound = await loadAudioFile();
       if (isMounted && newSound) {
-        await newSound.playAsync();
-        setPlaying(true);
+        setSound(newSound);
       }
     };
-    loadAndPlayAudio();
+    loadAudio();
     return () => {
       isMounted = false;
       if (sound) {
@@ -124,30 +121,30 @@ const TrackPlayerScreen = () => {
     return () => clearInterval(interval);
   }, [playing, sound, isSeeking]);
 
- const loadAudio = async () => {
-   if (sound) {
-     await sound.stopAsync();
-     await sound.unloadAsync();
-     setSound(null);
-   }
-   try {
-     const { sound: newSound } = await Audio.Sound.createAsync(
-       { uri: currentSong.link },
-       { shouldPlay: false },
-       onPlaybackStatusUpdate,
-     );
-     setSound(newSound);
-     // Set initial volume
-     await newSound.setVolumeAsync(volume);
-     setIsImageLoading(false);
-     setImageLoadError(false);
-     return newSound;
-   } catch (error) {
-     console.error('Error loading audio:', error);
-     setImageLoadError(true);
-     return null;
-   }
- };
+  const loadAudioFile = async () => {
+    if (sound) {
+      await sound.stopAsync();
+      await sound.unloadAsync();
+      setSound(null);
+    }
+    try {
+      const { sound: newSound } = await Audio.Sound.createAsync(
+        { uri: currentSong.link },
+        { shouldPlay: false },
+        onPlaybackStatusUpdate,
+      );
+      setSound(newSound);
+      // Set initial volume
+      await newSound.setVolumeAsync(volume);
+      setIsImageLoading(false);
+      setImageLoadError(false);
+      return newSound;
+    } catch (error) {
+      console.error('Error loading audio:', error);
+      setImageLoadError(true);
+      return null;
+    }
+  };
 
   useEffect(() => {
     fetchLyrics();
@@ -199,20 +196,6 @@ const TrackPlayerScreen = () => {
     }
   };
 
-  const playSong = async () => {
-    if (sound) {
-      await sound.playAsync();
-      setPlaying(true);
-    }
-  };
-
-  const pauseSong = async () => {
-    if (sound) {
-      await sound.pauseAsync();
-      setPlaying(false);
-    }
-  };
-
   const handlePlayPause = async () => {
     if (sound) {
       if (playing) {
@@ -222,22 +205,31 @@ const TrackPlayerScreen = () => {
         await sound.playAsync();
         setPlaying(true);
       }
+    } else {
+      // If there's no sound loaded, load and play it
+      const newSound = await loadAudioFile();
+      if (newSound) {
+        setSound(newSound);
+        await newSound.playAsync();
+        setPlaying(true);
+      }
     }
   };
 
- const handleVolumeChange = async (value) => {
-   setVolume(value);
-   if (sound) {
-     try {
-       await sound.setVolumeAsync(value);
-       console.log('Volume set to:', value);
-     } catch (error) {
-       console.error('Error setting volume:', error);
-     }
-   } else {
-     console.log('Sound object not available');
-   }
- };
+  const handleVolumeChange = async (value) => {
+    setVolume(value);
+    if (sound) {
+      try {
+        await sound.setVolumeAsync(value);
+        console.log('Volume set to:', value);
+      } catch (error) {
+        console.error('Error setting volume:', error);
+      }
+    } else {
+      console.log('Sound object not available');
+    }
+  };
+
   const handleSliderChange = async (value) => {
     setIsSeeking(true);
     setPosition(value);
@@ -304,6 +296,7 @@ const TrackPlayerScreen = () => {
       setSound(null);
     }
     setCurrentSongId(id);
+    setPlaying(false); // Ensure playing state is set to false
   };
 
   const formatTime = (seconds) => {
