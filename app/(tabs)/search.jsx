@@ -23,7 +23,7 @@ const search = () => {
       />
       <SearchScreenComponent />
       <SearchScreenHeaderLeft />
-        <SearchList />
+      <SearchList />
       <NowPlayingBar />
     </View>
   );

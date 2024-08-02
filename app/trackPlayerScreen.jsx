@@ -5,7 +5,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  FlatList,
+  Dimensions,
 } from 'react-native';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider';
@@ -14,6 +14,11 @@ import { Audio } from 'expo-av';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import SongData from '../data/songdata';
+import { Link } from 'expo-router';
+import LyricsBottomSheet from '../components/LyricsBottomSheet';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import SongListScreen from '../app/songlistscreen';
+import NowPlayingBar from '../components/NowPlayingBar';
 
 const gradients = [
   ['#F6DB0E', '#0202A2'],
@@ -42,12 +47,33 @@ const TrackPlayerScreen = () => {
   const [sound, setSound] = useState(null);
   const sliderRef = useRef(null);
   const [isSeeking, setIsSeeking] = useState(false);
+  const [isLooping, setIsLooping] = useState(false);
+  const [isShuffling, setIsShuffling] = useState(false);
+  const { width, height } = Dimensions.get('window');
+  const styles = createStyles(width, height);
+  const [lyrics, setLyrics] = useState('');
+  const [isFetchingLyrics, setIsFetchingLyrics] = useState(false);
+  
 
-  const currentSong = SongData.find(song => song.id === currentSongId);
+  const currentSong =
+    SongData.find((song) => song.id === currentSongId) || SongData[0];
 
   useEffect(() => {
-    loadAudio();
+    let isMounted = true;
+    const loadAndPlayAudio = async () => {
+      if (sound) {
+        await sound.stopAsync();
+        await sound.unloadAsync();
+      }
+      const newSound = await loadAudio();
+      if (isMounted && newSound) {
+        await newSound.playAsync();
+        setPlaying(true);
+      }
+    };
+    loadAndPlayAudio();
     return () => {
+      isMounted = false;
       if (sound) {
         sound.unloadAsync();
       }
@@ -63,10 +89,24 @@ const TrackPlayerScreen = () => {
         const nextIndex = (currentIndex + 1) % gradients.length;
         return gradients[nextIndex];
       });
-    }, 10000); // 10000 milliseconds = 10 seconds
+    }, 10000);
 
-    return () => clearInterval(intervalId); // Cleanup on component unmount
+    return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    const setInitialVolume = async () => {
+      if (sound) {
+        try {
+          await sound.setVolumeAsync(volume);
+          console.log('Initial volume set to:', volume);
+        } catch (error) {
+          console.error('Error setting initial volume:', error);
+        }
+      }
+    };
+    setInitialVolume();
+  }, [sound]);
 
   useEffect(() => {
     let interval;
@@ -84,37 +124,77 @@ const TrackPlayerScreen = () => {
     return () => clearInterval(interval);
   }, [playing, sound, isSeeking]);
 
-  const loadAudio = async () => {
-    if (sound) {
-      await sound.unloadAsync();
-    }
+ const loadAudio = async () => {
+   if (sound) {
+     await sound.stopAsync();
+     await sound.unloadAsync();
+     setSound(null);
+   }
+   try {
+     const { sound: newSound } = await Audio.Sound.createAsync(
+       { uri: currentSong.link },
+       { shouldPlay: false },
+       onPlaybackStatusUpdate,
+     );
+     setSound(newSound);
+     // Set initial volume
+     await newSound.setVolumeAsync(volume);
+     setIsImageLoading(false);
+     setImageLoadError(false);
+     return newSound;
+   } catch (error) {
+     console.error('Error loading audio:', error);
+     setImageLoadError(true);
+     return null;
+   }
+ };
+
+  useEffect(() => {
+    fetchLyrics();
+  }, [currentSongId]);
+
+  const fetchLyrics = async () => {
+    setIsFetchingLyrics(true);
+    const artistName = currentSong.artist.split('&')[0];
     try {
-      const { sound: newSound } = await Audio.Sound.createAsync(
-        { uri: currentSong.link },
-        { shouldPlay: false },
-        onPlaybackStatusUpdate,
+      const response = await fetch(
+        `https://api.lyrics.ovh/v1/${encodeURIComponent(artistName)}/${encodeURIComponent(currentSong.title)}`,
       );
-      setSound(newSound);
-      setIsImageLoading(false);
-      setImageLoadError(false);
+      const data = await response.json();
+      setLyrics(data.lyrics || 'Lyrics not found');
     } catch (error) {
-      console.error('Error loading audio:', error);
-      setImageLoadError(true);
+      console.error('Error fetching lyrics:', error);
+      setLyrics('Failed to fetch lyrics. Please try again.');
+    } finally {
+      setIsFetchingLyrics(false);
     }
   };
 
+  const handleOpenLyrics = () => {
+    bottomSheetRef.current?.scrollTo(0);
+  };
+
   const onPlaybackStatusUpdate = (status) => {
-    if (status.isLoaded && !isSeeking) {
-      const newPosition = Number((status.positionMillis / 1000).toFixed(2));
-      const newDuration = Number((status.durationMillis / 1000).toFixed(2));
-      if (newPosition !== position) {
-        setPosition(newPosition);
-      }
-      if (newDuration !== duration) {
-        setDuration(newDuration);
+    if (status.isLoaded) {
+      setPlaying(status.isPlaying);
+      if (!isSeeking) {
+        const newPosition = Number((status.positionMillis / 1000).toFixed(2));
+        const newDuration = Number((status.durationMillis / 1000).toFixed(2));
+        if (newPosition !== position) {
+          setPosition(newPosition);
+        }
+        if (newDuration !== duration) {
+          setDuration(newDuration);
+        }
       }
       if (status.didJustFinish) {
-        playNextSong();
+        if (isLooping) {
+          sound.replayAsync();
+        } else {
+          setPosition(0);
+          setPlaying(false);
+          playNextSong();
+        }
       }
     }
   };
@@ -133,21 +213,31 @@ const TrackPlayerScreen = () => {
     }
   };
 
-  const handlePlayPause = () => {
-    if (playing) {
-      pauseSong();
-    } else {
-      playSong();
-    }
-  };
-
-  const handleVolumeChange = async (value) => {
-    setVolume(value);
+  const handlePlayPause = async () => {
     if (sound) {
-      await sound.setVolumeAsync(value);
+      if (playing) {
+        await sound.pauseAsync();
+        setPlaying(false);
+      } else {
+        await sound.playAsync();
+        setPlaying(true);
+      }
     }
   };
 
+ const handleVolumeChange = async (value) => {
+   setVolume(value);
+   if (sound) {
+     try {
+       await sound.setVolumeAsync(value);
+       console.log('Volume set to:', value);
+     } catch (error) {
+       console.error('Error setting volume:', error);
+     }
+   } else {
+     console.log('Sound object not available');
+   }
+ };
   const handleSliderChange = async (value) => {
     setIsSeeking(true);
     setPosition(value);
@@ -160,28 +250,61 @@ const TrackPlayerScreen = () => {
     setIsSeeking(false);
   };
 
-  const playNextSong = () => {
-    const currentIndex = SongData.findIndex(song => song.id === currentSongId);
-    const nextIndex = (currentIndex + 1) % SongData.length;
+  const playNextSong = async () => {
+    if (sound) {
+      await sound.stopAsync();
+      await sound.unloadAsync();
+      setSound(null);
+    }
+    let nextIndex;
+    if (isShuffling) {
+      nextIndex = Math.floor(Math.random() * SongData.length);
+    } else {
+      const currentIndex = SongData.findIndex(
+        (song) => song.id === currentSongId,
+      );
+      nextIndex = (currentIndex + 1) % SongData.length;
+    }
     setCurrentSongId(SongData[nextIndex].id);
   };
 
-  const playPreviousSong = () => {
-    const currentIndex = SongData.findIndex(song => song.id === currentSongId);
-    const previousIndex = (currentIndex - 1 + SongData.length) % SongData.length;
+  const playPreviousSong = async () => {
+    if (sound) {
+      await sound.stopAsync();
+      await sound.unloadAsync();
+      setSound(null);
+    }
+    let previousIndex;
+    if (isShuffling) {
+      previousIndex = Math.floor(Math.random() * SongData.length);
+    } else {
+      const currentIndex = SongData.findIndex(
+        (song) => song.id === currentSongId,
+      );
+      previousIndex = (currentIndex - 1 + SongData.length) % SongData.length;
+    }
     setCurrentSongId(SongData[previousIndex].id);
   };
 
-  const selectSong = (id) => {
-    setCurrentSongId(id);
+  const toggleLoop = () => {
+    setIsLooping(!isLooping);
+    if (sound) {
+      sound.setIsLoopingAsync(!isLooping);
+    }
   };
 
-  const renderSongItem = ({ item }) => (
-    <TouchableOpacity onPress={() => selectSong(item.id)} style={styles.songItem}>
-      <Text style={styles.songTitle}>{item.title}</Text>
-      <Text style={styles.songArtist}>{item.artist}</Text>
-    </TouchableOpacity>
-  );
+  const toggleShuffle = () => {
+    setIsShuffling(!isShuffling);
+  };
+
+  const selectSong = async (id) => {
+    if (sound) {
+      await sound.stopAsync();
+      await sound.unloadAsync();
+      setSound(null);
+    }
+    setCurrentSongId(id);
+  };
 
   const formatTime = (seconds) => {
     if (isNaN(seconds) || seconds === null) return '0:00';
@@ -190,201 +313,251 @@ const TrackPlayerScreen = () => {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   };
 
+  const bottomSheetRef = useRef(null);
+  const songListRef = useRef(null);
+
+  const handleOpenSongList = () => {
+    songListRef.current?.scrollTo(height / 2);
+  };
+
+  const handleSelectSong = (id) => {
+    selectSong(id);
+    songListRef.current?.scrollTo(height);
+  };
+
   return (
-    <LinearGradient colors={gradientColors} style={styles.overlayContainer}>
-      <View style={styles.imageContainer}>
-        {isImageLoading || imageLoadError ? (
-          <View style={styles.unknownSongStyle}>
-            <FontAwesome5 name="music" size={120} color="#81C8AA" />
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <LinearGradient colors={gradientColors} style={styles.overlayContainer}>
+        <View style={styles.content}>
+          <View style={styles.imageContainer}>
+            {isImageLoading || imageLoadError ? (
+              <View style={styles.unknownSongStyle}>
+                <FontAwesome5 name="music" size={width * 0.3} color="#81C8AA" />
+              </View>
+            ) : (
+              <Image
+                source={{ uri: currentSong.albumArt || defaultAlbumArt }}
+                defaultSource={require('../assets/images/searchimages/headset.jpeg')}
+                style={styles.coverImageStyle}
+                onLoad={() => setIsImageLoading(false)}
+                onError={() => setImageLoadError(true)}
+              />
+            )}
           </View>
-        ) : (
-          <Image
-            source={{ uri: currentSong.albumArt || defaultAlbumArt }}
-            defaultSource={require('../assets/images/searchimages/headset.jpeg')}
-            style={styles.coverImageStyle}
-            onLoad={() => setIsImageLoading(false)}
-            onError={() => setImageLoadError(true)}
-          />
-        )}
-      </View>
-      <View style={styles.text2Style}>
-        <Text style={styles.text1Style}>
-          {currentSong?.title || 'Unknown Title'}
-        </Text>
-        <Text style={styles.text2Style}>
-          {currentSong?.artist || 'Unknown Artist'}
-        </Text>
-      </View>
-      <FlatList
-        data={SongData}
-        renderItem={renderSongItem}
-        keyExtractor={(item) => item.id}
-        style={styles.songList}
-      />
-      <View style={styles.sliderContainer}>
-        <Slider
-          ref={sliderRef}
-          style={styles.slider}
-          minimumValue={0}
-          maximumValue={duration}
-          minimumTrackTintColor="#ffffff"
-          maximumTrackTintColor="#ffffff"
-          thumbTintColor="#E3D6D6"
-          thumbStyle={styles.thumb}
-          value={position}
-          onValueChange={handleSliderChange}
-          onSlidingComplete={handleSliderComplete}
+          <View style={styles.songInfoContainer}>
+            <Text style={styles.songTitle}>
+              {currentSong?.title || 'Unknown Title'}
+            </Text>
+            <Text style={styles.songArtist}>
+              {currentSong?.artist || 'Unknown Artist'}
+            </Text>
+          </View>
+          <View style={styles.controlsContainer}>
+            <View style={styles.sliderContainer}>
+              <Slider
+                ref={sliderRef}
+                style={styles.slider}
+                minimumValue={0}
+                maximumValue={duration}
+                minimumTrackTintColor="#ffffff"
+                maximumTrackTintColor="#ffffff"
+                thumbTintColor="#E3D6D6"
+                thumbStyle={styles.thumb}
+                value={position}
+                onValueChange={handleSliderChange}
+                onSlidingComplete={handleSliderComplete}
+              />
+            </View>
+            <View style={styles.timeContainer}>
+              <Text style={styles.timeText}>{formatTime(position)}</Text>
+              <Text style={styles.timeText}>{formatTime(duration)}</Text>
+            </View>
+            <View style={styles.buttonContainer}>
+              <TouchableOpacity onPress={playPreviousSong}>
+                <AntDesign
+                  name="stepbackward"
+                  size={width * 0.07}
+                  color="#D2D2D2"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handlePlayPause}>
+                <AntDesign
+                  name={playing ? 'pause' : 'play'}
+                  size={width * 0.12}
+                  color="#FFFFFF"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={playNextSong}>
+                <AntDesign
+                  name="stepforward"
+                  size={width * 0.07}
+                  color="#D2D2D2"
+                />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.volumeContainer}>
+              <MaterialCommunityIcons
+                name="volume-mute"
+                size={width * 0.06}
+                color="#ffffff"
+              />
+              <Slider
+                style={styles.volumeSlider}
+                minimumValue={0}
+                maximumValue={1}
+                minimumTrackTintColor="#ffffff"
+                maximumTrackTintColor="#000000"
+                thumbTintColor="#E3D6D6"
+                thumbStyle={styles.thumb}
+                value={volume}
+                onValueChange={handleVolumeChange}
+              />
+              <MaterialCommunityIcons
+                name="volume-high"
+                size={width * 0.06}
+                color="#ffffff"
+              />
+            </View>
+            <View style={styles.iconContainer}>
+              <TouchableOpacity onPress={toggleLoop}>
+                <MaterialCommunityIcons
+                  name={isLooping ? 'repeat-once' : 'repeat'}
+                  size={width * 0.07}
+                  color={isLooping ? '#FFFFFF' : '#D2D2D280'}
+                />
+              </TouchableOpacity>
+              <Link href="/Lyricsscreen" asChild>
+                <TouchableOpacity onPress={handleOpenLyrics}>
+                  <AntDesign
+                    name="message1"
+                    size={width * 0.07}
+                    color="#D2D2D280"
+                  />
+                </TouchableOpacity>
+              </Link>
+              <TouchableOpacity onPress={handleOpenSongList}>
+                <FontAwesome5
+                  name="list-ul"
+                  size={width * 0.07}
+                  color="#FFFFFF"
+                />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={toggleShuffle}>
+                <MaterialCommunityIcons
+                  name="shuffle-variant"
+                  size={width * 0.07}
+                  color={isShuffling ? '#FFFFFF' : '#D2D2D280'}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <SongListScreen ref={songListRef} onSelectSong={handleSelectSong} />
+        <LyricsBottomSheet
+          ref={bottomSheetRef}
+          lyrics={lyrics}
+          isLoading={isFetchingLyrics}
+          songTitle={currentSong?.title}
+          artist={currentSong?.artist}
         />
-      </View>
-      <View style={styles.textStyle2}>
-        <Text style={styles.valueText}>{formatTime(position)}</Text>
-        <Text style={styles.value1Text}>{formatTime(duration)}</Text>
-      </View>
-      <View style={styles.buttonStyle}>
-        <TouchableOpacity onPress={playPreviousSong} style={{ marginLeft: 60 }}>
-          <AntDesign name="stepbackward" size={28} color="#D2D2D2" />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={handlePlayPause}>
-          <AntDesign
-            name={playing ? 'pause' : 'caretright'}
-            size={50}
-            color="#FFFFFF"
-          />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={playNextSong} style={{ marginRight: 60 }}>
-          <AntDesign name="stepforward" size={28} color="#D2D2D2" />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.volumeContainer}>
-        <MaterialCommunityIcons name="volume-mute" size={24} color="#ffffff" />
-        <Slider
-          style={styles.volumeSlider}
-          minimumValue={0}
-          maximumValue={1}
-          minimumTrackTintColor="#ffffff"
-          maximumTrackTintColor="#000000"
-          thumbTintColor="#E3D6D6"
-          thumbStyle={styles.thumb}
-          value={volume}
-          onValueChange={handleVolumeChange}
-        />
-        <MaterialCommunityIcons name="volume-high" size={24} color="#ffffff" />
-      </View>
-      <View style={styles.iconStyle}>
-        <TouchableOpacity>
-          <AntDesign name="message1" size={24} color="#D2D2D280" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <FontAwesome5 name="list-ul" size={24} color="#FFFFFF" />
-        </TouchableOpacity>
-      </View>
-    </LinearGradient>
+      </LinearGradient>
+    </GestureHandlerRootView>
   );
 };
-export default TrackPlayerScreen;
-const styles = StyleSheet.create({
-  overlayContainer: {
-    flex: 1,
-    paddingTop: 50, // Add some top padding
-  },
-  imageContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-  },
-  unknownSongStyle: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#75918533',
-    height: 270,
-    width: 270,
-    borderRadius: 10,
-  },
-  coverImageStyle: {
-    height: 240,
-    width: 240,
-    borderRadius: 10,
-    marginTop: 30,
-  },
 
-  text2Style: {
-    fontWeight: 'bold',
-    fontSize: 30,
-    marginLeft: 20,
-    color: '#ffffff',
-  },
-  text1Style: {
-    fontSize: 16,
-    color: '#ffffff',
-    marginLeft: 20,
-  },
-  sliderContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 20,
-  },
-  textStyle2: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '90%',
-    alignSelf: 'center',
-  },
-  slider: {
-    width: '100%',
-    height: 40,
-  },
-  thumb: {
-    width: 20,
-    height: 20,
-    backgroundColor: '#E3D6D6',
-    borderRadius: 10,
-  },
-  buttonStyle: {
-    flexDirection: 'row',
-    marginTop: 20,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  iconStyle: {
-    marginTop: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-  },
-  valueText: {
-    color: '#fff',
-  },
-  value1Text: {
-    color: '#fff',
-  },
-  volumeContainer: {
-    marginTop: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-  },
-  volumeSlider: {
-    width: '80%',
-    marginLeft: 10,
-    marginRight: 10,
-  },
-  songItem: {
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.1)',
-  },
-  songTitle: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-  songArtist: {
-    color: '#ffffff',
-    fontSize: 14,
-  },
-  songList: {
-    marginTop: 20,
-    maxHeight: 150,
-  },
-});
+const createStyles = (width, height) =>
+  StyleSheet.create({
+    overlayContainer: {
+      flex: 1,
+    },
+    content: {
+      flex: 1,
+      justifyContent: 'space-between',
+      padding: width * 0.05,
+    },
+    imageContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: height * 0.05,
+    },
+    unknownSongStyle: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: '#75918533',
+      height: width * 0.7,
+      width: width * 0.7,
+      borderRadius: width * 0.05,
+    },
+    coverImageStyle: {
+      height: width * 1.0,
+      width: width * 0.96,
+      borderRadius: width * 0.05,
+      marginTop: height * 0.05,
+    },
+    songInfoContainer: {
+      alignItems: 'center',
+      marginTop: height * 0.02,
+    },
+    songTitle: {
+      fontWeight: 'bold',
+      fontSize: width * 0.06,
+      color: '#ffffff',
+      textAlign: 'center',
+    },
+    songArtist: {
+      fontSize: width * 0.04,
+      color: '#ffffff',
+      textAlign: 'center',
+    },
+    controlsContainer: {
+      width: '100%',
+      marginBottom: height * 0.05,
+    },
+    sliderContainer: {
+      width: '100%',
+    },
+    slider: {
+      width: '100%',
+      height: height * 0.04,
+    },
+    thumb: {
+      width: width * 0.05,
+      height: width * 0.05,
+      backgroundColor: '#E3D6D6',
+      borderRadius: width * 0.025,
+    },
+    timeContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginTop: height * 0.01,
+    },
+    timeText: {
+      color: '#fff',
+      fontSize: width * 0.03,
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      alignItems: 'center',
+      marginTop: height * 0.02,
+      marginBottom: height * 0.02,
+    },
+    volumeContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginTop: height * 0.02,
+    },
+    volumeSlider: {
+      flex: 1,
+      marginHorizontal: width * 0.02,
+    },
+    iconContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-around',
+      marginTop: height * 0.02,
+      marginBottom: height * 0.02,
+    },
+  });
+
+export default TrackPlayerScreen;

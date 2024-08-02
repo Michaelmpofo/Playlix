@@ -33,6 +33,7 @@ const song = () => {
         </View>
 
         <ScrollView>
+
           {[{
             title: 'Kilos Milos',
             artist: 'Black Sherif',
@@ -92,6 +93,7 @@ const song = () => {
                     <Text style={styles.albumYear}>{item.artist}</Text>
                   </View>
                   <FontAwesome5 name="ellipsis-h" size={15} color="#FFFFFF" />
+
                 </View>
               </TouchableOpacity>
             </Link>
