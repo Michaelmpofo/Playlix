@@ -19,6 +19,8 @@ import EntertainmentCardList from '../../components/EntertainmentCardList'
 import NewReleasesCardList from '../../components/NewReleaseCardList'
 import NewReleasesLeft from '../../components/NewReleasesLeft'
 import NowPlayingBar from '../../components/NowPlayingBar'
+import { MusicPlayerProvider } from '../MusicplayerContextfile';
+
 
 const index = () => {
   const appleMusic = require('../../assets/images/applecard.jpg')

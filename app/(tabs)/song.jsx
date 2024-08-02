@@ -89,7 +89,6 @@ const song = () => {
             </TouchableOpacity>
           </Link>
 
-
           <Link href="/trackPlayerScreen" asChild>
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
