@@ -69,7 +69,7 @@ const song = () => {
           }, {
             title: 'Porpi',
             artist: 'Kwesi Arthur',
-            image: require('../../assets/images/SongsAlbum/Arthur Kwasi.jpg')
+            image: require('../../assets/images/SongsAlbum/ArthurKwasi.jpg')
           }, {
             title: 'January 9th',
             artist: 'black sherif',

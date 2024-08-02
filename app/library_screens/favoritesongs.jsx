@@ -191,7 +191,7 @@ const favoritesongs = () => {
             <TouchableOpacity style={styles.buttonStyle}>
               <FontAwesome name="star" size={15} color="#0AE78A" />
               <Image
-                source={require('../../assets/images/SongsAlbum/Arthur Kwasi.jpg')}
+                source={require('../../assets/images/SongsAlbum/ArthurKwasi.jpg')}
                 style={styles.albumImage}
               />
               <View style={styles.textIconstyle}>
