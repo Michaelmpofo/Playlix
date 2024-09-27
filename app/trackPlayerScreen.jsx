@@ -171,7 +171,7 @@ const TrackPlayerScreen = () => {
     bottomSheetRef.current?.scrollTo(0);
   };
 
-  const onPlaybackStatusUpdate = (status) => {
+  const onPlaybackStatusUpdate = async (status) => {
     if (status.isLoaded) {
       setPlaying(status.isPlaying);
       if (!isSeeking) {
@@ -186,11 +186,12 @@ const TrackPlayerScreen = () => {
       }
       if (status.didJustFinish) {
         if (isLooping) {
-          sound.replayAsync();
+          await sound.replayAsync();
+        } else if (isShuffling) {
+          await playNextSong(true);
         } else {
           setPosition(0);
           setPlaying(false);
-          playNextSong();
         }
       }
     }
@@ -206,7 +207,6 @@ const TrackPlayerScreen = () => {
         setPlaying(true);
       }
     } else {
-      // If there's no sound loaded, load and play it
       const newSound = await loadAudioFile();
       if (newSound) {
         setSound(newSound);
@@ -242,7 +242,7 @@ const TrackPlayerScreen = () => {
     setIsSeeking(false);
   };
 
-  const playNextSong = async () => {
+  const playNextSong = async (autoPlay = false) => {
     if (sound) {
       await sound.stopAsync();
       await sound.unloadAsync();
@@ -258,6 +258,14 @@ const TrackPlayerScreen = () => {
       nextIndex = (currentIndex + 1) % SongData.length;
     }
     setCurrentSongId(SongData[nextIndex].id);
+    if (autoPlay || isShuffling || isLooping) {
+      const newSound = await loadAudioFile();
+      if (newSound) {
+        setSound(newSound);
+        await newSound.playAsync();
+        setPlaying(true);
+      }
+    }
   };
 
   const playPreviousSong = async () => {
@@ -278,15 +286,23 @@ const TrackPlayerScreen = () => {
     setCurrentSongId(SongData[previousIndex].id);
   };
 
-  const toggleLoop = () => {
+  const toggleLoop = async () => {
     setIsLooping(!isLooping);
     if (sound) {
-      sound.setIsLoopingAsync(!isLooping);
+      await sound.setIsLoopingAsync(!isLooping);
+      if (!isLooping && !playing) {
+        await sound.playAsync();
+        setPlaying(true);
+      }
     }
   };
 
-  const toggleShuffle = () => {
+  const toggleShuffle = async () => {
     setIsShuffling(!isShuffling);
+    if (!isShuffling && !playing && sound) {
+      await sound.playAsync();
+      setPlaying(true);
+    }
   };
 
   const selectSong = async (id) => {
